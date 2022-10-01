@@ -1,0 +1,89 @@
+/* Sidebar sb */
+
+.sb-sidebar {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  width: 30rem;
+  height: 100vh;
+  border-right: 1px dashed #c4ccde;
+  padding-top: 2rem;
+  background-color: #f9fafb;
+}
+
+.sb-ul {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0 0.5rem 0 1rem;
+}
+
+.sb-img-container {
+  margin-left: 2rem;
+}
+
+.sb-user-img {
+  margin-top: 2rem;
+  width: auto;
+  height: 3rem;
+}
+
+.sd-user {
+  margin: 4rem 1rem 3rem 1rem;
+  background-color: #e2e2e2;
+  border-radius: 7px;
+  padding: 1rem;
+  text-decoration: none;
+  color: black;
+}
+
+.sd-user-li {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  border-radius: 5px;
+  padding: 1rem;
+  border: none;
+  cursor: pointer;
+}
+
+.sd-user-li-letter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: white;
+  padding: 2rem;
+  width: 2rem;
+  height: 2rem;
+}
+
+.sb-option {
+  text-decoration: none;
+  color: black;
+  font-weight: 400;
+}
+
+.sb-option-li {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  border-radius: 5px;
+  padding: 1.2rem;
+  padding-left: 1.5rem;
+  border: none;
+  cursor: pointer;
+}
+
+.sb-option-li:hover {
+  background-color: #dadada;
+}
+
+.sb-option-icon {
+  width: 2rem;
+  height: 2rem;
+}
+
+.sb-option-title {
+  color: rgb(52, 52, 52);
+}
