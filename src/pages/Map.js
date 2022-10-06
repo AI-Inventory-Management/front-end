@@ -1,12 +1,15 @@
 import React from "react";
 import Navbar from "../components/Navbar";
+import MapComponent from "../components/MapComponent";
 import "../styles/Map.css";
 
 function Map() {
   return (
-    <div className="mp-container">
+    <div className="container">
       <Navbar title="Mapa" />
-      <h2>eeeeeeeee</h2>
+      <div className="map-container">
+        <MapComponent />
+      </div>
     </div>
   );
 }
