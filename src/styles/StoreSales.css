@@ -1,0 +1,49 @@
+/* Store Sales ss */
+
+.ss-container {
+  width: 40rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 13px;
+  background-color: #fbfbfb;
+  padding: 2rem;
+  text-align: left;
+  color: rgb(40, 40, 40);
+  gap: 1rem;
+}
+
+.ss-title {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.ss-sales-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ss-ol {
+  margin-left: 2rem;
+}
+
+.ss-ol--two-cols {
+  columns: 2;
+  -webkit-columns: 2;
+  -moz-columns: 2;
+}
+
+.ss-li {
+  margin-bottom: 1.5rem;
+}
+
+.ss-li-soda {
+  font-size: 1.6rem;
+}
+
+.ss-li-sales {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-left: 0.4rem;
+  margin-right: 2rem;
+}

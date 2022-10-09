@@ -1,0 +1,39 @@
+/* Refrigerator rf */
+
+.rf-refrigerator {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 13px 13px 0 0;
+  padding: 3rem 0.5rem 6rem 0.5rem;
+  background-color: #fe001a;
+}
+
+.rf-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 95%;
+  width: 90%;
+  gap: 0.5rem;
+  background-color: #a8a8a8;
+}
+
+.rf-shelf {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  border-bottom: 1.5rem solid #ddd;
+  padding-top: 1.5rem;
+  margin: 0 2rem;
+}
+
+.rf-soda {
+  width: 5rem;
+  height: 10rem;
+  border-top-right-radius: 9px;
+  border-top-left-radius: 9px;
+}

@@ -1,0 +1,47 @@
+/* Soda Info soi */
+
+.soi-soda-info {
+  width: 40rem;
+}
+
+.soi-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.8rem;
+}
+
+.soi-li {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 13px;
+  background-color: #fbfbfb;
+  color: rgb(40, 40, 40);
+  padding: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.soi-li-img {
+  height: 3rem;
+  transform: scale(3) rotate(20deg) translate(-2px, 4px);
+}
+
+.soi-li-text {
+  display: flex;
+  flex-direction: column;
+  justify-self: end;
+  gap: 0.5rem;
+}
+
+.soi-li-percentage {
+  font-size: 1.2rem;
+  color: rgb(110, 110, 110);
+  align-self: flex-end;
+}
+
+.soi-li-quantity {
+  font-weight: bold;
+  font-size: 3rem;
+}

@@ -3,3 +3,33 @@
 .us-container {
   width: 100%;
 }
+
+.us-info {
+  background-color: rgb(204, 204, 204);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100% - 70px);
+}
+
+.us-info-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  border-radius: 13px;
+  background-color: rgb(136, 136, 136);
+  padding: 5rem;
+}
+
+.us-info-img {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  background-color: wheat;
+}
+
+.us-info-text {
+  display: flex;
+  flex-direction: column;
+}

@@ -1,5 +1,43 @@
 /* Stores st */
 
-.st-container {
+.st-stores {
   width: 100%;
+  background-color: #ddd;
+}
+
+.st-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  gap: 3rem;
+  text-align: center;
+  padding-top: 2rem;
+}
+
+.st-info-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.st-map {
+  height: 60rem;
+  width: 70rem;
+  background-color: red;
+  align-self: flex-start;
+  border-radius: 13px;
+  transition: all 0.5s;
+}
+
+.st-map--small {
+  width: 30rem;
+  height: 20rem;
+  transition: all 0.3s ease-in;
+}
+
+.hidden {
+  opacity: 0;
+  background-color: transparent;
+  animation: fade 0.4s ease-out forwards;
 }

@@ -1,0 +1,29 @@
+/* Store Info si */
+
+.si-container {
+  width: 40rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 13px;
+  background-color: #fbfbfb;
+  padding: 2rem;
+  text-align: left;
+  color: rgb(40, 40, 40);
+  gap: 2rem;
+}
+
+.si-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.si-info-title {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.si-info-text {
+  font-size: 1.4rem;
+  color: #555;
+}
