@@ -1,12 +1,12 @@
 import React from "react";
 import "../styles/StoreInfo.css";
 
-function StoreInfo() {
+function StoreInfo(props) {
   return (
     <div className="si-container">
       <div className="si-info">
         <p className="si-info-title">ID</p>
-        <p className="si-info-text">21309218309fej</p>
+        <p className="si-info-text">{props.id}</p>
       </div>
       <div className="si-info">
         <p className="si-info-title">Dirección</p>

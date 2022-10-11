@@ -43,7 +43,10 @@ function Refrigerator() {
         >
           {[1, 2, 3, 4].map((a) => {
             return (
-              <div style={{ color: "red", borderTop: "3px solid black" }}>
+              <div
+                key={a}
+                style={{ color: "red", borderTop: "3px solid black" }}
+              >
                 {a}
               </div>
             );

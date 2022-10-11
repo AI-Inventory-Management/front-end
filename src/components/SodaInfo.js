@@ -1,11 +1,13 @@
 import React from "react";
 import "../styles/SodaInfo.css";
 
-function SodaInfo() {
+function SodaInfo(props) {
+  // props.inventory -> matrix
+
   return (
     <div className="soi-soda-info">
       <div className="soi-container">
-        {[7, 6, 5, 4, 3, 2, 1].map((soda) => {
+        {props.inventory.map((soda) => {
           return (
             <div key={soda} className="soi-li">
               <img
