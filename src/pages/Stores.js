@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Navbar from "../components/Navbar";
 import Refrigerator from "../components/Refrigerator";
 import StoreInfo from "../components/StoreInfo";
 import StoreSales from "../components/StoreSales";
 import SodaInfo from "../components/SodaInfo";
 import "../styles/Stores.css";
+import { StoreContext } from "../components/StoreProvider";
 
 function Stores() {
+  const [storesId,, storeName,] = useContext(StoreContext);
   const [isShowingMap, setIsShowingMap] = useState(false);
 
   const onChangeShowingMap = () => {
@@ -15,7 +17,7 @@ function Stores() {
 
   return (
     <div className="st-stores">
-      <Navbar title="Tiendas" />
+      <Navbar title= {storeName} />
       <div className="st-container">
         <div
           className={`st-map ${isShowingMap ? "" : "st-map--small"}`}

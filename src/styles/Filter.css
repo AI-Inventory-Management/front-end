@@ -1,0 +1,148 @@
+.mp-container {
+    width: 100%;
+}
+
+.filter-container{
+    font-weight: bold;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+}
+
+.filter-table{
+    margin-top: 20px;
+    width: auto;
+}
+
+.filter-lable{
+    display: grid;
+    margin: auto;
+    text-align:right;
+    width:150px;
+    padding: 10px;
+    padding-top: 20px;
+    height: 60px;
+}
+
+.filter-button{
+    font-size: 20px;
+    padding: 10px;
+    margin: 20px;
+    align-items: center;
+    border-radius: 10px;
+    background-color:darkred;
+    color: white;
+    border-color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.filter-button:hover{
+    background-color: darkblue;
+}
+
+.filter-card{
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    padding: 30px;
+    margin: 50px;
+    width: auto;
+    height: 500px;
+    font-size: 20px;
+}
+
+.filter-input{
+    font-size: 20px;
+    color: darkred;
+    font-weight: bold;
+    border-radius: 5px;
+    background-color:lightgray;
+    border: 0;
+    padding: 7px;
+    margin:10px
+}
+
+.filter{
+    width: 100%;
+    border-radius: 10px;
+    height: 350px;
+    overflow-y: scroll;
+    display: flex;
+}
+
+.filter-results{
+    width: 100%;
+}
+.filter-results-td{
+    text-align: center;
+    font-size: 18px;
+}
+.filter-th{
+    background-color: lightgray;
+    border-bottom: solid;
+    width: 250px;
+}
+.filter-tr{
+    font-weight: lighter;
+    height: 40px;
+}
+.filter-show{
+    color: darkred;
+    cursor: pointer;
+}
+
+.filter-show:hover{
+    color:darkblue;
+}
+
+.filter-p {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 250px;
+    text-overflow: ellipsis;
+}
+
+::-webkit-scrollbar {
+    width: 3px;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+  }
+
+.filter-add-button{
+    font-size: 20px;
+    cursor: pointer;
+    color:darkred;
+    width: fit-content;
+    text-align: center;
+    margin: auto;
+}
+
+.filter-add-button:hover .buttontext{
+    visibility: visible;
+}
+
+.filter-add-button:hover{
+    color: darkblue;
+}
+
+.filter-add-button .buttontext {
+    visibility: hidden;
+    width: 100px;
+    background-color:lightgray;
+    color: black;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    font-size: 12px;
+    position: absolute;
+    z-index: 1;
+}
+
+.no-stores{
+    font-size: 15px;
+    color:darkred;
+}
+

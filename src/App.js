@@ -5,9 +5,12 @@ import Dashboard from "./pages/Dashboard";
 import Map from "./pages/Map";
 import Stores from "./pages/Stores";
 import User from "./pages/User";
+import Filter from "./pages/Filter";
+import StoreProvider from "./components/StoreProvider";
 
 function App() {
   return (
+    
     <Router>
       <div className="flex">
         <Sidebar />
@@ -15,9 +18,11 @@ function App() {
           <Route path="/" exact={true} element={<Dashboard />} />
           <Route path="/usuario" exact={true} element={<User />} />
           <Route path="/mapa" exact={true} element={<Map />} />
-          <Route path="/tiendas" exact={true} element={<Stores />} />
+          
+          <Route path="/tiendas" exact={true} element={<StoreProvider><Stores /></StoreProvider>} />
           <Route path="*" exact={true} element={<Dashboard />} />
-        </Routes>
+          <Route path='/filter' exact = {true} element={<StoreProvider><Filter/></StoreProvider>}/>
+        </Routes> 
       </div>
     </Router>
   );
