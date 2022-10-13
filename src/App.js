@@ -18,7 +18,6 @@ function App() {
           <Route path="/" exact={true} element={<Dashboard />} />
           <Route path="/usuario" exact={true} element={<User />} />
           <Route path="/mapa" exact={true} element={<Map />} />
-          
           <Route path="/tiendas" exact={true} element={<StoreProvider><Stores /></StoreProvider>} />
           <Route path="*" exact={true} element={<Dashboard />} />
           <Route path='/filter' exact = {true} element={<StoreProvider><Filter/></StoreProvider>}/>

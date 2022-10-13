@@ -13,6 +13,8 @@ function Filter() {
     { id: 2, name: "Tiendita" },
   ];
 
+  const Options = [{text: "one"},{text: "two"},{text: "three"}];
+
   /*
   const GetStores = async () =>{
     const response = await fetch(`http://localhost:8080/problem/getProposals`)
@@ -33,7 +35,7 @@ function Filter() {
         <p>Llena los filtros para poder ver el inventario de una tienda</p>
         <div className="filter-add-button">
           <BiAddToQueue />
-          <span className="buttontext">Añadir Tienda</span>
+          <span class="buttontext">Añadir Tienda</span>
         </div>
         <table className="filter-table">
           <td className="filter-results-td">
@@ -51,7 +53,14 @@ function Filter() {
               <input className="filter-input" name="name" />
             </tr>
             <tr>
-              <input className="filter-input" name="state" />
+              <div className="filter-select">
+              <select>
+                <option></option>
+                {Options.map((options, index) => (
+                    <option value={options.text}>{options.text}</option>
+                ))}
+              </select>
+              </div>
             </tr>
             <tr>
               <input className="filter-input" name="municipality" />
