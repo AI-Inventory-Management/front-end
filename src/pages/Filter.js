@@ -3,18 +3,54 @@ import "../styles/Filter.css";
 import { BiChevronRightSquare } from "react-icons/bi";
 import { BiAddToQueue } from "react-icons/bi";
 import { Link } from "react-router-dom";
-import StoreProvider, { StoreContext } from "../components/StoreProvider";
-import { useContext } from "react";
+import { StoreContext } from "../components/StoreProvider";
+import { useContext, useState } from "react";
+import Select from "react-select";
+import states from "../states.json"
+import mun from "../municipality.json"
 
 function Filter() {
   const [, setStoresId, , setStoreName] = useContext(StoreContext);
+  const [selectedState, setSelectedState] = useState();
+  const [selectedMun, setSelectedMun] = useState();
+  const [municipality, setMunicipality] = useState(["-"]);
+
+  
   const Stores = [
     { id: 1, name: "Oxxo" },
     { id: 2, name: "Tiendita" },
   ];
+ 
+  function handleSelectState(data) {
+    setSelectedState(data);
+    setMunicipality(mun[data.label])
+  }
 
-  const Options = [{text: "one"},{text: "two"},{text: "three"}];
+  function handleSelectMun(data) {
+    setSelectedMun(data);
+  }
 
+  const colourStyles = {
+    option: (styles, state) => ({
+      ...styles,
+      color: state.isSelected ? "black" : styles.color,
+      backgroundColor: state.isSelected ? "#d3d3d3" : styles.color,
+      borderBottom: "1px solid rgba(0, 0, 0, 0.125)",
+      "&:hover": {
+        color: "black",
+        backgroundColor: "#d3d3d3"
+      }
+    }),
+    control: (styles, state) => ({
+      ...styles,
+      backgroundColor: "#d3d3d3",
+      boxShadow: state.isFocused ? "#d3d3d3" : 0,
+      borderColor: state.isFocused ? "#d3d3d3" : "#d3d3d3",
+      "&:hover": {
+        borderColor: state.isFocused ? "#d3d3d3" : "#CED4DA"
+      }
+    })
+  };
   /*
   const GetStores = async () =>{
     const response = await fetch(`http://localhost:8080/problem/getProposals`)
@@ -54,16 +90,29 @@ function Filter() {
             </tr>
             <tr>
               <div className="filter-select">
-              <select>
-                <option></option>
-                {Options.map((options, index) => (
-                    <option value={options.text}>{options.text}</option>
-                ))}
-              </select>
+                <Select
+                  defaultValue={""}
+                  options={states}
+                  placeholder="-"
+                  value={selectedState}
+                  onChange={handleSelectState}
+                  isSearchable={true}
+                  styles={colourStyles}
+                />
               </div>
             </tr>
             <tr>
-              <input className="filter-input" name="municipality" />
+            <div className="filter-select">
+                <Select
+                  defaultValue={""}
+                  options={municipality}
+                  placeholder="-"
+                  value={selectedMun}
+                  onChange={handleSelectMun}
+                  isSearchable={true}
+                  styles={colourStyles}
+                />
+              </div>
             </tr>
             <tr>
               <input className="filter-input" name="CP" />
