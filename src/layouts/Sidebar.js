@@ -24,11 +24,7 @@ function Sidebar() {
           return (
             <Link key={key} className="sb-option" to={val.link}>
               <li className="sb-option-li">
-                <img
-                  className="sb-option-icon"
-                  src={val.icon}
-                  alt="logo de empresa"
-                />
+                {val.icon}
                 <p className="sb-option-title">{val.title}</p>
               </li>
             </Link>

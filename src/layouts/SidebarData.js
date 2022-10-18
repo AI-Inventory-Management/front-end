@@ -1,17 +1,21 @@
+import { RiRoadMapFill } from "react-icons/ri";
+import { MdSpaceDashboard } from "react-icons/md";
+import { IoStorefront } from "react-icons/io5";
+
 export const SidebarData = [
   {
     title: "Dashboard",
-    icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/OOjs_UI_icon_userAvatar.svg/2048px-OOjs_UI_icon_userAvatar.svg.png",
+    icon: <MdSpaceDashboard />,
     link: "/",
   },
   {
     title: "Mapa",
-    icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/OOjs_UI_icon_userAvatar.svg/2048px-OOjs_UI_icon_userAvatar.svg.png",
+    icon: <RiRoadMapFill />,
     link: "/mapa",
   },
   {
     title: "Tiendas",
-    icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/OOjs_UI_icon_userAvatar.svg/2048px-OOjs_UI_icon_userAvatar.svg.png",
+    icon: <IoStorefront />,
     link: "/filter",
   },
 ];
