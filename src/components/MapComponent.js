@@ -1,11 +1,6 @@
 import { GoogleMap, MarkerF, useJsApiLoader } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
 
-var containerStyle = {
-  width: "100%",
-  height: "100%",
-};
-
 const Map = (props) => {
   // props.markers -> object arrary  para sustituir markers
   // props.onSelectStore -> pasar id a Map.js
@@ -21,6 +16,11 @@ const Map = (props) => {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_KEY,
     // libraries: ["geometry", "drawing"],
   });
+
+  const containerStyle = {
+    width: props.width ? props.width : "100%",
+    height: props.height ? props.height : "100%",
+  };
 
   // center when the info is shown
   // const center = {
