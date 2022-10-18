@@ -53,7 +53,7 @@
 
 .filter-input{
     font-size: 20px;
-    color: darkred;
+    color: black;
     font-weight: bold;
     border-radius: 5px;
     background-color:lightgray;
@@ -131,7 +131,7 @@
 .filter-add-button .buttontext {
     visibility: hidden;
     width: 100px;
-    background-color:lightgray;
+    background-color:#d3d3d3;
     color: black;
     text-align: center;
     padding: 5px 0;
@@ -146,15 +146,12 @@
     color:darkred;
 }
 
-.filter-select select{
+.filter-select{
     font-size: 20px;
-    color: darkred;
     font-weight: bold;
     border-radius: 5px;
-    background-color:lightgray;
     border: 0;
     padding: 7px;
     margin:10px;
-    width: 280px;
-    text-align: center;
+    width: 290px;
 }
