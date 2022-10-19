@@ -59,7 +59,8 @@
     background-color:lightgray;
     border: 0;
     padding: 7px;
-    margin:10px
+    margin:10px;
+    text-align: center;
 }
 
 .filter{

@@ -13,22 +13,36 @@ function Filter() {
   const [, setStoresId, , setStoreName] = useContext(StoreContext);
   const [selectedState, setSelectedState] = useState();
   const [selectedMun, setSelectedMun] = useState();
-  const [municipality, setMunicipality] = useState(["-"]);
-
+  const [stores, setStore] = useState([])
+  const [lstMunicupalities, setLstMunicipalities] = useState(["-"])
+  const [status, setStatus] = useState("status");
+  const [name, setName] = useState("name");
+  const [id, setId] = useState("id");
+  const [state, setState] = useState("state");
+  const [municipality, setMunicipality] = useState("municipality");
   
-  const Stores = [
-    { id: 1, name: "Oxxo" },
-    { id: 2, name: "Tiendita" },
-  ];
- 
+  //Select Changes
   function handleSelectState(data) {
     setSelectedState(data);
-    setMunicipality(mun[data.label])
+    setLstMunicipalities(mun[data.label])
+    setState(`'` + data.label + `'`)
   }
 
   function handleSelectMun(data) {
     setSelectedMun(data);
+    setMunicipality(`'` + data.label + `'`);
   }
+
+  //Inputs Changes
+  const changeStatus = (event) => {
+    setStatus(`'` + event.target.value + `'`);
+  };
+  const changeName = (event) => {
+    setName(`'` + event.target.value + `'`);
+  };
+  const changeId = (event) => {
+    setId(event.target.value);
+  };
 
   const colourStyles = {
     option: (styles, state) => ({
@@ -51,13 +65,13 @@ function Filter() {
       }
     })
   };
-  /*
+
   const GetStores = async () =>{
-    const response = await fetch(`http://localhost:8080/problem/getProposals`)
+    const response = await fetch(`http://localhost:8080/store/getAllStores?name=${name}&id=${id}status=${status}&state=${state}&municipality=${municipality}`)
     const json = await response.json()
-    stores(json)
+    setStore(json)
+    console.log(id,name,state,status,municipality)
   }
-  */
 
   const SetStoreId = async (id, name) => {
     setStoresId(id);
@@ -79,14 +93,14 @@ function Filter() {
             <tr className="filter-lable">Nombre:</tr>
             <tr className="filter-lable">Estado:</tr>
             <tr className="filter-lable">Municipio:</tr>
-            <tr className="filter-lable">Código Postal:</tr>
+            <tr className="filter-lable">Status:</tr>
           </td>
           <td>
             <tr>
-              <input className="filter-input" name="Id" />
+              <input className="filter-input" name="Id" onChange={changeId}/>
             </tr>
             <tr>
-              <input className="filter-input" name="name" />
+              <input className="filter-input" name="name" onChange={changeName}/>
             </tr>
             <tr>
               <div className="filter-select">
@@ -105,7 +119,7 @@ function Filter() {
             <div className="filter-select">
                 <Select
                   defaultValue={""}
-                  options={municipality}
+                  options={lstMunicupalities}
                   placeholder="-"
                   value={selectedMun}
                   onChange={handleSelectMun}
@@ -115,34 +129,34 @@ function Filter() {
               </div>
             </tr>
             <tr>
-              <input className="filter-input" name="CP" />
+              <input className="filter-input" name="Status" onChange={changeStatus}/>
             </tr>
             <tr>
-              <button className="filter-button">Buscar</button>
+              <button className="filter-button" onClick={GetStores}>Buscar</button>
             </tr>
           </td>
           <td className="filter">
             <table className="filter-results">
               <td className="filter-results-td">
                 <th className="filter-th">Identificador</th>
-                {Stores.map((store, index) => (
-                  <tr className="filter-tr">{store.id}</tr>
+                {stores.map((Store, index) => (
+                  <tr className="filter-tr">{Store.id}</tr>
                 ))}
               </td>
               <td className="filter-results-td">
                 <th className="filter-th">Nombre</th>
-                {Stores.map((store, index) => (
+                {stores.map((Store, index) => (
                   <tr className="filter-tr">
-                    <p className="filter-p">{store.name}</p>
+                    <p className="filter-p">{Store.name}</p>
                   </tr>
                 ))}
-                {Stores.length === 0 && (
+                {stores.length === 0 && (
                   <p className="no-stores">No se encontraron tiendas</p>
                 )}
               </td>
               <td className="filter-results-td">
                 <th className="filter-th">Ver tienda</th>
-                {Stores.map((store, index) => (
+                {stores.map((store, index) => (
                   <tr className="filter-tr">
                     <Link to="/tiendas">
                       <BiChevronRightSquare
