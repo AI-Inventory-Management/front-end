@@ -17,7 +17,7 @@ function Filter() {
   const [lstMunicupalities, setLstMunicipalities] = useState(["-"])
   const [status, setStatus] = useState("status");
   const [name, setName] = useState("name");
-  const [id, setId] = useState("id");
+  const [id, setId] = useState("id_store");
   const [state, setState] = useState("state");
   const [municipality, setMunicipality] = useState("municipality");
   
