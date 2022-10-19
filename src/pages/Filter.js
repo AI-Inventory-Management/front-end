@@ -6,26 +6,26 @@ import { Link } from "react-router-dom";
 import { StoreContext } from "../components/StoreProvider";
 import { useContext, useState } from "react";
 import Select from "react-select";
-import states from "../states.json"
-import mun from "../municipality.json"
+import states from "../states.json";
+import mun from "../municipality.json";
 
 function Filter() {
   const [, setStoresId, , setStoreName] = useContext(StoreContext);
   const [selectedState, setSelectedState] = useState();
   const [selectedMun, setSelectedMun] = useState();
-  const [stores, setStore] = useState([])
-  const [lstMunicupalities, setLstMunicipalities] = useState(["-"])
+  const [stores, setStore] = useState([]);
+  const [lstMunicupalities, setLstMunicipalities] = useState(["-"]);
   const [status, setStatus] = useState("status");
   const [name, setName] = useState("name");
   const [id, setId] = useState("id_store");
   const [state, setState] = useState("state");
   const [municipality, setMunicipality] = useState("municipality");
-  
+
   //Select Changes
   function handleSelectState(data) {
     setSelectedState(data);
-    setLstMunicipalities(mun[data.label])
-    setState(`'` + data.label + `'`)
+    setLstMunicipalities(mun[data.label]);
+    setState(`'` + data.label + `'`);
   }
 
   function handleSelectMun(data) {
@@ -36,12 +36,21 @@ function Filter() {
   //Inputs Changes
   const changeStatus = (event) => {
     setStatus(`'` + event.target.value + `'`);
+    if (event.target.value === "") {
+      setStatus("status");
+    }
   };
   const changeName = (event) => {
     setName(`'` + event.target.value + `'`);
+    if (event.target.value === "") {
+      setName("name");
+    }
   };
   const changeId = (event) => {
     setId(event.target.value);
+    if (event.target.value === "") {
+      setId("id_store");
+    }
   };
 
   const colourStyles = {
@@ -52,8 +61,8 @@ function Filter() {
       borderBottom: "1px solid rgba(0, 0, 0, 0.125)",
       "&:hover": {
         color: "black",
-        backgroundColor: "#d3d3d3"
-      }
+        backgroundColor: "#d3d3d3",
+      },
     }),
     control: (styles, state) => ({
       ...styles,
@@ -61,17 +70,20 @@ function Filter() {
       boxShadow: state.isFocused ? "#d3d3d3" : 0,
       borderColor: state.isFocused ? "#d3d3d3" : "#d3d3d3",
       "&:hover": {
-        borderColor: state.isFocused ? "#d3d3d3" : "#CED4DA"
-      }
-    })
+        borderColor: state.isFocused ? "#d3d3d3" : "#CED4DA",
+      },
+    }),
   };
 
-  const GetStores = async () =>{
-    const response = await fetch(`http://localhost:8080/store/getAllStores?name=${name}&id=${id}status=${status}&state=${state}&municipality=${municipality}`)
-    const json = await response.json()
-    setStore(json)
-    console.log(id,name,state,status,municipality)
-  }
+  const GetStores = async () => {
+    const response = await fetch(
+      `http://localhost:8080/store/getAllStores?name=${name}&id=${id}&status=${status}&state=${state}&municipality=${municipality}`
+    );
+    const json = await response.json();
+    console.log(json);
+    setStore(json);
+    console.log(id, name, state, status, municipality);
+  };
 
   const SetStoreId = async (id, name) => {
     setStoresId(id);
@@ -97,10 +109,14 @@ function Filter() {
           </td>
           <td>
             <tr>
-              <input className="filter-input" name="Id" onChange={changeId}/>
+              <input className="filter-input" name="Id" onChange={changeId} />
             </tr>
             <tr>
-              <input className="filter-input" name="name" onChange={changeName}/>
+              <input
+                className="filter-input"
+                name="name"
+                onChange={changeName}
+              />
             </tr>
             <tr>
               <div className="filter-select">
@@ -116,7 +132,7 @@ function Filter() {
               </div>
             </tr>
             <tr>
-            <div className="filter-select">
+              <div className="filter-select">
                 <Select
                   defaultValue={""}
                   options={lstMunicupalities}
@@ -129,44 +145,53 @@ function Filter() {
               </div>
             </tr>
             <tr>
-              <input className="filter-input" name="Status" onChange={changeStatus}/>
+              <input
+                className="filter-input"
+                name="Status"
+                onChange={changeStatus}
+              />
             </tr>
             <tr>
-              <button className="filter-button" onClick={GetStores}>Buscar</button>
+              <button className="filter-button" onClick={GetStores}>
+                Buscar
+              </button>
             </tr>
           </td>
           <td className="filter">
             <table className="filter-results">
               <td className="filter-results-td">
                 <th className="filter-th">Identificador</th>
-                {stores.map((Store, index) => (
-                  <tr className="filter-tr">{Store.id}</tr>
-                ))}
+                {stores.length !== 0 &&
+                  stores.map((Store, index) => (
+                    <tr className="filter-tr">{Store.id_store}</tr>
+                  ))}
               </td>
               <td className="filter-results-td">
                 <th className="filter-th">Nombre</th>
-                {stores.map((Store, index) => (
-                  <tr className="filter-tr">
-                    <p className="filter-p">{Store.name}</p>
-                  </tr>
-                ))}
+                {stores.length !== 0 &&
+                  stores.map((Store, index) => (
+                    <tr className="filter-tr">
+                      <p className="filter-p">{Store.name}</p>
+                    </tr>
+                  ))}
                 {stores.length === 0 && (
                   <p className="no-stores">No se encontraron tiendas</p>
                 )}
               </td>
               <td className="filter-results-td">
                 <th className="filter-th">Ver tienda</th>
-                {stores.map((store, index) => (
-                  <tr className="filter-tr">
-                    <Link to="/tiendas">
-                      <BiChevronRightSquare
-                        className="filter-show"
-                        key={store.id}
-                        onClick={() => SetStoreId(store.id, store.name)}
-                      />
-                    </Link>
-                  </tr>
-                ))}
+                {stores.length !== 0 &&
+                  stores.map((store, index) => (
+                    <tr className="filter-tr">
+                      <Link to="/tiendas">
+                        <BiChevronRightSquare
+                          className="filter-show"
+                          key={store.id}
+                          onClick={() => SetStoreId(store.id, store.name)}
+                        />
+                      </Link>
+                    </tr>
+                  ))}
               </td>
             </table>
           </td>
