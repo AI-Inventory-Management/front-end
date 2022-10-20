@@ -11,7 +11,7 @@ function StoreInfo(props) {
       <div className="si-info">
         <p className="si-info-title">Dirección</p>
         <p className="si-info-text">
-          Avenida de la Luz, Calzada de Atizapan, Cuajimalpa, CDMX. CP: 030201
+          {props.address}
         </p>
       </div>
     </div>

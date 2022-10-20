@@ -69,10 +69,10 @@ const Map = (props) => {
     >
       {markers.map((marker) => (
         <MarkerF
-          key={marker.id}
+          key={marker.id_store}
           clickable={true}
           onClick={() => {
-            props.onSelectStore(marker.id);
+            props.onSelectStore(marker.id_store);
           }}
           position={marker.position}
           icon={{ url: require(`../images/${colors[marker.status]}`) }}
