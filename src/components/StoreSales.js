@@ -14,12 +14,12 @@ function StoreSales(props) {
             props.sales.length >= 7 ? "ss-ol--two-cols" : ""
           }`}
         >
-          {props.sales.map((elem) => {
+          {props.sales.map((sale) => {
             return (
-              <li key={elem}>
+              <li key={sale.id_product}>
                 <div className="ss-li">
                   <p className="ss-li-soda">
-                    Coca cola <span className="ss-li-sales">599</span>
+                    {sale.name} <span className="ss-li-sales">{sale.sales}</span>
                   </p>
                 </div>
               </li>

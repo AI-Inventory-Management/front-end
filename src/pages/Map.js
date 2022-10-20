@@ -12,7 +12,8 @@ function Map() {
   const [isShowingFridge, setIsShowingFridge] = useState(false);
   const [selectedStoreInfo, setSelectedStoreInfo] = useState([]);
   const [markers, setMarkers] = useState([]);
-  const [storeId, setStoreId] = useState(0);
+  const [storeId, setStoreId] = useState();
+  const [storeAddress, setStoreAddress] = useState();
   const [storeSales, setStoreSales] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9]);
   const [inventory, setInventory] = useState([1, 2, 3, 4]);
 
@@ -35,16 +36,24 @@ function Map() {
   // funcion para traer info de una tienda en específico
   const onSelectStoreHandler = (id) => {
     console.log(id);
-    if (isShowingInfo) {
-      setStoreId(id);
-    } else {
-      // fetch(id)
-      // setSelectedStoreInfo(http.info);
-      // if selectedStoreInfo.length !== 0
-      //    isShowingInfo(true);
+    if (!isShowingInfo) {
       setIsShowingInfo(true);
     }
+    setStoreId(id);
+    fetchStoreInfro(id);
   };
+
+  const fetchStoreInfro = (id_store) => {
+    fetch(`http://localhost:8080/store/getStoreData/${id_store}`).then(
+      (response) => {
+        response.json().then((result) => {
+          setStoreAddress(result.address);
+          setStoreSales(result.sales);
+          setInventory(result.stock);
+        });
+      }
+    );
+  }
 
   // useEffect para traer la info de los markers
 
@@ -68,7 +77,7 @@ function Map() {
         {isShowingInfo && (
           <div className={`ma-info ${isShowingFridge ? "ma-info--flex" : ""}`}>
             <div className="ma-info-container">
-              <StoreInfo id={storeId} />
+              <StoreInfo id={storeId} address={storeAddress}/>
               <StoreSales sales={storeSales} />
               {!isShowingFridge && (
                 <button
