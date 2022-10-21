@@ -38,13 +38,13 @@ const Map = (props) => {
 
   // consultar todos las tiendas del back
   const getMarkerData = async () => {
-    fetch("http://localhost:8080/store/getStoreCoordinates").then(
-      (response) => {
-        response.json().then((result) => {
-          setMarkers(result);
-        });
-      }
-    );
+    fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/store/getStoreCoordinates`
+    ).then((response) => {
+      response.json().then((result) => {
+        setMarkers(result);
+      });
+    });
   };
 
   // ejecutar la consulta cuando cargue la página

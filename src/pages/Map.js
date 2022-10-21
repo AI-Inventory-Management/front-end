@@ -44,16 +44,16 @@ function Map() {
   };
 
   const fetchStoreInfro = (id_store) => {
-    fetch(`http://localhost:8080/store/getStoreData/${id_store}`).then(
-      (response) => {
-        response.json().then((result) => {
-          setStoreAddress(result.address);
-          setStoreSales(result.sales);
-          setInventory(result.stock);
-        });
-      }
-    );
-  }
+    fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/store/getStoreData/${id_store}`
+    ).then((response) => {
+      response.json().then((result) => {
+        setStoreAddress(result.address);
+        setStoreSales(result.sales);
+        setInventory(result.stock);
+      });
+    });
+  };
 
   // useEffect para traer la info de los markers
 
@@ -77,7 +77,7 @@ function Map() {
         {isShowingInfo && (
           <div className={`ma-info ${isShowingFridge ? "ma-info--flex" : ""}`}>
             <div className="ma-info-container">
-              <StoreInfo id={storeId} address={storeAddress}/>
+              <StoreInfo id={storeId} address={storeAddress} />
               <StoreSales sales={storeSales} />
               {!isShowingFridge && (
                 <button

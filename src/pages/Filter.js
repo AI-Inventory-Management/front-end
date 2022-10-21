@@ -29,7 +29,7 @@ function Filter() {
   function handleSelectState(data) {
     setSelectedState(data);
     setLstMunicipalities(mun[data.label]);
-    setState(`'` + data.label + `'`); 
+    setState(`'` + data.label + `'`);
   }
   function handleSelectMun(data) {
     setSelectedMun(data);
@@ -82,7 +82,7 @@ function Filter() {
   //Search button
   const GetStores = async () => {
     const response = await fetch(
-      `http://localhost:8080/store/getAllStores?name=${name}&id=${id}&status=${status}&state=${state}&municipality=${municipality}`
+      `${process.env.REACT_APP_BACKEND_URL}/store/getAllStores?name=${name}&id=${id}&status=${status}&state=${state}&municipality=${municipality}`
     );
     const json = await response.json();
     console.log(json);
