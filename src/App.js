@@ -7,6 +7,7 @@ import Stores from "./pages/Stores";
 import User from "./pages/User";
 import Filter from "./pages/Filter";
 import StoreProvider from "./components/StoreProvider";
+import NewStore from "./pages/NewStore";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/tiendas" exact={true} element={<StoreProvider><Stores /></StoreProvider>} />
           <Route path="*" exact={true} element={<Dashboard />} />
           <Route path='/filter' exact = {true} element={<StoreProvider><Filter/></StoreProvider>}/>
+          <Route path='/NewStore' exat = {true} element={<NewStore/>}/>
         </Routes> 
       </div>
     </Router>
