@@ -7,7 +7,7 @@ import Stores from "./pages/Stores";
 import User from "./pages/User";
 import Filter from "./pages/Filter";
 import StoreProvider from "./components/StoreProvider";
-import NewStore from "./pages/NewStore";
+import Newproduct from "./pages/NewProduct";
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
           <Route path="/tiendas" exact={true} element={<StoreProvider><Stores /></StoreProvider>} />
           <Route path="*" exact={true} element={<Dashboard />} />
           <Route path='/filter' exact = {true} element={<StoreProvider><Filter/></StoreProvider>}/>
-          <Route path='/NewStore' exat = {true} element={<NewStore/>}/>
+          <Route path='/NewProduct' exat = {true} element={<Newproduct/>}/>
         </Routes> 
       </div>
     </Router>

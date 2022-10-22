@@ -101,10 +101,10 @@ function Filter() {
       <Navbar title="Inventario Tienda" />
       <div className="filter-card">
         <p>Llena los filtros para poder ver el inventario de una tienda</p>
-        <Link to="/NewStore">
+        <Link to="/NewProduct">
           <div className="filter-add-button">
             <BiAddToQueue />
-            <span class="buttontext">Añadir Tienda</span>
+            <span class="buttontext">Añadir Producto</span>
           </div>
         </Link>
         <table className="filter-table">
