@@ -18,9 +18,8 @@ function StoreSales(props) {
             return (
               <li key={sale.id_product}>
                 <div className="ss-li">
-                  <p className="ss-li-soda">
-                    {sale.name} <span className="ss-li-sales">{sale.sales}</span>
-                  </p>
+                  <p className="ss-li-soda">{sale.name}</p>
+                  <p className="ss-li-sales">{sale.sales}</p>
                 </div>
               </li>
             );

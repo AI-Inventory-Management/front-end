@@ -5,14 +5,14 @@ function StoreInfo(props) {
   return (
     <div className="si-container">
       <div className="si-info">
-        <p className="si-info-title">ID</p>
-        <p className="si-info-text">{props.id}</p>
+        <p className="si-info-title">
+          ID <span className="si-info-text">{props.id}</span>
+        </p>
+        {/* <p className="si-info-text">{props.id}</p> */}
       </div>
       <div className="si-info">
         <p className="si-info-title">Dirección</p>
-        <p className="si-info-text">
-          {props.address}
-        </p>
+        <p className="si-info-text">{props.address}</p>
       </div>
     </div>
   );

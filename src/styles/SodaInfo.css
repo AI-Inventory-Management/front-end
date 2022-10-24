@@ -6,13 +6,12 @@
 
 .soi-container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
   gap: 0.8rem;
 }
 
 .soi-li {
   display: flex;
-  gap: 1rem;
   align-items: center;
   justify-content: space-around;
   border-radius: 13px;
@@ -24,7 +23,7 @@
 }
 
 .soi-li-img {
-  height: 3rem;
+  height: 4rem;
   transform: scale(3) rotate(20deg) translate(-2px, 4px);
 }
 
@@ -43,5 +42,5 @@
 
 .soi-li-quantity {
   font-weight: bold;
-  font-size: 3rem;
+  font-size: 2.5rem;
 }

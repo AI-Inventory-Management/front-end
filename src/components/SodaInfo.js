@@ -1,8 +1,15 @@
 import React from "react";
 import "../styles/SodaInfo.css";
+import { showSoda } from "../showSoda";
 
 function SodaInfo(props) {
   // props.inventory -> matrix
+
+  const initialValue = 0;
+  const totalStock = props.inventory.reduce(
+    (previousValue, currentValue) => previousValue + currentValue.stock,
+    initialValue
+  );
 
   return (
     <div className="soi-soda-info">
@@ -10,13 +17,12 @@ function SodaInfo(props) {
         {props.inventory.map((soda) => {
           return (
             <div key={soda.id_product} className="soi-li">
-              <img
-                className="soi-li-img"
-                src="https://cdn0.iconfinder.com/data/icons/beverage-element-pack-1/512/can-packaging-04c-512.png"
-              />
+              <img className="soi-li-img" src={showSoda(soda.id_product)} />
               <div className="soi-li-text">
                 <p className="soi-li-quantity">{soda.stock}</p>
-                <p className="soi-li-percentage">{soda * 4.5}%</p>
+                <p className="soi-li-percentage">
+                  {((soda.stock / totalStock) * 100).toFixed(1)}%
+                </p>
               </div>
             </div>
           );

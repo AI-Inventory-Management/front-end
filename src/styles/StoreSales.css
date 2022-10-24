@@ -34,15 +34,17 @@
 }
 
 .ss-li {
+  display: flex;
+  align-items: center;
   margin-bottom: 1.5rem;
 }
 
 .ss-li-soda {
-  font-size: 1.6rem;
+  font-size: 1.4rem;
 }
 
 .ss-li-sales {
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 600;
   margin-left: 0.4rem;
   margin-right: 2rem;
