@@ -8,12 +8,14 @@ import User from "./pages/User";
 import Filter from "./pages/Filter";
 import StoreProvider from "./components/StoreProvider";
 import Newproduct from "./pages/NewProduct";
+import Login from "./pages/Login";
+
 
 function App() {
   return (
     
     <Router>
-      <div className="flex">
+      <div>
         <Sidebar />
         <Routes className="content">
           <Route path="/" exact={true} element={<Dashboard />} />
@@ -23,6 +25,7 @@ function App() {
           <Route path="*" exact={true} element={<Dashboard />} />
           <Route path='/filter' exact = {true} element={<StoreProvider><Filter/></StoreProvider>}/>
           <Route path='/NewProduct' exat = {true} element={<Newproduct/>}/>
+          <Route path='/login' exact={true} element ={<Login/>}/>
         </Routes> 
       </div>
     </Router>

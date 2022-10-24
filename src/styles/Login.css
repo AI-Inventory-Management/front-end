@@ -1,0 +1,71 @@
+.login-input{
+    color:black;
+    background-color: rgb(255,255,255,0.5);
+    border: 0;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.login-button{
+    background-color: #be1300c9;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.8em 2em;
+    cursor: pointer;
+    outline: none;
+    border-color: #a63700;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.login-container{
+    text-align: center;
+    padding: 3em 2em;
+    width: min-content;
+    height: min-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15vh;
+    box-shadow: -1px 4px 28px 0px rgb(0 0 0 / 75%);
+    align-items: center;
+    align-content: center;
+    align-self: center; 
+    background-color:rgba(255, 255, 255, 0.04);
+}
+
+.login-title{
+    color: white;
+    font-size: 20px;
+    padding: 5px;
+    text-transform: uppercase;
+}
+
+.login-logo{
+    width: 100px;
+    height: 100px;
+}
+
+.login-background{
+    background-image: url('../images/Background-3.jpg');
+    background-size: cover;
+    position: relative;
+    min-height: 100vh;
+}
+
+.login-background-cover{
+    background-color:rgba(0, 0, 0, 0.7);
+    min-height: 100vh;
+}
+
+.login-link{
+    text-transform: uppercase;
+    padding: 5px;
+    color: white;
+    font-size: 12px;
+}
