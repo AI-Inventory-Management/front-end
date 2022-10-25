@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import "../styles/Refrigerator.css";
 
 function Refrigerator(props) {
