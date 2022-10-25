@@ -4,7 +4,7 @@ import "../styles/StoreSales.css";
 function StoreSales(props) {
   // props.sales -> array
   // sort the sales
-  console.log(props.sales);
+  //console.log(props.sales);
   return (
     <div className="ss-container">
       <p className="ss-title">Top Ventas</p>

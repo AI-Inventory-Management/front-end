@@ -37,3 +37,8 @@
   border-top-right-radius: 9px;
   border-top-left-radius: 9px;
 }
+
+.rf-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}

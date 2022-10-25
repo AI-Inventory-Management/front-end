@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/Refrigerator.css";
 
-function Refrigerator() {
+function Refrigerator(props) {
+
   const getType = (code) => {
     switch (code) {
       case 1:
@@ -17,22 +18,17 @@ function Refrigerator() {
 
   return (
     <div className="rf-refrigerator">
-      <div className="rf-container">
-        {[1, 2].map((elem) => {
-          return (
-            <div key={elem} className="rf-shelf">
-              {[1, 2, 3, 4].map((sodaa) => {
-                return (
-                  <div
-                    key={sodaa}
-                    className="rf-soda"
-                    style={{ backgroundColor: getType(sodaa) }}
-                  />
-                );
-              })}
-            </div>
-          );
-        })}
+        <div key='rf-grid1' className="rf-grid">
+          {props.inventory.map((soda) => {
+            return (
+              <div
+                key={soda.id_product}
+                className="rf-soda"
+                style={{ backgroundColor: getType(soda.id_product) }}
+              />
+            );
+          })}
+        </div>
         <div
           style={{
             paddingTop: "1rem",
@@ -53,7 +49,6 @@ function Refrigerator() {
           })}
         </div>
       </div>
-    </div>
   );
 }
 

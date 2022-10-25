@@ -35,13 +35,24 @@ function Map() {
 
   // funcion para traer info de una tienda en específico
   const onSelectStoreHandler = (id) => {
-    console.log(id);
     if (!isShowingInfo) {
       setIsShowingInfo(true);
     }
     setStoreId(id);
     fetchStoreInfro(id);
   };
+
+  const handleInventory = (stock) => {
+    let stock2 = stock;
+    const remainer = stock2.length % 4;
+    if (remainer !== 0) {
+      for (let i = remainer; i < 4; ++i)
+      {
+        stock2.push({id_product: 9999, name: "", stock: 0});
+      }
+    }
+    setInventory(stock2);
+  }
 
   const fetchStoreInfro = (id_store) => {
     fetch(
@@ -50,7 +61,7 @@ function Map() {
       response.json().then((result) => {
         setStoreAddress(result.address);
         setStoreSales(result.sales);
-        setInventory(result.stock);
+        handleInventory(result.stock);
       });
     });
   };
@@ -73,7 +84,7 @@ function Map() {
           selectedStore={selectedStoreInfo}
           isShowingInfo={isShowingInfo}
         />
-        {isShowingFridge && <Refrigerator />}
+        {isShowingFridge && <Refrigerator inventory={inventory}/>}
         {isShowingInfo && (
           <div className={`ma-info ${isShowingFridge ? "ma-info--flex" : ""}`}>
             <div className="ma-info-container">

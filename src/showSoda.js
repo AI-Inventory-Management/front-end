@@ -1,5 +1,5 @@
 import FrescaLata from ".//images/products/FrescaLataFigura.png";
-import MundetLata from ".//images/products/MundetBotellaFigura.png";
+import MundetLata from ".//images/products/MundetLataFigura.png";
 import FrescaBotella from ".//images/products/FrescaBotellaFigura.png";
 import FuzeTea from ".//images/products/FuzeTeaFigura.png";
 import PoweradeMoraAzulBotella from ".//images/products/PoweradeBotellaFigura.png";
