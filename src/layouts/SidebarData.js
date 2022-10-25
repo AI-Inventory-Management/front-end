@@ -1,6 +1,7 @@
 import { RiRoadMapFill } from "react-icons/ri";
 import { MdSpaceDashboard } from "react-icons/md";
 import { IoStorefront } from "react-icons/io5";
+import {GiSodaCan} from 'react-icons/gi'
 
 export const SidebarData = [
   {
@@ -17,5 +18,10 @@ export const SidebarData = [
     title: "Tiendas",
     icon: <IoStorefront />,
     link: "/filter",
+  },
+  {
+    title: "Productos",
+    icon: <GiSodaCan />,
+    link: "/Products",
   },
 ];

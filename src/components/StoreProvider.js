@@ -4,8 +4,9 @@ export const StoreContext = createContext();
 const StoreProvider = ({children}) =>{
     const [storesId, setStoresId] = useState([]);
     const [storeName, setStoreName] = useState([]);
+    const [productId, setProductId] = useState([]);
     return (
-        <StoreContext.Provider value={[storesId, setStoresId, storeName, setStoreName]}>{children}</StoreContext.Provider>
+        <StoreContext.Provider value={[storesId, setStoresId, storeName, setStoreName, productId, setProductId]}>{children}</StoreContext.Provider>
     )
 }
 

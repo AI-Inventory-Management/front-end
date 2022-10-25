@@ -8,6 +8,7 @@ import { useContext, useState } from "react";
 import Select from "react-select";
 import states from "../states.json";
 import mun from "../municipality.json";
+import toast, { Toaster } from 'react-hot-toast';
 
 function Filter() {
   const [, setStoresId, , setStoreName] = useContext(StoreContext); //Selected store info
@@ -15,8 +16,8 @@ function Filter() {
 
   //Display selects info
   const [selectedState, setSelectedState] = useState(); //Selected state
-  const [selectedMun, setSelectedMun] = useState(); //Selected Municipality
-  const [lstMunicupalities, setLstMunicipalities] = useState(["-"]); //List of municipalities depending on the state
+  const [selectedMun, setSelectedMun] = useState([{"value":"-", "label": ""}]); //Selected Municipality
+  const [lstMunicupalities, setLstMunicipalities] = useState([{"value":"-", "label": ""}]); //List of municipalities depending on the state
 
   //Filter data recopilation
   const [status, setStatus] = useState("status"); //Formated status, default "status" to bring all
@@ -27,13 +28,26 @@ function Filter() {
 
   //Selects Changes
   function handleSelectState(data) {
+    if (data.label === ''){
+      setState("state") 
+    }
+    else{
+      setState(`'` + data.label + `'`);
+    }
+    setMunicipality("municipality")
     setSelectedState(data);
     setLstMunicipalities(mun[data.label]);
-    setState(`'` + data.label + `'`);
+    setSelectedMun([{"value":"-", "label": ""}])
   }
   function handleSelectMun(data) {
-    setSelectedMun(data);
-    setMunicipality(`'` + data.label + `'`);
+    if (data.label === ''){
+      setMunicipality("municipality")
+      setSelectedMun(data);
+    }
+    else{
+      setSelectedMun(data);
+      setMunicipality(`'` + data.label + `'`);
+    }
   }
 
   //Inputs Changes
@@ -87,7 +101,8 @@ function Filter() {
     const json = await response.json();
     console.log(json);
     setStore(json);
-    console.log(id, name, state, status, municipality);
+    toast.success('Busqueda exitosa')
+    console.log(id, name, state, status, municipality);  
   };
 
   //Store button
@@ -98,15 +113,9 @@ function Filter() {
 
   return (
     <div className="filter-container">
-      <Navbar title="Inventario Tienda" />
+      <Navbar title="Inventario de Tienda" />
       <div className="filter-card">
-        <p>Llena los filtros para poder ver el inventario de una tienda</p>
-        <Link to="/NewProduct">
-          <div className="filter-add-button">
-            <BiAddToQueue />
-            <span class="buttontext">Añadir Producto</span>
-          </div>
-        </Link>
+        <p>Llena los campos para poder filtrar el resultado</p>
         <table className="filter-table">
           <td className="filter-results-td">
             <tr className="filter-lable">Identificador:</tr>
@@ -131,7 +140,7 @@ function Filter() {
                 <Select
                   defaultValue={""}
                   options={states}
-                  placeholder="-"
+                  placeholder=""
                   value={selectedState}
                   onChange={handleSelectState}
                   isSearchable={true}
@@ -144,7 +153,7 @@ function Filter() {
                 <Select
                   defaultValue={""}
                   options={lstMunicupalities}
-                  placeholder="-"
+                  placeholder=""
                   value={selectedMun}
                   onChange={handleSelectMun}
                   isSearchable={true}
@@ -205,6 +214,7 @@ function Filter() {
           </td>
         </table>
       </div>
+      <Toaster/>
     </div>
   );
 }

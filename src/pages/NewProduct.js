@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import "../styles/NewProduct.css";
 import "../styles/Filter.css";
 import toast, { Toaster } from 'react-hot-toast';
+import { Link } from "react-router-dom";
 
 function Newproduct() {
   const [price, setPrice] = useState();
@@ -54,7 +55,7 @@ function Newproduct() {
     <div className="NewStore-container">
       <Navbar title="Añadir Producto" />
       <div className="NewStore-card">
-        <p>Llena los campos para crear un nuevo Producto</p>
+        <p>Llena los campos para crear un producto nuevo</p>
         <table className="NewStore-table">
           <td className="filter-results-td">
             <tr className="filter-lable">Nombre:</tr>
@@ -69,6 +70,11 @@ function Newproduct() {
             <tr><input className="filter-input" onChange={changePrice} value={price}/></tr>
           </td>
         </table>
+        <Link to="/Products">
+          <button className="filter-button">
+            Regresar
+          </button>
+        </Link>
         <button className="filter-button" onClick={AddProduct}>
           Añadir
         </button>

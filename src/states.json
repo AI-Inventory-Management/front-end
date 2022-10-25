@@ -1,5 +1,5 @@
 [
-    {"value": "-", "label":"-"},
+    {"value":"-", "label": ""},
     { "value": "AGS", "label": "Aguascalientes" },
     { "value": "BC",  "label": "Baja California" },
     { "value": "BCS", "label": "Baja California Sur" },
