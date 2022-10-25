@@ -15,6 +15,7 @@ function SodaInfo(props) {
     <div className="soi-soda-info">
       <div className="soi-container">
         {props.inventory.map((soda) => {
+          if (soda.stock > 0)
           return (
             <div key={soda.id_product} className="soi-li">
               <img className="soi-li-img" src={showSoda(soda.id_product)} />

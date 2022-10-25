@@ -42,7 +42,7 @@ const Map = (props) => {
       `${process.env.REACT_APP_BACKEND_URL}/store/getStoreCoordinates`
     ).then((response) => {
       response.json().then((result) => {
-        console.log(result);
+        //console.log(result);
         setMarkers(result);
       });
     });
