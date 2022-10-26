@@ -19,13 +19,16 @@
 }
 
 .sb-img-container {
-  margin-left: 2rem;
+  margin-left: 5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
 }
 
 .sb-user-img {
   margin-top: 2rem;
   width: auto;
   height: 3rem;
+  transform: scale(4);
 }
 
 .sd-user {

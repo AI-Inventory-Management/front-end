@@ -6,9 +6,11 @@ function StoreInfo(props) {
     <div className="si-container">
       <div className="si-info">
         <p className="si-info-title">
-          ID <span className="si-info-text">{props.id}</span>
+          ID{" "}
+          <span className="si-info-text" style={{ marginLeft: "1rem" }}>
+            {props.id}
+          </span>
         </p>
-        {/* <p className="si-info-text">{props.id}</p> */}
       </div>
       <div className="si-info">
         <p className="si-info-title">Dirección</p>

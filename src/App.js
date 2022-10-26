@@ -19,12 +19,38 @@ function App() {
           <Route path="/" exact={true} element={<Dashboard />} />
           <Route path="/usuario" exact={true} element={<User />} />
           <Route path="/mapa" exact={true} element={<Map />} />
-          <Route path="/tiendas" exact={true} element={<StoreProvider><Stores /></StoreProvider>} />
+          <Route path="/mapa/:id" element={<Map />} />
+          {/* <Route path="/mapa/:id/refri" element={<Map />} /> */}
+          <Route
+            path="/tiendas"
+            exact={true}
+            element={
+              <StoreProvider>
+                <Stores />
+              </StoreProvider>
+            }
+          />
           <Route path="*" exact={true} element={<Dashboard />} />
-          <Route path='/filter' exact = {true} element={<StoreProvider><Filter/></StoreProvider>}/>
-          <Route path='/NewProduct' exat = {true} element={<Newproduct/>}/>
-          <Route path='/Products' exat = {true} element={<StoreProvider><Products/></StoreProvider>}/>
-        </Routes> 
+          <Route
+            path="/filter"
+            exact={true}
+            element={
+              <StoreProvider>
+                <Filter />
+              </StoreProvider>
+            }
+          />
+          <Route path="/NewProduct" exat={true} element={<Newproduct />} />
+          <Route
+            path="/Products"
+            exat={true}
+            element={
+              <StoreProvider>
+                <Products />
+              </StoreProvider>
+            }
+          />
+        </Routes>
       </div>
     </Router>
   );

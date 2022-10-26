@@ -8,7 +8,7 @@ import { useContext, useState } from "react";
 import Select from "react-select";
 import states from "../states.json";
 import mun from "../municipality.json";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 
 function Filter() {
   const [, setStoresId, , setStoreName] = useContext(StoreContext); //Selected store info
@@ -16,8 +16,10 @@ function Filter() {
 
   //Display selects info
   const [selectedState, setSelectedState] = useState(); //Selected state
-  const [selectedMun, setSelectedMun] = useState([{"value":"-", "label": ""}]); //Selected Municipality
-  const [lstMunicupalities, setLstMunicipalities] = useState([{"value":"-", "label": ""}]); //List of municipalities depending on the state
+  const [selectedMun, setSelectedMun] = useState([{ value: "-", label: "" }]); //Selected Municipality
+  const [lstMunicupalities, setLstMunicipalities] = useState([
+    { value: "-", label: "" },
+  ]); //List of municipalities depending on the state
 
   //Filter data recopilation
   const [status, setStatus] = useState("status"); //Formated status, default "status" to bring all
@@ -28,23 +30,21 @@ function Filter() {
 
   //Selects Changes
   function handleSelectState(data) {
-    if (data.label === ''){
-      setState("state") 
-    }
-    else{
+    if (data.label === "") {
+      setState("state");
+    } else {
       setState(`'` + data.label + `'`);
     }
-    setMunicipality("municipality")
+    setMunicipality("municipality");
     setSelectedState(data);
     setLstMunicipalities(mun[data.label]);
-    setSelectedMun([{"value":"-", "label": ""}])
+    setSelectedMun([{ value: "-", label: "" }]);
   }
   function handleSelectMun(data) {
-    if (data.label === ''){
-      setMunicipality("municipality")
+    if (data.label === "") {
+      setMunicipality("municipality");
       setSelectedMun(data);
-    }
-    else{
+    } else {
       setSelectedMun(data);
       setMunicipality(`'` + data.label + `'`);
     }
@@ -101,8 +101,8 @@ function Filter() {
     const json = await response.json();
     console.log(json);
     setStore(json);
-    toast.success('Busqueda exitosa')
-    console.log(id, name, state, status, municipality);  
+    toast.success("Busqueda exitosa");
+    console.log(id, name, state, status, municipality);
   };
 
   //Store button
@@ -200,7 +200,7 @@ function Filter() {
                 {stores.length !== 0 &&
                   stores.map((store, index) => (
                     <tr className="filter-tr">
-                      <Link to="/tiendas">
+                      <Link to={`/mapa/${store.id_store}`}>
                         <BiChevronRightSquare
                           className="filter-show"
                           key={store.id}
@@ -214,7 +214,7 @@ function Filter() {
           </td>
         </table>
       </div>
-      <Toaster/>
+      <Toaster />
     </div>
   );
 }

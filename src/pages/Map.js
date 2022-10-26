@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import MapComponent from "../components/MapComponent";
 import "../styles/Map.css";
@@ -8,6 +9,8 @@ import SodaInfo from "../components/SodaInfo";
 import Refrigerator from "../components/Refrigerator";
 
 function Map() {
+  const { id } = useParams();
+
   const [isShowingInfo, setIsShowingInfo] = useState(false);
   const [isShowingFridge, setIsShowingFridge] = useState(false);
   const [selectedStoreInfo, setSelectedStoreInfo] = useState([]);
@@ -17,6 +20,7 @@ function Map() {
   const [storeSales, setStoreSales] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9]);
   const [inventory, setInventory] = useState([1, 2, 3, 4]);
 
+  const navigate = useNavigate();
   // estado inicial
   // mostrar mapa
 
@@ -39,34 +43,53 @@ function Map() {
       setIsShowingInfo(true);
     }
     setStoreId(id);
-    fetchStoreInfro(id);
+    fetchStoreInfo(id);
   };
 
   const handleInventory = (stock) => {
     let stock2 = stock;
     const remainer = stock2.length % 4;
     if (remainer !== 0) {
-      for (let i = remainer; i < 4; ++i)
-      {
-        stock2.push({id_product: 9999, name: "", stock: 0});
+      for (let i = remainer; i < 4; ++i) {
+        stock2.push({ id_product: 9999, name: "", stock: 0 });
       }
     }
     setInventory(stock2);
-  }
-
-  const fetchStoreInfro = (id_store) => {
-    fetch(
-      `${process.env.REACT_APP_BACKEND_URL}/store/getStoreData/${id_store}`
-    ).then((response) => {
-      response.json().then((result) => {
-        setStoreAddress(result.address);
-        setStoreSales(result.sales);
-        handleInventory(result.stock);
-      });
-    });
   };
 
-  // useEffect para traer la info de los markers
+  const fetchStoreInfo = useCallback(
+    async (idStore) => {
+      if (idStore === undefined) {
+        return;
+      }
+
+      if (!isShowingInfo) {
+        setIsShowingInfo(true);
+      }
+      setStoreId(idStore);
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_BACKEND_URL}/store/getStoreData/${idStore}`
+        );
+        if (!response.ok) {
+          throw new Error("Something went wrong!");
+        }
+
+        const data = await response.json();
+
+        setStoreAddress(data.address);
+        setStoreSales(data.sales);
+        handleInventory(data.stock);
+      } catch (error) {
+        console.log(error.message);
+      }
+    },
+    [isShowingInfo]
+  );
+
+  useEffect(() => {
+    fetchStoreInfo(id);
+  }, [fetchStoreInfo, id, storeId]);
 
   return (
     <div className="ma-map">
@@ -84,7 +107,7 @@ function Map() {
           selectedStore={selectedStoreInfo}
           isShowingInfo={isShowingInfo}
         />
-        {isShowingFridge && <Refrigerator inventory={inventory}/>}
+        {isShowingFridge && <Refrigerator inventory={inventory} />}
         {isShowingInfo && (
           <div className={`ma-info ${isShowingFridge ? "ma-info--flex" : ""}`}>
             <div className="ma-info-container">

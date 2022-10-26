@@ -6,8 +6,9 @@
   justify-content: center;
   align-items: center;
   border-radius: 13px 13px 0 0;
-  padding: 3rem 0.5rem 6rem 0.5rem;
+  padding: 3rem 1rem 6rem 1rem;
   background-color: #fe001a;
+  align-self: center;
 }
 
 .rf-container {
@@ -41,4 +42,12 @@
 .rf-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+}
+
+.rf-soda-img {
+  margin-top: 2rem;
+  height: 10rem;
+  border-bottom: 1.5rem solid #ddd;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }

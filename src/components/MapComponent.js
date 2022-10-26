@@ -1,7 +1,9 @@
 import { GoogleMap, MarkerF, useJsApiLoader } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Map = (props) => {
+  const navigate = useNavigate();
   // props.markers -> object arrary  para sustituir markers
   // props.onSelectStore -> pasar id a Map.js
   // props.isShowingInfo -> bool if true change the
@@ -74,9 +76,12 @@ const Map = (props) => {
           clickable={true}
           onClick={() => {
             props.onSelectStore(marker.id_store);
+            navigate(`/mapa/${marker.id_store}`);
           }}
           position={marker.position}
-          icon={{ url: require(`../images/${colors[marker.status]}`) }}
+          icon={{
+            url: require(`../images/${colors[marker.status]}`),
+          }}
         />
       ))}
     </GoogleMap>

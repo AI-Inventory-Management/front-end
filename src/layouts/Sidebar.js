@@ -2,17 +2,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/Sidebar.css";
 import { SidebarData } from "./SidebarData";
+import logo from "../images/logo/RIICO logo.png";
 
 function Sidebar() {
   return (
     <div className="sb-sidebar">
       <ul className="sb-ul">
         <div className="sb-img-container">
-          <img
-            className="sb-user-img"
-            alt="imagen de perfil"
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/FEMSA_Logo.svg/4692px-FEMSA_Logo.svg.png"
-          />
+          <Link to="/">
+            <img className="sb-user-img" alt="imagen de perfil" src={logo} />
+          </Link>
         </div>
         <Link className="sd-user" to="/usuario">
           <li className="sd-user-li">

@@ -3,7 +3,7 @@ import MundetLata from ".//images/products/MundetLataFigura.png";
 import FrescaBotella from ".//images/products/FrescaBotellaFigura.png";
 import FuzeTea from ".//images/products/FuzeTeaFigura.png";
 import PoweradeMoraAzulBotella from ".//images/products/PoweradeBotellaFigura.png";
-import DelawarePunchBotella from ".//images/products/DelawareFigura.png";
+import DelawarePunchLata from ".//images/products/DelawareLataFigura.png";
 import JugoDelValle from ".//images/products/JugoDelValleFigura.png";
 import MundetBotella from ".//images/products/MundetBotellaFigura.png";
 import CocaColaBotella from ".//images/products/CocaColaBotellaFigura.png";
@@ -12,7 +12,6 @@ import CocaColaLata from ".//images/products/CocaColaLataFigura.png";
 import OtroProducto from ".//images/products/OtroProductoFigura.png";
 
 export const showSoda = (number) => {
-  console.log(number);
   switch (number) {
     case 1:
       return FrescaLata;
@@ -25,7 +24,7 @@ export const showSoda = (number) => {
     case 5:
       return PoweradeMoraAzulBotella;
     case 6:
-      return DelawarePunchBotella;
+      return DelawarePunchLata;
     case 7:
       return JugoDelValle;
     case 8:
