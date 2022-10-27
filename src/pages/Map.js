@@ -7,6 +7,7 @@ import StoreInfo from "../components/StoreInfo";
 import StoreSales from "../components/StoreSales";
 import SodaInfo from "../components/SodaInfo";
 import Refrigerator from "../components/Refrigerator";
+import { HiOutlineArrowUturnLeft } from "react-icons/hi2";
 
 function Map() {
   const { id } = useParams();
@@ -16,6 +17,7 @@ function Map() {
   const [selectedStoreInfo, setSelectedStoreInfo] = useState([]);
   const [markers, setMarkers] = useState([]);
   const [storeId, setStoreId] = useState();
+  const [storeName, setStoreName] = useState("");
   const [storeAddress, setStoreAddress] = useState();
   const [storeSales, setStoreSales] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9]);
   const [inventory, setInventory] = useState([1, 2, 3, 4]);
@@ -59,9 +61,7 @@ function Map() {
 
   const fetchStoreInfo = useCallback(
     async (idStore) => {
-      if (idStore === undefined) {
-        return;
-      }
+      if (idStore === undefined) return;
 
       if (!isShowingInfo) {
         setIsShowingInfo(true);
@@ -80,6 +80,7 @@ function Map() {
         setStoreAddress(data.address);
         setStoreSales(data.sales);
         handleInventory(data.stock);
+        setStoreName(data.name);
       } catch (error) {
         console.log(error.message);
       }
@@ -99,19 +100,37 @@ function Map() {
           isShowingFridge ? "ma-container--flex" : ""
         }`}
       >
-        <MapComponent
-          width={`${isShowingFridge ? "30%" : "100%"}`}
-          height={`${isShowingFridge ? "30%" : "100%"}`}
-          markers={markers}
-          onSelectStore={onSelectStoreHandler}
-          selectedStore={selectedStoreInfo}
-          isShowingInfo={isShowingInfo}
-        />
+        <div
+          style={{
+            boxShadow: "rgba(149, 157, 165, 0.2) 0px 2px 10px",
+            position: "relative",
+            width: `${isShowingFridge ? "30%" : "100%"}`,
+            height: `${isShowingFridge ? "30%" : "100%"}`,
+            marginTop: `${isShowingFridge ? "2rem" : ""}`,
+          }}
+        >
+          <MapComponent
+            markers={markers}
+            onSelectStore={onSelectStoreHandler}
+            selectedStore={selectedStoreInfo}
+            isShowingInfo={isShowingInfo}
+          />
+          {isShowingFridge && (
+            <button
+              onClick={() => {
+                setIsShowingFridge(false);
+              }}
+              className={`${isShowingFridge ? "ma-return-button" : ""}`}
+            >
+              <HiOutlineArrowUturnLeft color="white" size={20} />
+            </button>
+          )}
+        </div>
         {isShowingFridge && <Refrigerator inventory={inventory} />}
         {isShowingInfo && (
           <div className={`ma-info ${isShowingFridge ? "ma-info--flex" : ""}`}>
             <div className="ma-info-container">
-              <StoreInfo id={storeId} address={storeAddress} />
+              <StoreInfo id={storeId} name={storeName} address={storeAddress} />
               <StoreSales sales={storeSales} />
               {!isShowingFridge && (
                 <button

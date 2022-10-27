@@ -13,6 +13,10 @@ function StoreInfo(props) {
         </p>
       </div>
       <div className="si-info">
+        <p className="si-info-title">Nombre</p>
+        <p className="si-info-text">{props.name}</p>
+      </div>
+      <div className="si-info">
         <p className="si-info-title">Dirección</p>
         <p className="si-info-text">{props.address}</p>
       </div>
