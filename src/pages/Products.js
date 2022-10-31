@@ -9,9 +9,9 @@ import Select from "react-select";
 import toast, { Toaster } from 'react-hot-toast';
 
 function Products() {
-  const [, setStoresId, , setStoreName,,setProductId] = useContext(StoreContext); 
+  const [,,,,,setProductId] = useContext(StoreContext); 
   const [products, setProducts] = useState([]); 
-  const [lstNames, setLstNames] = useState([{"label": "Fanta"}]);
+  const [lstNames, setLstNames] = useState([{"label": ""}]);
 
   //Get Names
   useEffect(() => {
@@ -19,7 +19,8 @@ function Products() {
       .then((response) => response.json())
       .then((data) => {
         const names = data;
-        setLstNames(names);
+        setLstNames([{"label":""}].concat(data))
+        console.log(lstNames)
       })
   }, []);
 
@@ -54,7 +55,7 @@ function Products() {
   const changePrice = (event) => {
     setName(`'` + event.target.value + `'`);
     if (event.target.value === "") {
-      setName("price");
+      setPrice("price");
     }
   };
   const changeId = (event) => {
@@ -89,12 +90,12 @@ function Products() {
 
   //Search button
   const GetProducts = async () => {
-    /*const response = await fetch(
+    const response = await fetch(
       `${process.env.REACT_APP_BACKEND_URL}/store/getAllProducts?name=${name}&id=${id}&ean=${ean}&price=${price}`
     );
     const json = await response.json();
     console.log(json);
-    setStore(json);*/
+    setProducts(json);
     toast.success('Busqueda exitosa')
     console.log(id, name, ean, price);  
   };
@@ -162,33 +163,26 @@ function Products() {
           <td className="filter">
             <table className="filter-results">
               <td className="filter-results-td">
-                <th className="filter-th">Id</th>
+                <div className="filter-th">Id</div>
                 {products.length !== 0 &&
                   products.map((Products, index) => (
                     <tr className="filter-tr">{Products.id_product}</tr>
                   ))}
               </td>
               <td className="filter-results-td">
-                <th className="filter-th">Nombre</th>
+                <div className="filter-th">Nombre</div>
                 {products.length !== 0 &&
                   products.map((Products, index) => (
                     <tr className="filter-tr">
-                      <p className="filter-p">{Products.name}</p>
+                      <div className="filter-p">{Products.name}</div>
                     </tr>
                   ))}
                 {products.length === 0 && (
-                  <p className="no-stores">No se encontraron productos</p>
+                  <div className="no-stores">No se encontraron productos</div>
                 )}
               </td>
               <td className="filter-results-td">
-                <th className="filter-th">Precio</th>
-                {products.length !== 0 &&
-                  products.map((Products, index) => (
-                    <tr className="filter-tr">{Products.precio}</tr>
-                  ))}
-              </td>
-              <td className="filter-results-td">
-                <th className="filter-th">Ver</th>
+                <div className="filter-th">Ver</div>
                 {products.length !== 0 &&
                   products.map((product, index) => (
                     <tr className="filter-tr">
