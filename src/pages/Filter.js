@@ -116,103 +116,124 @@ function Filter() {
       <Navbar title="Inventario de Tienda" />
       <div className="filter-card">
         <p>Llena los campos para poder filtrar el resultado</p>
-        <table className="filter-table">
-          <td className="filter-results-td">
-            <tr className="filter-lable">Identificador:</tr>
-            <tr className="filter-lable">Nombre:</tr>
-            <tr className="filter-lable">Estado:</tr>
-            <tr className="filter-lable">Municipio:</tr>
-            <tr className="filter-lable">Status:</tr>
-          </td>
-          <td>
-            <tr>
-              <input className="filter-input" name="Id" onChange={changeId} />
-            </tr>
-            <tr>
-              <input
-                className="filter-input"
-                name="name"
-                onChange={changeName}
-              />
-            </tr>
-            <tr>
-              <div className="filter-select">
-                <Select
-                  defaultValue={""}
-                  options={states}
-                  placeholder=""
-                  value={selectedState}
-                  onChange={handleSelectState}
-                  isSearchable={true}
-                  styles={colourStyles}
-                />
-              </div>
-            </tr>
-            <tr>
-              <div className="filter-select">
-                <Select
-                  defaultValue={""}
-                  options={lstMunicupalities}
-                  placeholder=""
-                  value={selectedMun}
-                  onChange={handleSelectMun}
-                  isSearchable={true}
-                  styles={colourStyles}
-                />
-              </div>
-            </tr>
-            <tr>
-              <input
-                className="filter-input"
-                name="Status"
-                onChange={changeStatus}
-              />
-            </tr>
-            <tr>
-              <button className="filter-button" onClick={GetStores}>
-                Buscar
-              </button>
-            </tr>
-          </td>
-          <td className="filter">
-            <table className="filter-results">
-              <td className="filter-results-td">
-                <th className="filter-th">Identificador</th>
-                {stores.length !== 0 &&
-                  stores.map((Store, index) => (
-                    <tr className="filter-tr">{Store.id_store}</tr>
-                  ))}
-              </td>
-              <td className="filter-results-td">
-                <th className="filter-th">Nombre</th>
-                {stores.length !== 0 &&
-                  stores.map((Store, index) => (
-                    <tr className="filter-tr">
-                      <p className="filter-p">{Store.name}</p>
-                    </tr>
-                  ))}
-                {stores.length === 0 && (
-                  <p className="no-stores">No se encontraron tiendas</p>
-                )}
-              </td>
-              <td className="filter-results-td">
-                <th className="filter-th">Ver tienda</th>
-                {stores.length !== 0 &&
-                  stores.map((store, index) => (
-                    <tr className="filter-tr">
-                      <Link to={`/mapa/${store.id_store}`}>
-                        <BiChevronRightSquare
-                          className="filter-show"
-                          key={store.id}
-                          onClick={() => SetStoreId(store.id, store.name)}
-                        />
-                      </Link>
-                    </tr>
-                  ))}
-              </td>
+        <div className="filter">
+          <table className="filter-table">
+            <tbody>
+              <tr>
+                <td>Identificador:</td>
+                <td>
+                  <input
+                    className="filter-input"
+                    name="Id"
+                    onChange={changeId}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>Nombre:</td>
+                <td>
+                  <input
+                    className="filter-input"
+                    name="name"
+                    onChange={changeName}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>Estado:</td>
+                <td>
+                  <div className="filter-select">
+                    <Select
+                      defaultValue={""}
+                      options={states}
+                      placeholder=""
+                      value={selectedState}
+                      onChange={handleSelectState}
+                      isSearchable={true}
+                      styles={colourStyles}
+                    />
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Municipio:</td>
+                <td>
+                  <div className="filter-select">
+                    <Select
+                      defaultValue={""}
+                      options={lstMunicupalities}
+                      placeholder=""
+                      value={selectedMun}
+                      onChange={handleSelectMun}
+                      isSearchable={true}
+                      styles={colourStyles}
+                    />
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Status:</td>
+                <td>
+                  <input
+                    className="filter-input"
+                    name="Status"
+                    onChange={changeStatus}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>
+                  <button className="filter-button" onClick={GetStores}>
+                    Buscar
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div className="filter-table-container">
+            <table className="filter-table-2">
+              <tbody>
+                <tr>
+                  <th className="filter-titles">Identificador</th>
+                  <th className="filter-titles">Nombre</th>
+                  <th className="filter-titles">Ver tienda</th>
+                </tr>
+                <tr>
+                  <td>
+                    {stores.length !== 0 &&
+                      stores.map((Store, index) => (
+                        <div className="filter-results">{Store.id_store}</div>
+                      ))}
+                  </td>
+                  <td>
+                    {stores.length !== 0 &&
+                      stores.map((Store, index) => (
+                        <div className="filter-results">{Store.name}</div>
+                      ))}
+                    {stores.length === 0 && (
+                      <p className="no-stores">No se encontraron tiendas</p>
+                    )}
+                  </td>
+                  <td>
+                    {stores.length !== 0 &&
+                      stores.map((store, index) => (
+                        <div className="filter-results">
+                          <Link to={`/mapa/${store.id_store}`}>
+                            <BiChevronRightSquare
+                              className="filter-show"
+                              key={store.id}
+                              onClick={() => SetStoreId(store.id, store.name)}
+                            />
+                          </Link>
+                        </div>
+                      ))}
+                  </td>
+                </tr>
+              </tbody>
             </table>
-          </td>
-        </table>
+          </div>
+        </div>
       </div>
       <Toaster />
     </div>

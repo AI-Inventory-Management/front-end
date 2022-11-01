@@ -6,12 +6,12 @@ import { Link } from "react-router-dom";
 import { StoreContext } from "../components/StoreProvider";
 import { useContext, useEffect, useState } from "react";
 import Select from "react-select";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 
 function Products() {
-  const [,,,,,setProductId] = useContext(StoreContext); 
-  const [products, setProducts] = useState([]); 
-  const [lstNames, setLstNames] = useState([{"label": ""}]);
+  const [, , , , , setProductId] = useContext(StoreContext);
+  const [products, setProducts] = useState([]);
+  const [lstNames, setLstNames] = useState([{ label: "" }]);
 
   //Get Names
   useEffect(() => {
@@ -19,27 +19,25 @@ function Products() {
       .then((response) => response.json())
       .then((data) => {
         const names = data;
-        setLstNames([{"label":""}].concat(data))
-        console.log(lstNames)
-      })
+        setLstNames([{ label: "" }].concat(data));
+        console.log(lstNames);
+      });
   }, []);
 
-
   //Display selects info
-  const [selectedName, setSelectedName] = useState(); 
+  const [selectedName, setSelectedName] = useState();
 
   //Filter data recopilation
-  const [ean, setEan] = useState("ean"); 
+  const [ean, setEan] = useState("ean");
   const [name, setName] = useState("name");
   const [id, setId] = useState("id_product");
   const [price, setPrice] = useState("price");
 
   //Selects Changes
   function handleSelectName(data) {
-    if (data.label === ''){
-      setName("name") 
-    }
-    else{
+    if (data.label === "") {
+      setName("name");
+    } else {
       setName(`'` + data.label + `'`);
     }
     setSelectedName(data);
@@ -96,8 +94,8 @@ function Products() {
     const json = await response.json();
     console.log(json);
     setProducts(json);
-    toast.success('Busqueda exitosa')
-    console.log(id, name, ean, price);  
+    toast.success("Busqueda exitosa");
+    console.log(id, name, ean, price);
   };
 
   //Product button
@@ -113,79 +111,90 @@ function Products() {
         <Link to="/NewProduct">
           <div className="filter-add-button">
             <BiAddToQueue />
-            <span class="buttontext">Añadir Producto</span>
+            <span className="buttontext">Añadir Producto</span>
           </div>
         </Link>
+        <div className="filter">
         <table className="filter-table">
-          <td className="filter-results-td">
-            <tr className="filter-lable">Identificador:</tr>
-            <tr className="filter-lable">Precio:</tr>
-            <tr className="filter-lable">Nombre:</tr>
-            <tr className="filter-lable">EAN:</tr>
-          </td>
-          <td>
+          <tbody>
             <tr>
-              <input className="filter-input" name="Id" onChange={changeId} />
+              <td>Identificador:</td>
+              <td>
+                <input className="filter-input" name="Id" onChange={changeId} />
+              </td>
             </tr>
             <tr>
-              <input
-                className="filter-input"
-                name="precio"
-                onChange={changePrice}
-              />
-            </tr>
-            <tr>
-              <div className="filter-select">
-                <Select
-                  defaultValue={""}
-                  options={lstNames}
-                  placeholder=""
-                  value={selectedName}
-                  onChange={handleSelectName}
-                  isSearchable={true}
-                  styles={colourStyles}
+              <td>Precio:</td>
+              <td>
+                <input
+                  className="filter-input"
+                  name="precio"
+                  onChange={changePrice}
                 />
-              </div>
+              </td>
             </tr>
             <tr>
-              <input
-                className="filter-input"
-                name="ean"
-                onChange={changeEan}
-              />
+              <td>Nombre:</td>
+              <td>
+                <div className="filter-select">
+                  <Select
+                    defaultValue={""}
+                    options={lstNames}
+                    placeholder=""
+                    value={selectedName}
+                    onChange={handleSelectName}
+                    isSearchable={true}
+                    styles={colourStyles}
+                  />
+                </div>
+              </td>
             </tr>
             <tr>
-              <button className="filter-button" onClick={GetProducts}>
-                Buscar
-              </button>
+              <td>EAN:</td>
+              <td>
+                <input
+                  className="filter-input"
+                  name="ean"
+                  onChange={changeEan}
+                />
+              </td>
             </tr>
-          </td>
-          <td className="filter">
-            <table className="filter-results">
-              <td className="filter-results-td">
-                <div className="filter-th">Id</div>
+            <tr>
+              <td></td>
+              <td>
+                <button className="filter-button" onClick={GetProducts}>
+                  Buscar
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div className="filter-table-container">
+        <table className="filter-table-2">
+          <tbody>
+            <tr>
+              <th className="filter-titles">Id</th>
+              <th className="filter-titles">Nombre</th>
+              <th className="filter-titles">Ver</th>
+            </tr>
+            <tr>
+              <td>
                 {products.length !== 0 &&
                   products.map((Products, index) => (
-                    <tr className="filter-tr">{Products.id_product}</tr>
+                    <div className="filter-results">{Products.id_product}</div>
                   ))}
               </td>
-              <td className="filter-results-td">
-                <div className="filter-th">Nombre</div>
+              <td>
                 {products.length !== 0 &&
-                  products.map((Products, index) => (
-                    <tr className="filter-tr">
-                      <div className="filter-p">{Products.name}</div>
-                    </tr>
-                  ))}
+                  products.map((Products, index) => <div className="filter-results">{Products.name}</div>)}
                 {products.length === 0 && (
                   <div className="no-stores">No se encontraron productos</div>
                 )}
               </td>
-              <td className="filter-results-td">
-                <div className="filter-th">Ver</div>
+              <td>
                 {products.length !== 0 &&
                   products.map((product, index) => (
-                    <tr className="filter-tr">
+                    <div className="filter-results">
                       <Link to="/tiendas">
                         <BiChevronRightSquare
                           className="filter-show"
@@ -193,14 +202,16 @@ function Products() {
                           onClick={() => SetProductId(product.id)}
                         />
                       </Link>
-                    </tr>
+                    </div>
                   ))}
               </td>
-            </table>
-          </td>
+            </tr>
+          </tbody>
         </table>
+        </div>
       </div>
-      <Toaster/>
+      </div>
+      <Toaster />
     </div>
   );
 }
