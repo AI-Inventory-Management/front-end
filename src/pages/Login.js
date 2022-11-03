@@ -36,17 +36,15 @@ function Login() {
 
   return (
     <div className="login-background">
-      <div className="login-background-cover">
+      <div>
         <br/>
         <Card className="login-container">
-          <Card.Img
-            className="login-logo"
-            variant="top"
-            src={require(`../images/Riico-logo.png`)}
-          />
+          <h1>Login</h1>
           <Card.Body>
             <form onSubmit={handleSubmit}>
+            
               <label>
+              <h3>Username</h3>
                 <input
                   required
                   type="text"
@@ -59,6 +57,7 @@ function Login() {
               </label>
               <br />
               <label>
+                <h3>Password</h3>
                 <input
                   required
                   className="login-input"
@@ -70,7 +69,7 @@ function Login() {
                 />
               </label>
               <br />
-              <Button className="login-button" type="submit">Log in</Button>
+              <Button className="login-button" type="submit">Login</Button>
               <br/>
               <Link className="login-link"> Forgot Password?</Link>
             </form>
