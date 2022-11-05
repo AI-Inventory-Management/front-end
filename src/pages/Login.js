@@ -39,17 +39,16 @@ function Login() {
       <div>
         <br/>
         <Card className="login-container">
-          <h1>Login</h1>
+          <p className="login-title">Login</p>
+          <br/>
           <Card.Body>
             <form onSubmit={handleSubmit}>
-            
               <label>
-              <h3>Username</h3>
+              <p className="login-text">Username</p>
                 <input
                   required
                   type="text"
                   className="login-input"
-                  placeholder="Username"
                   name="username"
                   value={loginForm.username || ""}
                   onChange={handleInputChange}
@@ -57,24 +56,24 @@ function Login() {
               </label>
               <br />
               <label>
-                <h3>Password</h3>
+                <p className="login-text">Password</p>
                 <input
                   required
                   className="login-input"
                   type="password"
-                  placeholder="Password"
                   name="password"
                   value={loginForm.password || ""}
                   onChange={handleInputChange}
                 />
               </label>
               <br />
+              <Link className="login-link"> Forgot Password?</Link>
               <Button className="login-button" type="submit">Login</Button>
               <br/>
-              <Link className="login-link"> Forgot Password?</Link>
             </form>
           </Card.Body>
         </Card>
+        <p className="login-signup">Don't have an account? <Link style={{color: "rgb(130,42,38)"}}>Sign Up</Link></p>
       </div>
     </div>
   );

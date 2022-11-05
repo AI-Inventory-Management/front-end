@@ -1,49 +1,62 @@
 .login-input{
-    color:black;
+    color:rgb(130,42,38);
     background-color: rgb(255,255,255,0.5);
-    border: 0;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    border: 0.5;
+    height: 5rem;
+    width: 22rem;
+    border-color: rgb(202, 195, 195);
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
     margin-top: 10px;
     margin-bottom: 10px;
-    border-radius: 10px;
+    border-radius: 50px;
 }
 
 .login-button{
-    background-color: rgb(232,48,87);
+    background-color: rgb(130,42,38);
     color: white;
     font-weight: bold;
+    font-size: 14px;
+    width:22rem;
     letter-spacing: 1px;
-    padding: 0.8em 6em;
+    padding: 1rem 6rem;
     border-radius: 50px;
     cursor: pointer;
     outline: none;
-    border-color: rgb(232,48,87);
+    border-color: rgb(130,42,38);
     margin-top: 15px;
     margin-bottom: 15px;
 }
 
 .login-container{
-    text-align: center;
-    padding: 3em 2em;
-    width: min-content;
-    height: min-content;
+    text-align: left;
+    padding: 2rem 3rem;
+    width: 30rem;
+    height: 38rem;
     margin-left: 30vh;
-    margin-top: 30vh;
+    margin-top: 22vh;
     box-shadow: -1px 4px 28px 0px rgb(0 0 0 / 75%);
     align-items: center;
     align-content: center;
     align-self: center; 
+    border-radius: 30px;
     background-color:rgba(255, 255, 255, 0.04);
 }
 
 .login-title{
-    color: white;
-    font-size: 20px;
-    padding: 5px;
-    text-transform: uppercase;
+    color: black;
+    font-size: 32px;
+    font-weight: bold;
+    padding-bottom: 0.5rem;
+    padding-left: 0.5rem;
+}
+
+.login-text{
+    font-size: 16px;
+    font-weight:lighter;
+    padding-left: 1rem;
 }
 
 .login-logo{
@@ -64,8 +77,17 @@
 }
 
 .login-link{
-    text-transform: uppercase;
     padding: 5px;
-    color: white;
+    color: rgb(160, 160, 160);
     font-size: 12px;
+    text-align: right;
+}
+
+.login-signup{
+    padding: 5px;
+    padding-top: 2em;
+    color: rgb(0, 0, 0);
+    font-size: 15px;
+    text-align: left;
+    margin-left: 34.5vh;
 }

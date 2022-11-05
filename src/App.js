@@ -9,14 +9,18 @@ import Filter from "./pages/Filter";
 import StoreProvider from "./components/StoreProvider";
 import Newproduct from "./pages/NewProduct";
 import Login from "./pages/Login";
+import { useState } from "react";
 
+// Crear un estado de si es login o no
 
 function App() {
+  const [isLoginInactive, setLoginInactive] = useState(false);
+
   return (
     
     <Router>
       <div>
-        <Sidebar />
+        {isLoginInactive && <Sidebar />}
         <Routes className="content">
           <Route path="/" exact={true} element={<Dashboard />} />
           <Route path="/usuario" exact={true} element={<User />} />
