@@ -9,6 +9,7 @@ import Filter from "./pages/Filter";
 import StoreProvider from "./components/StoreProvider";
 import Newproduct from "./pages/NewProduct";
 import Products from "./pages/Products";
+import Product from "./pages/Product";
 
 function App() {
   return (
@@ -50,6 +51,7 @@ function App() {
               </StoreProvider>
             }
           />
+          <Route path="/product" exact = {true} element={<StoreProvider><Product/></StoreProvider>}/>
         </Routes>
       </div>
     </Router>

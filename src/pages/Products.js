@@ -18,9 +18,7 @@ function Products() {
     fetch(`${process.env.REACT_APP_BACKEND_URL}/store/getAllProductsNames`)
       .then((response) => response.json())
       .then((data) => {
-        const names = data;
         setLstNames([{ label: "" }].concat(data));
-        console.log(lstNames);
       });
   }, []);
 
@@ -51,7 +49,7 @@ function Products() {
     }
   };
   const changePrice = (event) => {
-    setName(`'` + event.target.value + `'`);
+    setPrice(event.target.value);
     if (event.target.value === "") {
       setPrice("price");
     }
@@ -92,7 +90,6 @@ function Products() {
       `${process.env.REACT_APP_BACKEND_URL}/store/getAllProducts?name=${name}&id=${id}&ean=${ean}&price=${price}`
     );
     const json = await response.json();
-    console.log(json);
     setProducts(json);
     toast.success("Busqueda exitosa");
     console.log(id, name, ean, price);
@@ -195,11 +192,11 @@ function Products() {
                 {products.length !== 0 &&
                   products.map((product, index) => (
                     <div className="filter-results">
-                      <Link to="/tiendas">
+                      <Link to="/product">
                         <BiChevronRightSquare
                           className="filter-show"
                           key={product.id}
-                          onClick={() => SetProductId(product.id)}
+                          onClick={() => SetProductId(product.name)}
                         />
                       </Link>
                     </div>

@@ -57,18 +57,22 @@ function Newproduct() {
       <div className="NewStore-card">
         <p>Llena los campos para crear un producto nuevo</p>
         <table className="NewStore-table">
-          <td className="filter-results-td">
-            <tr className="filter-lable">Nombre:</tr>
-            <tr className="filter-lable">Descripción:</tr>
-            <tr className="filter-lable">EAN:</tr>
-            <tr className="filter-lable">Precio:</tr>
-          </td>
-          <td>
-            <tr><input className="filter-input" onChange={changeName} value={name}/></tr>
-            <tr><input className="filter-input" onChange={changeDescription} value={description}/></tr>
-            <tr><input className="filter-input" onChange={changeEAN} value={ean}/></tr>
-            <tr><input className="filter-input" onChange={changePrice} value={price}/></tr>
-          </td>
+          <tr className="filter-results-td">
+            <td className="filter-lable">Nombre:</td>
+            <td><input className="filter-input" onChange={changeName} value={name}/></td>
+          </tr>
+          <tr>
+            <td className="filter-lable">Descripción:</td>
+            <td><input className="filter-input" onChange={changeDescription} value={description}/></td>
+          </tr>
+           <tr>
+            <td className="filter-lable">EAN:</td>
+            <td><input className="filter-input" onChange={changeEAN} value={ean}/></td>
+            </tr> 
+          <tr>
+            <td className="filter-lable">Precio:</td>
+            <td><input className="filter-input" onChange={changePrice} value={price}/></td>
+          </tr>
         </table>
         <Link to="/Products">
           <button className="filter-button">
