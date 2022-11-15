@@ -196,7 +196,7 @@ function Products() {
                         <BiChevronRightSquare
                           className="filter-show"
                           key={product.id}
-                          onClick={() => SetProductId(product.name)}
+                          onClick={() => SetProductId(product.id_product)}
                         />
                       </Link>
                     </div>
