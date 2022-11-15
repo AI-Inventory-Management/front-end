@@ -1,0 +1,93 @@
+.login-input{
+    color:rgb(130,42,38);
+    background-color: rgb(255,255,255,0.5);
+    border: 0.5;
+    height: 5rem;
+    width: 22rem;
+    border-color: rgb(202, 195, 195);
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 17px;
+}
+
+.login-button{
+    background-color: rgb(130,42,38);
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    width:22rem;
+    letter-spacing: 1px;
+    padding: 1rem 6rem;
+    border-radius: 17px;
+    cursor: pointer;
+    outline: none;
+    border-color: rgb(130,42,38);
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.login-container{
+    text-align: left;
+    padding: 2rem 3rem;
+    width: 30rem;
+    height: 42rem;
+    margin-left: 30vh;
+    margin-top: 22vh;
+    box-shadow: -1px 4px 28px 0px rgb(0 0 0 / 75%);
+    align-items: center;
+    align-content: center;
+    align-self: center; 
+    border-radius: 17px;
+    background-color:rgba(255, 255, 255, 0.04);
+}
+
+.login-title{
+    color: black;
+    font-size: 32px;
+    font-weight: bold;
+    padding-bottom: 0.5rem;
+    padding-left: 0.5rem;
+}
+
+.login-text{
+    font-size: 16px;
+    font-weight:700;
+    padding-left: 1rem;
+}
+
+.login-logo{
+    width: 100px;
+    height: 100px;
+}
+
+.login-background{
+    background-color: rgb(245, 243, 243);
+    background-size: cover;
+    position: relative;
+    min-height: 100vh;
+}
+
+.login-background-cover{
+    background-color:rgba(0, 0, 0, 0.7);
+    min-height: 100vh;
+}
+
+.login-link{
+    padding: 5px;
+    color: rgb(160, 160, 160);
+    font-size: 12px;
+    text-align: right;
+}
+
+.login-signup{
+    padding: 5px;
+    padding-top: 2em;
+    color: rgb(0, 0, 0);
+    font-size: 15px;
+    text-align: left;
+    margin-left: 34.5vh;
+}
