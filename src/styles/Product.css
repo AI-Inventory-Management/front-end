@@ -1,16 +1,16 @@
 .product-table{
     height: 350px;
-    font-size: 25px;
+    font-size: 20px;
     max-width: 90%;
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
     margin: 40px;
     text-align: start;
-    border-radius: 30px;
     width: 100%;
+    background-color:lightgray;
 }
 .product-input{
     border-color: lightcyan;
-    font-size: 25px;
+    font-size: 20px;
     font-weight: bold;
     padding: 5px;
     width: 100%;
@@ -19,10 +19,11 @@
     border: 0;
 }
 .product-td{
-    padding: 20px;
+    padding: 10px;
+    background-color: white;
 }
 .product-select{
-    font-size: 25px;
+    font-size: 20px;
     font-weight: bold;
     width: 30%;
 }

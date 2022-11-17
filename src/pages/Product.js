@@ -4,19 +4,51 @@ import { StoreContext } from "../components/StoreProvider";
 import "../styles/Filter.css";
 import Select from "react-select";
 import "../styles/Product.css";
+import toast, { Toaster } from "react-hot-toast";
 
 function Product() {
   const [, , , , productId] = useContext(StoreContext);
-  const [ProductData, setProductData] = useState([{name: "No disponible", description: "No disponible", ean: "No disponible", price: "No disponible", id_product: "No disponible"}]);
+  const [ProductData, setProductData] = useState([
+    {
+      name: "No disponible",
+      description: "No disponible",
+      ean: "No disponible",
+      price: "No disponible",
+      id_product: "No disponible",
+    },
+  ]);
+  const [Field, setField] = useState("");
 
   useEffect(() => {
-    console.log(productId)
     fetch(`${process.env.REACT_APP_BACKEND_URL}/store/getProduct/${productId}`)
       .then((response) => response.json())
       .then((data) => {
         setProductData(data);
       });
-  });
+  }, []);
+
+  const changefield = (event) => {
+    setField(event.target.value);
+  };
+
+  const Update = async () => {
+    if (Field !== "") {
+      const headers = new Headers({ "Content-Type": "application/json" });
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/store/postUpdateProduct`,
+        {
+          method: "POST",
+          body: JSON.stringify({ data: Field}),
+          headers: headers,
+        }
+      );
+      const json = await response.json();
+      console.log(json)
+    }
+    else{
+        toast.error("El campo está vacío")
+    }
+  };
 
   return (
     <div className="filter-container">
@@ -49,16 +81,28 @@ function Product() {
         <tbody>
           <tr>
             <td className="product-select">
-              <Select placeholder="Campo" options={[{ value: "-", label: "Campo"},{label:"Nombre"}, {label:"EAN"},{label:"Descripción"},{label:"Precio"}]}></Select>
+              <Select
+                placeholder="Campo"
+                options={[
+                  { value: "-", label: "Campo" },
+                  { label: "Nombre" },
+                  { label: "EAN" },
+                  { label: "Descripción" },
+                  { label: "Precio" },
+                ]}
+              ></Select>
             </td>
             <td>
-              <input className="product-input"></input>
+              <input className="product-input" onChange={changefield}></input>
             </td>
           </tr>
-          <td/>
-          <button className="filter-button">Actualizar Campo</button>
+          <td />
+          <button className="filter-button" onClick={Update}>
+            Actualizar Campo
+          </button>
         </tbody>
       </table>
+      <Toaster />
     </div>
   );
 }
