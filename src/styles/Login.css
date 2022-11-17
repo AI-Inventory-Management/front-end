@@ -2,17 +2,32 @@
     display: flex;
     justify-content: space-evenly;
 }
+.login-switch {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+}
 .login-container{
     display: flex;
     flex-direction: column;
     width: 30rem;
     gap: 1.8rem;
-    background-color: darksalmon;
+    background-color: rgb(234, 234, 234);
     padding: 2rem;
     border-radius: 13px;
+    box-shadow: -1px 4px 28px 0px rgb(0 0 0 / 75%);
 }
 
 .login-title{
+    cursor: pointer;
+}
+
+.login-title--inactive {
+    color: gray;
+
+}
+
+.login-subtitle{
     font-size: 2rem;
 }
 
@@ -35,8 +50,31 @@
 .login-button{
     border-radius: 13px;
     padding: 1rem;
+    background-color: rgb(130,42,38);
+    color: white;
+    font-weight:700;
+    font-size: 1.4rem;
+    cursor: pointer;
+
 }
 
+/* .login-button{
+    background-color: rgb(130,42,38);
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    width:22rem;
+    letter-spacing: 1px;
+    padding: 1rem 6rem;
+    border-radius: 17px;
+    cursor: pointer;
+    outline: none;
+    border-color: rgb(130,42,38);
+    margin-top: 15px;
+    margin-bottom: 15px;
+} */
+
+
 .login-image {
-    width: 1rem;
+    width: 10rem;
 }

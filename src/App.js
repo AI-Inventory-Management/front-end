@@ -14,7 +14,7 @@ import { useState } from "react";
 // Crear un estado de si es login o no
 
 function App() {
-  const [isLoginInactive, setLoginInactive] = useState(false);
+  const [isLoginInactive, setLoginInactive] = useState(true);
 
   return (
     
