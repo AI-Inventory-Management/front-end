@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../styles/Login.css";
-import image from "../images/Riico-logo.png";
+import image from "../images/RIICO blanco con nombre sin fondo.png";
 import { Button } from "react-bootstrap";
 
 function Login() {
@@ -18,13 +18,13 @@ function Login() {
 
   let content = (
     <>
-      <p className="login-subtitle"> Login</p>
+      <p className="login-subtitle">Login</p>
       <div className="login-input-container">
         <label className="login-label">Email</label>
         <input onChange={(e)=>{setEmail(e.target.value)}} required type="email" className="login-input" value={email} />
       </div>
       <div className="login-input-container">
-        <label className="login-label">Password</label>
+        <label className="login-label">Contraseña</label>
         <input required type="password" className="login-input" />
       </div>
       <Button className="login-button" type="submit">
@@ -36,7 +36,7 @@ function Login() {
   if (!isShowingSignin) {
     content = (
       <>
-        <p className="login-subtitle"> Signup</p>
+        <p className="login-subtitle">Sign Up</p>
         <div className="login-input-container">
           <label className="login-label">Nombre</label>
           <input required onChange={(e)=>{setName(e.target.value)}} type="text" value={name} className="login-input" />
@@ -50,7 +50,7 @@ function Login() {
           <input onChange={(e)=>{setEmail(e.target.value)}} required type="email" value={email} className="login-input" />
         </div>
         <div className="login-input-container">
-          <label className="login-label">Password</label>
+          <label className="login-label">Contraseña</label>
           <input onChange={(e)=>{setPassword(e.target.value)}} required type="password" value={password} className="login-input" />
         </div>
         <Button className="login-button" type="submit" onClick={handleSubmit}>
@@ -63,15 +63,15 @@ function Login() {
   return (
     <div className="login">
       <div>
-        <img src={image} className="login-image" />
+        <img src={image} alt = 'riico-logo'className="login-image" />
       </div>
-      <form className="login-container">
+      <div className="login-container">
         <div className="login-switch">
           <p className={`login-title ${isShowingSignin ? "":"login-title--inactive"}`} onClick={()=>{setIsShowingSignin(true)}}>Iniciar sesión</p>
           <p className={`login-title ${isShowingSignin ? "login-title--inactive":""}`} onClick={()=>{setIsShowingSignin(false)}}>Registrarse</p>
         </div>
         {content}
-      </form>
+      </div>
     </div>
   );
 }
