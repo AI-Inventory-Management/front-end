@@ -11,10 +11,72 @@ function Login() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleSignIn = (event) => {
     event.preventDefault();
-    alert(`Email:${email}, Password: ${password}`);
+    
+    const signInHeaders = new Headers();
+    signInHeaders.append("Content-Type", "application/json");
+
+    const signInJSON = JSON.stringify({
+      email: email,
+      password: password
+    });
+
+    const requestOptions = {
+      method: 'POST',
+      headers: signInHeaders,
+      body: signInJSON,
+      redirect: "follow"
+    };
+
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/signin`,
+    requestOptions)
+    .then((response)=> response.json())
+    .then((userData) => {
+        console.log('Success:', userData);
+        window.localStorage.setItem("role", userData.role);
+        window.localStorage.setItem("bearerToken", userData.AccessToken);
+      })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+  };
+
+  const handleSignUp = (event) => {
+    event.preventDefault();
+    
+    const signUpHeaders = new Headers();
+    signUpHeaders.append("Content-Type", "application/json");
+
+    const signUpJSON = JSON.stringify({
+      first_name: name,
+      last_name : lastName,
+      password : password,
+      email: email,
+      phone_number: `+52${phoneNumber}`,
+      role: "supervisor",
+      profile_picture: ""
+    
+    });
+
+    const requestOptions = {
+      method: 'POST',
+      headers: signUpHeaders,
+      body: signUpJSON,
+      redirect: "follow"
+    };
+
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/signup`,
+    requestOptions)
+    .then((response)=> response.json())
+    .then((result) => {
+        console.log('Success:', result);
+      })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
   };
 
   let content = (
@@ -25,9 +87,9 @@ function Login() {
       </div>
       <div className="login-input-container">
         <label className="login-label">Contraseña</label>
-        <input type="password" className="login-input" />
+        <input onChange={(e)=>{setPassword(e.target.value)}} type="password" className="login-input" value = {password}/>
       </div>
-      <Button className="login-button" type="submit" onClick = {handleSubmit}>
+      <Button className="login-button" type="submit" onClick = {handleSignIn}>
         Iniciar Sesión
       </Button>
     </>
@@ -49,6 +111,10 @@ function Login() {
           <input onChange={(e)=>{setEmail(e.target.value)}} required type="email" value={email} className="login-input" />
         </div>
         <div className="login-input-container">
+          <label className="login-label">Teléfono</label>
+          <input onChange={(e)=>{setPhoneNumber(e.target.value)}} required type="tel" pattern="/[0-9]{10}/" size='10' value={phoneNumber} className="login-input" />
+        </div>
+        <div className="login-input-container">
           <label className="login-label">Contraseña</label>
           <input onChange={(e)=>{setPassword(e.target.value)}} required type="password" value={password} className="login-input" />
         </div>
@@ -56,7 +122,7 @@ function Login() {
           <label className="login-label">Confirma tu contraseña</label>
           <input onChange={(e)=>{setConfirmPassword(e.target.value)}} required type="password" value={confirmPassword} className="login-input" />
         </div>
-        <Button className="login-button" type="submit" onClick={handleSubmit}>
+        <Button className="login-button" type="submit" onClick={handleSignUp}>
           Registrarse
         </Button>
       </>
