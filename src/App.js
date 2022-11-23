@@ -10,10 +10,10 @@ import StoreProvider from "./components/StoreProvider";
 import Newproduct from "./pages/NewProduct";
 import Products from "./pages/Products";
 import Product from "./pages/Product";
+import Login from './pages/Login';
 import { useState } from "react";
 
 function App() {
-
   const [isLoginActive, setIsLoginActive] = useState(true);
 
   const loginHandler = (loginState) => {
@@ -23,6 +23,7 @@ function App() {
   return (
     <Router>
       <div className="flex">
+        {!isLoginActive && <Sidebar />}
         <Sidebar />
         <Routes className="content">
           <Route path="/" exact={true} element={<Dashboard />} />
@@ -59,7 +60,20 @@ function App() {
               </StoreProvider>
             }
           />
-          <Route path="/product" exact = {true} element={<StoreProvider><Product/></StoreProvider>}/>
+          <Route
+            path="/product"
+            exact={true}
+            element={
+              <StoreProvider>
+                <Product />
+              </StoreProvider>
+            }
+          />
+          <Route
+            path="/login"
+            exact={true}
+            element={<Login onChangeLogin={loginHandler} />}
+          />
         </Routes>
       </div>
     </Router>
