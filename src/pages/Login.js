@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import "../styles/Login.css";
 import image from "../images/RIICO blanco con nombre sin fondo.png";
 import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
-function Login() {
+function Login(props) {
   const [isShowingSignin, setIsShowingSignin] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -12,6 +14,7 @@ function Login() {
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const navigate = useNavigate();
 
   const handleSignIn = (event) => {
     event.preventDefault();
@@ -38,6 +41,10 @@ function Login() {
         console.log('Success:', userData);
         window.localStorage.setItem("role", userData.role);
         window.localStorage.setItem("bearerToken", userData.AccessToken);
+        // Hide sidebar and redirect
+        props.onChangeLogin(false);
+        navigate("/");
+
       })
     .catch((error) => {
         console.error('Error:', error);

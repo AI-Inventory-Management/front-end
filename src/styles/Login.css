@@ -2,7 +2,7 @@
     display: flex;
     justify-content:center;
     align-items: center;
-    background-color: #1c3144;
+    background-color: #262626;
     overflow: hidden;
     height: 100vh;
 }
@@ -30,7 +30,7 @@
 
 .login-title{
     cursor: pointer;
-    color: #1c3144;
+    color: #3f3f3f;
 }
 
 .login-title--active{
@@ -68,15 +68,15 @@
     font-size: 1.6rem;
     padding: 1rem 1rem 1rem 2rem;
     background-color: rgb(181, 181, 181);
-    color:#8A0303;
+    color:darkred;
     border: none;
 }
 
 .login-button{
     border-radius: 20px;
     padding: 1rem;
-    background-color: #8A0303;
-    border-color: #8A0303;
+    background-color: darkred;
+    border-color: darkred;
     color: white;
     font-weight : 560;
     font-size: 1.6rem;

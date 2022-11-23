@@ -14,13 +14,17 @@ import { useState } from "react";
 // Crear un estado de si es login o no
 
 function App() {
-  const [isLoginInactive, setLoginInactive] = useState(false);
+  const [isLoginActive, setIsLoginActive] = useState(true);
+
+  const loginHandler = (loginState) => {
+    setIsLoginActive(loginState);
+  };
 
   return (
     
     <Router>
       <div>
-        {isLoginInactive && <Sidebar />}
+        {!isLoginActive && <Sidebar />}
         <Routes className="content">
           <Route path="/" exact={true} element={<Dashboard />} />
           <Route path="/usuario" exact={true} element={<User />} />
@@ -29,7 +33,7 @@ function App() {
           <Route path="*" exact={true} element={<Dashboard />} />
           <Route path='/filter' exact = {true} element={<StoreProvider><Filter/></StoreProvider>}/>
           <Route path='/NewProduct' exat = {true} element={<Newproduct/>}/>
-          <Route path='/login' exact={true} element ={<Login/>}/>
+          <Route path='/login' exact={true} element ={<Login onChangeLogin={loginHandler}/>}/>
         </Routes> 
       </div>
     </Router>
