@@ -10,8 +10,16 @@ import StoreProvider from "./components/StoreProvider";
 import Newproduct from "./pages/NewProduct";
 import Products from "./pages/Products";
 import Product from "./pages/Product";
+import { useState } from "react";
 
 function App() {
+
+  const [isLoginActive, setIsLoginActive] = useState(true);
+
+  const loginHandler = (loginState) => {
+    setIsLoginActive(loginState);
+  };
+
   return (
     <Router>
       <div className="flex">
