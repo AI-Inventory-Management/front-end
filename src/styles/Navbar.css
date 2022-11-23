@@ -10,18 +10,3 @@
   top: 0;
   width: 100%;
 }
-
-.nav-user-letter {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background-color: white;
-  padding: 2rem;
-  width: 2rem;
-  height: 2rem;
-}
-
-.nav-user-letter-link {
-  text-decoration: none;
-}

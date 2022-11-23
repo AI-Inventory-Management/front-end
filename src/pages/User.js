@@ -1,8 +1,17 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import "../styles/User.css";
 
-function User() {
+function User(props) {
+  const navigate = useNavigate();
+  const onSignOut = () => {
+    window.localStorage.removeItem("isLoggedIn");
+    window.localStorage.removeItem("role");
+    window.localStorage.removeItem("bearerToken");
+    props.onChangeLogin(false);
+    navigate("/login");
+  };
   return (
     <div className="us-container">
       <Navbar title="Usuario" />
@@ -17,12 +26,7 @@ function User() {
             <p>Post Malone</p>
             <p>Vive en USA y trabaja para él</p>
             <div style={{ marginTop: "2rem" }}>
-              <button
-                style={{
-                  padding: "1rem",
-                  borderRadius: "13px",
-                }}
-              >
+              <button className="us-info-button" onClick={onSignOut}>
                 Cerrar sesión
               </button>
             </div>

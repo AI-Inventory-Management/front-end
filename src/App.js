@@ -10,24 +10,38 @@ import StoreProvider from "./components/StoreProvider";
 import Newproduct from "./pages/NewProduct";
 import Products from "./pages/Products";
 import Product from "./pages/Product";
-import Login from './pages/Login';
-import { useState } from "react";
+import Login from "./pages/Login";
+import { useState, useEffect } from "react";
 
 function App() {
-  const [isLoginActive, setIsLoginActive] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const loginHandler = (loginState) => {
-    setIsLoginActive(loginState);
+    // setIsLoginA-ctive(loginState);
+    setIsLoggedIn(loginState);
   };
+
+  useEffect(() => {
+    const isLoggedInStorage = localStorage.getItem("isLoggedIn");
+
+    if (isLoggedInStorage === "true") {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, [isLoggedIn]);
 
   return (
     <Router>
       <div className="flex">
-        {!isLoginActive && <Sidebar />}
-        <Sidebar />
+        {isLoggedIn && <Sidebar />}
         <Routes className="content">
           <Route path="/" exact={true} element={<Dashboard />} />
-          <Route path="/usuario" exact={true} element={<User />} />
+          <Route
+            path="/usuario"
+            exact={true}
+            element={<User onChangeLogin={loginHandler} />}
+          />
           <Route path="/mapa" exact={true} element={<Map />} />
           <Route path="/mapa/:id" element={<Map />} />
           {/* <Route path="/mapa/:id/refri" element={<Map />} /> */}
