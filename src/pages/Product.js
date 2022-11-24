@@ -20,7 +20,7 @@ function Product() {
   const [Field, setField] = useState("");
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_BACKEND_URL}/store/getProduct/${productId}`)
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/product/getProduct/${productId}`)
       .then((response) => response.json())
       .then((data) => {
         setProductData(data);
