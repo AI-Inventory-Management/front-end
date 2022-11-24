@@ -19,10 +19,17 @@ function Login(props) {
   const navigate = useNavigate();
 
   const handleSignIn = (event) => {
+    if (
+      email === "" ||
+      password === ""
+    ) {
+      return;
+    }
+
     event.preventDefault();
 
     const signInHeaders = new Headers();
-    signInHeaders.append("Content-Type", "charset=UTF-8;application/json");
+    signInHeaders.append("Content-Type", "application/json");
 
     const signInJSON = JSON.stringify({
       email: email,
@@ -39,7 +46,8 @@ function Login(props) {
     fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/signin`, requestOptions)
       .then((response) => response.json())
       .then(function(userData) {
-        if (userData.status === 200){
+        console.log('STATUS', userData.status)
+        if (!userData.errors){
           console.log("Success:", userData);
           window.localStorage.setItem("isLoggedIn", true);
           window.localStorage.setItem("role", userData.role);
@@ -51,10 +59,9 @@ function Login(props) {
         }
         console.log(userData.errors)
         userData.errors.map(error => toast.error(error.msg));
-        //throw Error(userData);
       })
       .catch((error) => {
-        console.error("Probando que funcione Error:", error);
+        console.error("Error:", error);
       });
   };
 
@@ -157,6 +164,7 @@ function Login(props) {
           onChange={(e) => {
             setPassword(e.target.value);
           }}
+          required
           type="password"
           className="login-input"
           value={password}
