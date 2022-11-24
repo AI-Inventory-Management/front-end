@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Redirect,
+} from "react-router-dom";
 import Sidebar from "./layouts/Sidebar";
 import "./App.css";
 import Dashboard from "./pages/Dashboard";
@@ -36,7 +41,17 @@ function App() {
       <div className="flex">
         {isLoggedIn && <Sidebar />}
         <Routes className="content">
-          <Route path="/" exact={true} element={<Dashboard />} />
+          <Route
+            path="/"
+            exact={true}
+            element={
+              isLoggedIn ? (
+                <Dashboard />
+              ) : (
+                <Login onChangeLogin={loginHandler} />
+              )
+            }
+          />
           <Route
             path="/usuario"
             exact={true}
@@ -83,11 +98,11 @@ function App() {
               </StoreProvider>
             }
           />
-          <Route
+          {/* <Route
             path="/login"
             exact={true}
             element={<Login onChangeLogin={loginHandler} />}
-          />
+          /> */}
         </Routes>
       </div>
     </Router>
