@@ -22,7 +22,7 @@ function Login(props) {
     event.preventDefault();
 
     const signInHeaders = new Headers();
-    signInHeaders.append("Content-Type", "application/json");
+    signInHeaders.append("Content-Type", "charset=UTF-8;application/json");
 
     const signInJSON = JSON.stringify({
       email: email,
@@ -38,20 +38,23 @@ function Login(props) {
 
     fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/signin`, requestOptions)
       .then((response) => response.json())
-      .then((userData) => {
-        if (userData.status === 200) console.log(userData);
-        else console.log("error");
-        console.log("Success:", userData);
-
-        window.localStorage.setItem("isLoggedIn", true);
-        window.localStorage.setItem("role", userData.role);
-        window.localStorage.setItem("bearerToken", userData.AccessToken);
-        // Hide sidebar and redirect
-        props.onChangeLogin(true);
-        navigate("/");
+      .then(function(userData) {
+        if (userData.status === 200){
+          console.log("Success:", userData);
+          window.localStorage.setItem("isLoggedIn", true);
+          window.localStorage.setItem("role", userData.role);
+          window.localStorage.setItem("bearerToken", userData.AccessToken);
+          // Hide sidebar and redirect
+          props.onChangeLogin(true);
+          navigate("/");
+          return;
+        }
+        console.log(userData.errors)
+        userData.errors.map(error => toast.error(error.msg));
+        //throw Error(userData);
       })
       .catch((error) => {
-        console.error("Error:", error);
+        console.error("Probando que funcione Error:", error);
       });
   };
 
