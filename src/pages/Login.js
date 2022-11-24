@@ -3,17 +3,19 @@ import "../styles/Login.css";
 import image from "../images/RIICO blanco con nombre sin fondo.png";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 function Login(props) {
   const [isShowingSignin, setIsShowingSignin] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  const [isRegistering, setIsRegistering] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [verificationCode, setVerificationCode] = useState("");
+
   const navigate = useNavigate();
 
   const handleSignIn = (event) => {
@@ -54,6 +56,17 @@ function Login(props) {
   };
 
   const handleSignUp = (event) => {
+    if (
+      email === "" ||
+      password === "" ||
+      name === "" ||
+      lastName === "" ||
+      phoneNumber === "" ||
+      confirmPassword === ""
+    ) {
+      return;
+    }
+
     event.preventDefault();
 
     const signUpHeaders = new Headers();
@@ -80,6 +93,41 @@ function Login(props) {
       .then((response) => response.json())
       .then((result) => {
         console.log("Success:", result);
+        if (result.errors) {
+          result.errors.map((error) => toast.error(error.msg));
+          return;
+        }
+        setIsRegistering(true);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
+  const handleVerifyEmail = (event) => {
+    event.preventDefault();
+
+    const signUpHeaders = new Headers();
+    signUpHeaders.append("Content-Type", "application/json");
+
+    const signUpJSON = JSON.stringify({
+      email: email,
+      code: verificationCode,
+    });
+
+    const requestOptions = {
+      method: "POST",
+      headers: signUpHeaders,
+      body: signUpJSON,
+      redirect: "follow",
+    };
+
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/verify`, requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        console.log("Verified succesfully:", result);
+        setIsShowingSignin(true);
+        setIsRegistering(false);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -163,8 +211,8 @@ function Login(props) {
               setPhoneNumber(e.target.value);
             }}
             required
-            type="tel"
-            pattern="/[0-9]{10}/"
+            type="text"
+            pattern="[0-9]{10}"
             size="10"
             value={phoneNumber}
             className="login-input"
@@ -195,6 +243,35 @@ function Login(props) {
           />
         </div>
         <Button className="login-button" type="submit" onClick={handleSignUp}>
+          Continuar
+        </Button>
+      </>
+    );
+  }
+
+  if (isRegistering) {
+    content = (
+      <>
+        <div className="login-input-container">
+          <p>Ingresa el código de verificación que mandamos al correo: </p>
+          <p>{email}</p>
+          <label className="login-label">Código de 6 dígitos</label>
+          <input
+            required
+            onChange={(e) => {
+              setVerificationCode(e.target.value);
+            }}
+            type="text"
+            value={verificationCode}
+            className="login-input"
+            size="6"
+          />
+        </div>
+        <Button
+          className="login-button"
+          type="submit"
+          onClick={handleVerifyEmail}
+        >
           Registrarse
         </Button>
       </>
@@ -203,6 +280,7 @@ function Login(props) {
 
   return (
     <div className="login">
+      <Toaster />
       <div>
         <img src={image} alt="riico-logo" className="login-image" />
       </div>
@@ -214,6 +292,14 @@ function Login(props) {
             }`}
             onClick={() => {
               setIsShowingSignin(true);
+              setName("");
+              setLastName("");
+              setEmail("");
+              setPhoneNumber("");
+              setPassword("");
+              setConfirmPassword("");
+              setVerificationCode("");
+              setIsRegistering(false);
             }}
           >
             Iniciar sesión
@@ -224,6 +310,14 @@ function Login(props) {
             }`}
             onClick={() => {
               setIsShowingSignin(false);
+              setName("");
+              setLastName("");
+              setEmail("");
+              setPhoneNumber("");
+              setPassword("");
+              setConfirmPassword("");
+              setVerificationCode("");
+              setIsRegistering(false);
             }}
           >
             Registrarse
