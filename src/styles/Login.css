@@ -22,10 +22,10 @@
 .login-container {
   display: flex;
   flex-direction: column;
-  width: 30rem;
+  width: 40rem;
   gap: 1.8rem;
   background-color: #dad2d8;
-  padding: 3rem;
+  padding: 4rem;
   border-radius: 13px;
   box-shadow: -1px 4px 28px 0px rgb(0 0 0 / 75%);
   margin-left: 10rem;
@@ -38,7 +38,7 @@
 
 .login-title--active {
   /* transform: scale(1.1); */
-  font-size: 2rem;
+  font-size: 2.6rem;
   font-weight: bold;
 }
 
@@ -48,11 +48,11 @@
   font-size: 1.2rem;
 }
 
-.login-subtitle {
+/* .login-subtitle {
   font-size: 3.2rem;
   padding: 0rem 0rem 2rem 2rem;
   font-weight: 700;
-}
+} */
 
 .login-input-container {
   display: flex;

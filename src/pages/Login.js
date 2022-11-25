@@ -97,7 +97,7 @@ function Login(props) {
       password: password,
       email: email,
       phone_number: `+52${phoneNumber}`,
-      role: "supervisor",
+      role: "LOGISTICS",
       profile_picture: "",
     });
 

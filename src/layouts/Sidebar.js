@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../styles/Sidebar.css";
-import { SidebarData } from "./SidebarData";
+import { AdminSidebarData, SupervisorSidebarData } from "./SidebarData";
 import logo from "../images/logo/RIICO logo.png";
 import femaleImage from "../images/user/mujerEjecutiva.jpg";
 import maleImage from "../images/user/hombreEjecutivo.jpg";
@@ -45,16 +45,28 @@ function Sidebar() {
             <p>{firstName + " " + lastName}</p>
           </li>
         </Link>
-        {SidebarData.map((val, key) => {
-          return (
-            <Link key={key} className="sb-option" to={val.link}>
-              <li className="sb-option-li">
-                {val.icon}
-                <p className="sb-option-title">{val.title}</p>
-              </li>
-            </Link>
-          );
-        })}
+        {window.localStorage.getItem("role") === "SUPERVISOR" &&
+          AdminSidebarData.map((val, key) => {
+            return (
+              <Link key={key} className="sb-option" to={val.link}>
+                <li className="sb-option-li">
+                  {val.icon}
+                  <p className="sb-option-title">{val.title}</p>
+                </li>
+              </Link>
+            );
+          })}
+        {window.localStorage.getItem("role") === "LOGISTICS" &&
+          SupervisorSidebarData.map((val, key) => {
+            return (
+              <Link key={key} className="sb-option" to={val.link}>
+                <li className="sb-option-li">
+                  {val.icon}
+                  <p className="sb-option-title">{val.title}</p>
+                </li>
+              </Link>
+            );
+          })}
       </ul>
     </div>
   );
