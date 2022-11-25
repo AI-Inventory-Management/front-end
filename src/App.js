@@ -45,7 +45,7 @@ function App() {
             element={
               isLoggedIn ? (
                 currentRole === "SUPERVISOR" ?
-                <PrivateRoute roles = {['SUPERVISOR']} component={<Dashboard/>} />
+                <Dashboard/>
                 : (<Map/>)
               ) : (
                 <Login onChangeLogin={loginHandler} />

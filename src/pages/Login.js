@@ -343,6 +343,15 @@ function Login(props) {
             Registrarse
           </p>
         </div>
+        <div className="login-hr-container">
+          <hr className={`login-hr ${
+              isShowingSignin ? "login-hr--active" : "login-hr--inactive"
+            }`}/>
+          <hr className={`login-hr ${
+              isShowingSignin ? "login-hr--inactive" : "login-hr--active"
+            }`}/>
+        </div>
+        
         {content}
       </form>
     </div>

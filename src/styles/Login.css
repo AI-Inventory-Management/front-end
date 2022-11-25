@@ -34,25 +34,39 @@
 .login-title {
   cursor: pointer;
   color: #3f3f3f;
+  font-size: 1.2rem;
 }
 
 .login-title--active {
-  /* transform: scale(1.1); */
-  font-size: 2.6rem;
   font-weight: bold;
 }
 
 .login-title--inactive {
   color: gray;
-  /* transform: scale(0.7); */
-  font-size: 1.2rem;
 }
 
-/* .login-subtitle {
-  font-size: 3.2rem;
-  padding: 0rem 0rem 2rem 2rem;
-  font-weight: 700;
-} */
+.login-hr-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+}
+
+.login-hr {
+  height: 10px;
+  width:50%;
+}
+
+.login-hr--active {
+  background-color:black;
+
+}
+
+.login-hr--inactive {
+  background-color:gray;
+
+}
+
 
 .login-input-container {
   display: flex;
