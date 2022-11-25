@@ -34,7 +34,7 @@ function Newproduct() {
       const headers = new Headers({'Content-Type': 'application/json'})
       console.log(description, name, ean,price)
       const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/store/postNewProduct`,
+        `${process.env.REACT_APP_BACKEND_URL}/product/postNewProduct`,
         {method: 'POST', body: JSON.stringify({'name': name, 'description': description, 'ean': ean, 'price': price}), headers: headers}
       );
       const json = await response.json();
