@@ -23,7 +23,7 @@ function Login(props) {
       return;
     }
 
-    event.preventDefault();
+    //event.preventDefault();
 
     const signInHeaders = new Headers();
     signInHeaders.append("Content-Type", "application/json");
@@ -42,9 +42,8 @@ function Login(props) {
 
     fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/signin`, requestOptions)
       .then((response) => response.json())
-      .then(function (userData) {
-        console.log("STATUS", userData.status);
-        if (!userData.errors) {
+      .then(function(userData) {
+        if (!userData.errors){
           console.log("Success:", userData);
           window.localStorage.setItem("firstName", userData.first_name);
           window.localStorage.setItem("lastName", userData.last_name);
@@ -70,6 +69,12 @@ function Login(props) {
   };
 
   const handleSignUp = (event) => {
+    if (password !== confirmPassword) {
+      toast.error("Passwords must match.")
+      //event.preventDefault();
+      return; 
+    }
+
     if (
       email === "" ||
       password === "" ||
@@ -80,8 +85,8 @@ function Login(props) {
     ) {
       return;
     }
+    //event.preventDefault();
 
-    event.preventDefault();
 
     const signUpHeaders = new Headers();
     signUpHeaders.append("Content-Type", "application/json");
@@ -106,7 +111,7 @@ function Login(props) {
     fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/signup`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        console.log("Success:", result);
+        //console.log("Success:", result);
         if (result.errors) {
           result.errors.map((error) => toast.error(error.msg));
           return;
@@ -119,7 +124,7 @@ function Login(props) {
   };
 
   const handleVerifyEmail = (event) => {
-    event.preventDefault();
+    //event.preventDefault();
 
     const signUpHeaders = new Headers();
     signUpHeaders.append("Content-Type", "application/json");
@@ -299,7 +304,7 @@ function Login(props) {
       <div>
         <img src={image} alt="riico-logo" className="login-image" />
       </div>
-      <form className="login-container">
+      <form className="login-container" onSubmit={(e)=>e.preventDefault()}>
         <div className="login-switch">
           <p
             className={`login-title ${
