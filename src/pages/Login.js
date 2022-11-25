@@ -19,10 +19,7 @@ function Login(props) {
   const navigate = useNavigate();
 
   const handleSignIn = (event) => {
-    if (
-      email === "" ||
-      password === ""
-    ) {
+    if (email === "" || password === "") {
       return;
     }
 
@@ -45,10 +42,17 @@ function Login(props) {
 
     fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/signin`, requestOptions)
       .then((response) => response.json())
-      .then(function(userData) {
-        console.log('STATUS', userData.status)
-        if (!userData.errors){
+      .then(function (userData) {
+        console.log("STATUS", userData.status);
+        if (!userData.errors) {
           console.log("Success:", userData);
+          window.localStorage.setItem("firstName", userData.first_name);
+          window.localStorage.setItem("lastName", userData.last_name);
+          window.localStorage.setItem(
+            "profilePicture",
+            userData.profile_picture
+          );
+          window.localStorage.setItem("email", email);
           window.localStorage.setItem("isLoggedIn", true);
           window.localStorage.setItem("role", userData.role);
           window.localStorage.setItem("bearerToken", userData.AccessToken);
@@ -57,8 +61,8 @@ function Login(props) {
           navigate("/");
           return;
         }
-        console.log(userData.errors)
-        userData.errors.map(error => toast.error(error.msg));
+        console.log(userData.errors);
+        userData.errors.map((error) => toast.error(error.msg));
       })
       .catch((error) => {
         console.error("Error:", error);

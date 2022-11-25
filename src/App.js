@@ -93,11 +93,6 @@ function App() {
               </StoreProvider>
             }
           />
-          {/* <Route
-            path="/login"
-            exact={true}
-            element={<Login onChangeLogin={loginHandler} />}
-          /> */}
         </Routes>
       </div>
     </Router>

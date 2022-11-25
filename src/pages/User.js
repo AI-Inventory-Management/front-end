@@ -1,17 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import "../styles/User.css";
+import femaleImage from "../images/user/mujerEjecutiva.jpg";
+import maleImage from "../images/user/hombreEjecutivo.jpg";
 
 function User(props) {
+  const [isFemale, setIsFemale] = useState(true);
+  const firstName = window.localStorage.getItem("firstName");
+  const lastName = window.localStorage.getItem("lastName");
+  const role = window.localStorage.getItem("role");
+  const email = window.localStorage.getItem("email");
+
   const navigate = useNavigate();
+
   const onSignOut = () => {
     window.localStorage.removeItem("isLoggedIn");
     window.localStorage.removeItem("role");
     window.localStorage.removeItem("bearerToken");
     props.onChangeLogin(false);
-    navigate("/login");
+    navigate("/");
   };
+
+  const getNameGender = () => {
+    fetch(`https://api.genderize.io/?name=${firstName}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.gender === "male") {
+          setIsFemale(false);
+        }
+      });
+  };
+
+  useEffect(() => {
+    getNameGender();
+  });
+
   return (
     <div className="us-container">
       <Navbar title="Usuario" />
@@ -19,12 +43,15 @@ function User(props) {
         <div className="us-info-container">
           <img
             className="us-info-img"
-            alt="imagen de perfil"
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/OOjs_UI_icon_userAvatar.svg/2048px-OOjs_UI_icon_userAvatar.svg.png"
+            alt="user"
+            src={isFemale ? femaleImage : maleImage}
           />
           <div className="us-info-text">
-            <p>Post Malone</p>
-            <p>Vive en USA y trabaja para él</p>
+            <p className="us-info-role">
+              {role.charAt(0).toUpperCase() + role.slice(1)}
+            </p>
+            <p className="us-info-name">{firstName + " " + lastName}</p>
+            <p className="us-info-email">{email}</p>
             <div style={{ marginTop: "2rem" }}>
               <button className="us-info-button" onClick={onSignOut}>
                 Cerrar sesión
