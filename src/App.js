@@ -12,6 +12,7 @@ import Products from "./pages/Products";
 import Product from "./pages/Product";
 import Login from "./pages/Login";
 import { useState, useEffect } from "react";
+import Notifications from "./pages/Notifications";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -92,6 +93,11 @@ function App() {
                 <Product />
               </StoreProvider>
             }
+          />
+          <Route
+            path="/notifications"
+            exact={true}
+            element={<Notifications />}
           />
           {/* <Route
             path="/login"

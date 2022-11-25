@@ -2,6 +2,7 @@ import { RiRoadMapFill } from "react-icons/ri";
 import { MdSpaceDashboard } from "react-icons/md";
 import { IoStorefront } from "react-icons/io5";
 import { GiSodaCan } from "react-icons/gi";
+import { BsFillBellFill } from "react-icons/bs";
 
 export const SidebarData = [
   {
@@ -23,5 +24,10 @@ export const SidebarData = [
     title: "Productos",
     icon: <GiSodaCan />,
     link: "/Products",
+  },
+  {
+    title: "Notificaciones",
+    icon: <BsFillBellFill />,
+    link: "/notifications",
   },
 ];
