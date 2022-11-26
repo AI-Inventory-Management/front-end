@@ -1,0 +1,35 @@
+.verify-input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+}
+
+.verify-label {
+    padding-left: 2rem;
+    font-weight: 500;
+
+}
+
+.verify-input {
+    border-radius: 20px;
+    font-size: 1.6rem;
+    padding: 1rem 1rem 1rem 2rem;
+    background-color: rgb(181, 181, 181);
+    color: darkred;
+    border: none;
+
+}
+
+.verify-button {
+    border-radius: 20px;
+    padding: 1rem;
+    background-color: darkred;
+    border-color: darkred;
+    color: white;
+    font-weight: 560;
+    font-size: 1.6rem;
+    cursor: pointer;
+    margin-top: 1rem;
+
+}

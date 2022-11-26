@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import "../styles/Login.css";
 import image from "../images/RIICO blanco con nombre sin fondo.png";
-import { Button } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
+import SignInForm from "../components/SignInForm";
+import SignUpForm from "../components/SignUpForm";
+import VerifyForm from "../components/VerifyForm";
 
 function Login(props) {
   const [isShowingSignin, setIsShowingSignin] = useState(true);
@@ -15,256 +16,41 @@ function Login(props) {
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [verificationCode, setVerificationCode] = useState("");
-
-  const navigate = useNavigate();
-
-  const handleSignIn = (event) => {
-    if (email === "" || password === "") {
-      return;
-    }
-
-    //event.preventDefault();
-
-    const signInHeaders = new Headers();
-    signInHeaders.append("Content-Type", "application/json");
-
-    const signInJSON = JSON.stringify({
-      email: email,
-      password: password,
-    });
-
-    const requestOptions = {
-      method: "POST",
-      headers: signInHeaders,
-      body: signInJSON,
-      redirect: "follow",
-    };
-
-    fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/signin`, requestOptions)
-      .then((response) => response.json())
-      .then(function(userData) {
-        if (!userData.errors){
-          console.log("Success:", userData);
-          window.sessionStorage.setItem("firstName", userData.first_name);
-          window.sessionStorage.setItem("lastName", userData.last_name);
-          window.sessionStorage.setItem(
-            "profilePicture",
-            userData.profile_picture
-          );
-          window.sessionStorage.setItem("email", email);
-          window.sessionStorage.setItem("isLoggedIn", true);
-          window.sessionStorage.setItem("role", userData.role);
-          window.sessionStorage.setItem("bearerToken", userData.AccessToken);
-          // Hide sidebar and redirect
-          props.onChangeLogin(true);
-          navigate("/");
-          return;
-        }
-        console.log(userData.errors);
-        userData.errors.map((error) => toast.error(error.msg));
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  };
-
-  const handleSignUp = (event) => {
-    if (password !== confirmPassword) {
-      toast.error("Passwords must match.")
-      //event.preventDefault();
-      return; 
-    }
-
-    if (
-      email === "" ||
-      password === "" ||
-      name === "" ||
-      lastName === "" ||
-      phoneNumber === "" ||
-      confirmPassword === ""
-    ) {
-      return;
-    }
-    //event.preventDefault();
-
-
-    const signUpHeaders = new Headers();
-    signUpHeaders.append("Content-Type", "application/json");
-
-    const signUpJSON = JSON.stringify({
-      first_name: name,
-      last_name: lastName,
-      password: password,
-      email: email,
-      phone_number: `+52${phoneNumber}`,
-      role: "LOGISTICS",
-      profile_picture: "",
-    });
-
-    const requestOptions = {
-      method: "POST",
-      headers: signUpHeaders,
-      body: signUpJSON,
-      redirect: "follow",
-    };
-
-    fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/signup`, requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        //console.log("Success:", result);
-        if (result.errors) {
-          result.errors.map((error) => toast.error(error.msg));
-          return;
-        }
-        setIsRegistering(true);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  };
-
-  const handleVerifyEmail = (event) => {
-    //event.preventDefault();
-
-    const signUpHeaders = new Headers();
-    signUpHeaders.append("Content-Type", "application/json");
-
-    const signUpJSON = JSON.stringify({
-      email: email,
-      code: verificationCode,
-    });
-
-    const requestOptions = {
-      method: "POST",
-      headers: signUpHeaders,
-      body: signUpJSON,
-      redirect: "follow",
-    };
-
-    fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/verify`, requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        console.log("Verified succesfully:", result);
-        setIsShowingSignin(true);
-        setIsRegistering(false);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  };
-
+  
   let content = (
     <>
-      <div className="login-input-container">
-        <label className="login-label">Email</label>
-        <input
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-          required
-          type="email"
-          className="login-input"
-          value={email}
-        />
-      </div>
-      <div className="login-input-container">
-        <label className="login-label">Contraseña</label>
-        <input
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-          required
-          type="password"
-          className="login-input"
-          value={password}
-        />
-      </div>
-      <Button className="login-button" type="submit" onClick={handleSignIn}>
-        Iniciar Sesión
-      </Button>
+      <SignInForm
+        states={{
+          email: email,
+          setEmail: setEmail,
+          password: password,
+          setPassword: setPassword,
+          onChangeLogin: props.onChangeLogin,
+        }}
+      />
     </>
   );
 
   if (!isShowingSignin) {
     content = (
       <>
-        <div className="login-input-container">
-          <label className="login-label">Nombre</label>
-          <input
-            required
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
-            type="text"
-            value={name}
-            className="login-input"
-          />
-        </div>
-        <div className="login-input-container">
-          <label className="login-label">Apellido</label>
-          <input
-            onChange={(e) => {
-              setLastName(e.target.value);
-            }}
-            required
-            type="text"
-            value={lastName}
-            className="login-input"
-          />
-        </div>
-        <div className="login-input-container">
-          <label className="login-label">Email</label>
-          <input
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-            required
-            type="email"
-            value={email}
-            className="login-input"
-          />
-        </div>
-        <div className="login-input-container">
-          <label className="login-label">Teléfono</label>
-          <input
-            onChange={(e) => {
-              setPhoneNumber(e.target.value);
-            }}
-            required
-            type="text"
-            pattern="[0-9]{10}"
-            size="10"
-            value={phoneNumber}
-            className="login-input"
-          />
-        </div>
-        <div className="login-input-container">
-          <label className="login-label">Contraseña</label>
-          <input
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-            required
-            type="password"
-            value={password}
-            className="login-input"
-          />
-        </div>
-        <div className="login-input-container">
-          <label className="login-label">Confirma tu contraseña</label>
-          <input
-            onChange={(e) => {
-              setConfirmPassword(e.target.value);
-            }}
-            required
-            type="password"
-            value={confirmPassword}
-            className="login-input"
-          />
-        </div>
-        <Button className="login-button" type="submit" onClick={handleSignUp}>
-          Continuar
-        </Button>
+        <SignUpForm
+          states={{
+            email: email,
+            setEmail: setEmail,
+            password: password,
+            setPassword: setPassword,
+            confirmPassword: confirmPassword,
+            setConfirmPassword: setConfirmPassword,
+            name: name,
+            setName: setName,
+            lastName: lastName,
+            setLastName: setLastName,
+            phoneNumber: phoneNumber,
+            setPhoneNumber: setPhoneNumber,
+            setIsRegistering: setIsRegistering,
+          }}
+        />
       </>
     );
   }
@@ -272,28 +58,15 @@ function Login(props) {
   if (isRegistering) {
     content = (
       <>
-        <div className="login-input-container">
-          <p>Ingresa el código de verificación que mandamos al correo: </p>
-          <p>{email}</p>
-          <label className="login-label">Código de 6 dígitos</label>
-          <input
-            required
-            onChange={(e) => {
-              setVerificationCode(e.target.value);
-            }}
-            type="text"
-            value={verificationCode}
-            className="login-input"
-            size="6"
-          />
-        </div>
-        <Button
-          className="login-button"
-          type="submit"
-          onClick={handleVerifyEmail}
-        >
-          Registrarse
-        </Button>
+        <VerifyForm
+          states={{
+            email: email,
+            verificationCode: verificationCode,
+            setVerificationCode: setVerificationCode,
+            setIsShowingSignin: setIsShowingSignin,
+            setIsRegistering: setIsRegistering,
+          }}
+        />
       </>
     );
   }
@@ -304,7 +77,7 @@ function Login(props) {
       <div>
         <img src={image} alt="riico-logo" className="login-image" />
       </div>
-      <form className="login-container" onSubmit={(e)=>e.preventDefault()}>
+      <form className="login-container" onSubmit={(e) => e.preventDefault()}>
         <div className="login-switch">
           <p
             className={`login-title ${
@@ -344,14 +117,17 @@ function Login(props) {
           </p>
         </div>
         <div className="login-hr-container">
-          <hr className={`login-hr ${
+          <hr
+            className={`login-hr ${
               isShowingSignin ? "login-hr--active" : "login-hr--inactive"
-            }`}/>
-          <hr className={`login-hr ${
+            }`}
+          />
+          <hr
+            className={`login-hr ${
               isShowingSignin ? "login-hr--inactive" : "login-hr--active"
-            }`}/>
+            }`}
+          />
         </div>
-        
         {content}
       </form>
     </div>
