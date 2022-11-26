@@ -8,8 +8,8 @@ import maleImage from "../images/user/hombreEjecutivo.jpg";
 
 function Sidebar() {
   const [isFemale, setIsFemale] = useState(true);
-  const firstName = window.localStorage.getItem("firstName");
-  const lastName = window.localStorage.getItem("lastName");
+  const firstName = window.sessionStorage.getItem("firstName");
+  const lastName = window.sessionStorage.getItem("lastName");
 
   const getNameGender = () => {
     fetch(`https://api.genderize.io/?name=${firstName}`)
@@ -45,7 +45,7 @@ function Sidebar() {
             <p>{firstName + " " + lastName}</p>
           </li>
         </Link>
-        {window.localStorage.getItem("role") === "SUPERVISOR" &&
+        {window.sessionStorage.getItem("role") === "SUPERVISOR" &&
           AdminSidebarData.map((val, key) => {
             return (
               <Link key={key} className="sb-option" to={val.link}>
@@ -56,7 +56,7 @@ function Sidebar() {
               </Link>
             );
           })}
-        {window.localStorage.getItem("role") === "LOGISTICS" &&
+        {window.sessionStorage.getItem("role") === "LOGISTICS" &&
           SupervisorSidebarData.map((val, key) => {
             return (
               <Link key={key} className="sb-option" to={val.link}>

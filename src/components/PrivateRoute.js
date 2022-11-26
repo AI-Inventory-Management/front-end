@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 import { Route, redirect } from 'react-router-dom';
 
 function PrivateRoute(props) {
-    const currentRole = window.localStorage.getItem("role");
+    const currentRole = window.sessionStorage.getItem("role");
     console.log("roles", props.roles.includes(currentRole));
 
     if (!props.roles.includes(currentRole)) {

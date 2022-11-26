@@ -7,17 +7,17 @@ import maleImage from "../images/user/hombreEjecutivo.jpg";
 
 function User(props) {
   const [isFemale, setIsFemale] = useState(true);
-  const firstName = window.localStorage.getItem("firstName");
-  const lastName = window.localStorage.getItem("lastName");
-  const role = window.localStorage.getItem("role");
-  const email = window.localStorage.getItem("email");
+  const firstName = window.sessionStorage.getItem("firstName");
+  const lastName = window.sessionStorage.getItem("lastName");
+  const role = window.sessionStorage.getItem("role");
+  const email = window.sessionStorage.getItem("email");
 
   const navigate = useNavigate();
 
   const onSignOut = () => {
-    window.localStorage.removeItem("isLoggedIn");
-    window.localStorage.removeItem("role");
-    window.localStorage.removeItem("bearerToken");
+    window.sessionStorage.removeItem("isLoggedIn");
+    window.sessionStorage.removeItem("role");
+    window.sessionStorage.removeItem("bearerToken");
     props.onChangeLogin(false);
     navigate("/");
   };

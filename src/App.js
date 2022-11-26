@@ -17,7 +17,7 @@ import NotFound from "./pages/NotFound";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const currentRole = window.localStorage.getItem("role");
+  const currentRole = window.sessionStorage.getItem("role");
 
   const loginHandler = (loginState) => {
     // setIsLoginA-ctive(loginState);
@@ -25,7 +25,7 @@ function App() {
   };
 
   useEffect(() => {
-    const isLoggedInStorage = localStorage.getItem("isLoggedIn");
+    const isLoggedInStorage = sessionStorage.getItem("isLoggedIn");
 
     if (isLoggedInStorage === "true") {
       setIsLoggedIn(true);

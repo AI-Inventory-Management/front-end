@@ -45,16 +45,16 @@ function Login(props) {
       .then(function(userData) {
         if (!userData.errors){
           console.log("Success:", userData);
-          window.localStorage.setItem("firstName", userData.first_name);
-          window.localStorage.setItem("lastName", userData.last_name);
-          window.localStorage.setItem(
+          window.sessionStorage.setItem("firstName", userData.first_name);
+          window.sessionStorage.setItem("lastName", userData.last_name);
+          window.sessionStorage.setItem(
             "profilePicture",
             userData.profile_picture
           );
-          window.localStorage.setItem("email", email);
-          window.localStorage.setItem("isLoggedIn", true);
-          window.localStorage.setItem("role", userData.role);
-          window.localStorage.setItem("bearerToken", userData.AccessToken);
+          window.sessionStorage.setItem("email", email);
+          window.sessionStorage.setItem("isLoggedIn", true);
+          window.sessionStorage.setItem("role", userData.role);
+          window.sessionStorage.setItem("bearerToken", userData.AccessToken);
           // Hide sidebar and redirect
           props.onChangeLogin(true);
           navigate("/");
