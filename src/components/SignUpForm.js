@@ -1,64 +1,8 @@
 import React from "react";
 import { Button } from "react-bootstrap";
-import toast from "react-hot-toast";
 import "../styles/SignUpForm.css"
 
 export default function SignUpForm(props) {
-  const handleSignUp = (event) => {
-    if (props.states.password !== props.states.confirmPassword) {
-      toast.error("Passwords must match.");
-      //event.preventDefault();
-      return;
-    }
-
-    if (
-      props.states.email === "" ||
-      props.states.password === "" ||
-      props.states.name === "" ||
-      props.states.lastName === "" ||
-      props.states.phoneNumber === "" ||
-      props.states.confirmPassword === ""
-    ) {
-      return;
-    }
-    //event.preventDefault();
-
-    const signUpHeaders = new Headers();
-    signUpHeaders.append("Content-Type", "application/json");
-
-    const signUpJSON = JSON.stringify({
-      first_name: props.states.name,
-      last_name: props.states.lastName,
-      password: props.states.password,
-      email: props.states.email,
-      phone_number: `+52${props.states.phoneNumber}`,
-      role: "LOGISTICS",
-      profile_picture: "",
-    });
-
-    const requestOptions = {
-      method: "POST",
-      headers: signUpHeaders,
-      body: signUpJSON,
-      redirect: "follow",
-    };
-
-    fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/signup`, requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        //console.log("Success:", result);
-        if (result.errors) {
-          result.errors.map((error) => toast.error(error.msg));
-          return;
-        }
-        props.states.setIsRegistering(true);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  };
-
-  console.log('VERIFICANDING', props.states.email, props.states.password);
   return (
     <>
       <div className="signup-input-container">
@@ -135,7 +79,7 @@ export default function SignUpForm(props) {
           className="signup-input"
         />
       </div>
-      <Button className="signup-button" type="submit" onClick={handleSignUp}>
+      <Button className="signup-button" type="submit" onClick={props.states.handleSignUp}>
         Continuar
       </Button>
     </>
