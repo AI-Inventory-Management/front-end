@@ -5,7 +5,8 @@
   justify-content: space-between;
   height: 70px;
   padding: 0 3rem;
-  background-color: #f9fafb;
+  background-color: darkred;
+  color: white;
   position: sticky;
   top: 0;
   width: 100%;

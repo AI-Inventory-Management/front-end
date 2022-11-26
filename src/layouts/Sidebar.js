@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../styles/Sidebar.css";
 import { AdminSidebarData, SupervisorSidebarData } from "./SidebarData";
-import logo from "../images/logo/RIICO logo.png";
+import logo from "../images/logo/RIICO blanco sin nombre sin fondo.png";
 import femaleImage from "../images/user/mujerEjecutiva.jpg";
 import maleImage from "../images/user/hombreEjecutivo.jpg";
 
