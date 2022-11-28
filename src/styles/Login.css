@@ -25,16 +25,18 @@
 }
 
 .login-switch {
-  display: flex;
-  gap: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
   justify-content: center;
   align-items: center;
 }
 
 .login-title {
+  text-align: center;
   cursor: pointer;
   color: #3f3f3f;
-  font-size: 1.2rem;
+  font-size: 2rem;
 }
 
 .login-title--active {
@@ -45,24 +47,34 @@
   color: gray;
 }
 
-.login-hr-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: black;
+.login-border {
+  border-bottom: 0.5rem solid black;
+  animation-fill-mode: forwards;
 }
 
-.login-hr {
-  height: 10px;
-  width:50%;
+.login-border--right {
+  animation: rightt 0.2s linear;
+  animation-fill-mode: forwards;
 }
 
-.login-hr--active {
-  background-color:black;
-
+.login-border--left {
+  animation: leftt 0.2s linear;
 }
 
-.login-hr--inactive {
-  background-color:gray;
+@keyframes rightt {
+  0% {
+    transform: translate(0%);
+  }
+  100% {
+    transform: translate(106.5%);
+  }
+}
 
+@keyframes leftt {
+  0% {
+    transform: translate(106.5%);
+  }
+  100% {
+    transform: translate(0%);
+  }
 }
