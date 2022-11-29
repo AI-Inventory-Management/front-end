@@ -77,31 +77,6 @@ function Product() {
           </tr>
         </tbody>
       </table>
-      <table className="edit-table">
-        <tbody>
-          <tr>
-            <td className="product-select">
-              <Select
-                placeholder="Campo"
-                options={[
-                  { value: "-", label: "Campo" },
-                  { label: "Nombre" },
-                  { label: "EAN" },
-                  { label: "Descripción" },
-                  { label: "Precio" },
-                ]}
-              ></Select>
-            </td>
-            <td>
-              <input className="product-input" onChange={changefield}></input>
-            </td>
-          </tr>
-          <td />
-          <button className="filter-button" onClick={Update}>
-            Actualizar Campo
-          </button>
-        </tbody>
-      </table>
       <Toaster />
     </div>
   );

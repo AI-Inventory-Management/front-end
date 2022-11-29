@@ -7,15 +7,18 @@ import Stores from "./pages/Stores";
 import User from "./pages/User";
 import Filter from "./pages/Filter";
 import StoreProvider from "./components/StoreProvider";
+import PrivateRoute from "./components/PrivateRoute";
 import Newproduct from "./pages/NewProduct";
 import Products from "./pages/Products";
 import Product from "./pages/Product";
 import Login from "./pages/Login";
 import { useState, useEffect } from "react";
 import Notifications from "./pages/Notifications";
+import NotFound from "./pages/NotFound";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const currentRole = window.sessionStorage.getItem("role");
 
   const loginHandler = (loginState) => {
     // setIsLoginA-ctive(loginState);
@@ -23,7 +26,7 @@ function App() {
   };
 
   useEffect(() => {
-    const isLoggedInStorage = localStorage.getItem("isLoggedIn");
+    const isLoggedInStorage = sessionStorage.getItem("isLoggedIn");
 
     if (isLoggedInStorage === "true") {
       setIsLoggedIn(true);
@@ -42,7 +45,11 @@ function App() {
             exact={true}
             element={
               isLoggedIn ? (
-                <Dashboard />
+                currentRole === "SUPERVISOR" ? (
+                  <Dashboard />
+                ) : (
+                  <Map />
+                )
               ) : (
                 <Login onChangeLogin={loginHandler} />
               )
@@ -54,6 +61,8 @@ function App() {
             element={<User onChangeLogin={loginHandler} />}
           />
           <Route path="/mapa" exact={true} element={<Map />} />
+          <Route path="*" exact={true} element={<NotFound />} />
+
           <Route path="/mapa/:id" element={<Map />} />
           {/* <Route path="/mapa/:id/refri" element={<Map />} /> */}
           <Route
@@ -65,7 +74,7 @@ function App() {
               </StoreProvider>
             }
           />
-          <Route path="*" exact={true} element={<Dashboard />} />
+
           <Route
             path="/filter"
             exact={true}
@@ -75,10 +84,10 @@ function App() {
               </StoreProvider>
             }
           />
-          <Route path="/NewProduct" exat={true} element={<Newproduct />} />
+          <Route path="/NewProduct" exact={true} element={<Newproduct />} />
           <Route
             path="/Products"
-            exat={true}
+            exact={true}
             element={
               <StoreProvider>
                 <Products />

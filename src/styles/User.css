@@ -16,15 +16,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 3rem;
+  gap: 5rem;
   border-radius: 13px;
   background-color: rgb(136, 136, 136);
   padding: 5rem;
 }
 
 .us-info-img {
-  width: 10rem;
-  height: 10rem;
+  width: 20rem;
+  height: 20rem;
   border-radius: 50%;
   background-color: wheat;
 }
@@ -32,10 +32,27 @@
 .us-info-text {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.us-info-name {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-top: 1rem;
+}
+
+.us-info-role {
+  font-style: italic;
+  font-size: 1.6rem;
+}
+
+.us-info-email {
+  font-size: 1.6rem;
 }
 
 .us-info-button {
-  padding: 1rem;
+  padding: 2rem;
   border-radius: 13px;
   cursor: pointer;
   background-color: darkred;

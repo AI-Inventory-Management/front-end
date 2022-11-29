@@ -4,7 +4,7 @@ import { IoStorefront } from "react-icons/io5";
 import { GiSodaCan } from "react-icons/gi";
 import { BsFillBellFill } from "react-icons/bs";
 
-export const SidebarData = [
+export const AdminSidebarData = [
   {
     title: "Dashboard",
     icon: <MdSpaceDashboard />,
@@ -31,3 +31,22 @@ export const SidebarData = [
     link: "/notifications",
   },
 ];
+
+export const SupervisorSidebarData = [
+  {
+    title: "Mapa",
+    icon: <RiRoadMapFill />,
+    link: "/mapa",
+  },
+  {
+    title: "Tiendas",
+    icon: <IoStorefront />,
+    link: "/filter",
+  },
+  {
+    title: "Productos",
+    icon: <GiSodaCan />,
+    link: "/Products",
+  },
+];
+

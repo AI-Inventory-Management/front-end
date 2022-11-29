@@ -7,7 +7,7 @@ import StoreInfo from "../components/StoreInfo";
 import StoreSales from "../components/StoreSales";
 import SodaInfo from "../components/SodaInfo";
 import Refrigerator from "../components/Refrigerator";
-import { HiOutlineArrowUturnLeft } from "react-icons/hi2";
+import { HiOutlineArrowUturnLeft } from "react-icons/hi2"; 
 
 function Map() {
   const { id } = useParams();
