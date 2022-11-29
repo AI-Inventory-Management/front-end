@@ -36,9 +36,7 @@ function User(props) {
     const gender = localStorage.getItem("gender");
     if (gender === "male") return role;
 
-    if (role === "SUPERVISOR") {
-      return "SUPERVISORA";
-    }
+    if (role === "SUPERVISOR") return "SUPERVISORA";
     return "LOGISITICA";
   };
 

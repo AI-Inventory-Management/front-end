@@ -9,16 +9,16 @@
 }
 
 .login-image {
-  width: 50rem;
+  max-width: 50rem;
 }
 
 .login-container {
+  width: 40rem;
   display: flex;
   flex-direction: column;
-  width: 40rem;
   gap: 1.8rem;
   background-color: #dad2d8;
-  padding: 4rem;
+  padding: 0 4rem 4rem 4rem;
   border-radius: 13px;
   box-shadow: -1px 4px 28px 0px rgb(0 0 0 / 75%);
   margin-left: 10rem;
@@ -30,6 +30,11 @@
   gap: 1rem;
   justify-content: center;
   align-items: center;
+  position: sticky;
+  top: 0;
+  padding-top: 4rem;
+  background-color: #dad2d8;
+  margin-bottom: 1.5rem;
 }
 
 .login-title {
@@ -76,5 +81,24 @@
   }
   100% {
     transform: translate(0%);
+  }
+}
+
+@media (max-height: 800px) {
+  .login-container {
+    max-height: 70rem;
+    overflow-y: auto;
+  }
+}
+
+@media (max-height: 735px) {
+  .login-container {
+    max-height: 60rem;
+  }
+}
+
+@media (max-height: 635px) {
+  .login-container {
+    max-height: 50rem;
   }
 }
