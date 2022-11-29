@@ -48,5 +48,9 @@ export const SupervisorSidebarData = [
     icon: <GiSodaCan />,
     link: "/Products",
   },
+  {
+    title: "Notificaciones",
+    icon: <BsFillBellFill />,
+    link: "/notifications",
+  },
 ];
-

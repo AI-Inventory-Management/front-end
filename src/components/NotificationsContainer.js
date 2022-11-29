@@ -48,13 +48,10 @@ const NotificationsContainer = () => {
   };
 
   return (
-    <div className="nt-notifications-container">
-      <br />
+    <div>
+      <p className="nt-info">No leídas</p>
       <div className="nt-top">
-        <div className="nt-info">
-          <p>No leídas</p>
-        </div>
-        <div className="nt-not-read">
+        <div>
           {notifications.map((notification) => {
             if (notification.read === 0) {
               return (
@@ -72,13 +69,9 @@ const NotificationsContainer = () => {
           })}
         </div>
       </div>
-      <br />
-      <br />
-      <div>
-        <div className="nt-info">
-          <p>Leídas</p>
-        </div>
-        <div className="nt-read">
+      <p className="nt-info">Leídas</p>
+      <div className="nt-top">
+        <div>
           {notifications.map((notification) => {
             if (notification.read === 1) {
               return (

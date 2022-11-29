@@ -6,9 +6,7 @@ function Notifications() {
   return (
     <div className="nt-container">
       <Navbar title="Notification center" />
-      <div className="nt-grey-container">
-        <NotificationsContainer />
-      </div>
+      <NotificationsContainer />
     </div>
   );
 }
