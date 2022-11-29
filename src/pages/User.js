@@ -23,13 +23,23 @@ function User(props) {
   };
 
   const getNameGender = () => {
-    fetch(`https://api.genderize.io/?name=${firstName}`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.gender === "male") {
-          setIsFemale(false);
-        }
-      });
+    const gender = localStorage.getItem("gender");
+    if (gender) {
+      if (gender === "male") {
+        setIsFemale(false);
+      }
+      return;
+    }
+  };
+
+  const getRoleStr = (role) => {
+    const gender = localStorage.getItem("gender");
+    if (gender === "male") return role;
+
+    if (role === "SUPERVISOR") {
+      return "SUPERVISORA";
+    }
+    return "LOGISITICA";
   };
 
   useEffect(() => {
@@ -48,7 +58,8 @@ function User(props) {
           />
           <div className="us-info-text">
             <p className="us-info-role">
-              {role.charAt(0).toUpperCase() + role.slice(1)}
+              {getRoleStr(role).charAt(0).toUpperCase() +
+                getRoleStr(role).slice(1)}
             </p>
             <p className="us-info-name">{firstName + " " + lastName}</p>
             <p className="us-info-email">{email}</p>
