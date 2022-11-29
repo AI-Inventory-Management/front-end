@@ -2,6 +2,7 @@ import "../styles/Refrigerator.css";
 import { showSoda } from "../showSoda";
 
 function Refrigerator(props) {
+  console.log(props.inventory);
   return (
     <div className="rf-refrigerator">
       <div key="rf-grid1" className="rf-grid">
