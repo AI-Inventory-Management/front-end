@@ -33,7 +33,9 @@ function User(props) {
   };
 
   useEffect(() => {
-    getNameGender();
+    if (props.loggedIn) {
+      getNameGender();
+    }
   });
 
   return (

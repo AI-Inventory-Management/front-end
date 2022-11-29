@@ -2,25 +2,52 @@ import Navbar from "../components/Navbar";
 import "../styles/Filter.css";
 import { BiChevronRightSquare } from "react-icons/bi";
 import { BiAddToQueue } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { StoreContext } from "../components/StoreProvider";
 import { useContext, useEffect, useState } from "react";
 import Select from "react-select";
 import toast, { Toaster } from "react-hot-toast";
 
-function Products() {
+function Products(props) {
+  const navigate = useNavigate();
   const [, , , , , setProductId] = useContext(StoreContext);
   const [products, setProducts] = useState([]);
   const [lstNames, setLstNames] = useState([{ label: "" }]);
 
   //Get Names
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_BACKEND_URL}/product/getAllProductsNames`)
-      .then((response) => response.json())
-      .then((data) => {
-        setLstNames([{ label: "" }].concat(data));
-      });
-  }, []);
+    if (props.loggedIn === true){
+      const myHeadersToken = new Headers();
+      myHeadersToken.append("Content-Type", "application/json");
+      myHeadersToken.append(
+        "Authorization",
+        `Bearer ${window.sessionStorage.getItem("bearerToken")}`
+      );
+  
+      const requestOptionsGET = {
+        method: "GET",
+        headers: myHeadersToken,
+      };
+  
+      fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/product/getAllProductsNames`,
+        requestOptionsGET
+      )
+        .then((response) => {
+          // Authorization token
+          if (response.status === 401) {
+            window.sessionStorage.removeItem("isLoggedIn");
+            window.sessionStorage.removeItem("role");
+            window.sessionStorage.removeItem("bearerToken");
+            navigate("/");
+          }
+          response.json();
+        })
+        .then((data) => {
+          setLstNames([{ label: "" }].concat(data));
+        });
+    }
+  }, [navigate, props.loggedIn]);
 
   //Display selects info
   const [selectedName, setSelectedName] = useState();
@@ -84,11 +111,31 @@ function Products() {
     }),
   };
 
-  //Search button
   const GetProducts = async () => {
-    const response = await fetch(
-      `${process.env.REACT_APP_BACKEND_URL}/product/getAllProducts?name=${name}&id=${id}&ean=${ean}&price=${price}`
+    //Search button
+    const myHeadersToken = new Headers();
+    myHeadersToken.append("Content-Type", "application/json");
+    myHeadersToken.append(
+      "Authorization",
+      `Bearer ${window.sessionStorage.getItem("bearerToken")}`
     );
+
+    const requestOptionsGET = {
+      method: "GET",
+      headers: myHeadersToken,
+    };
+
+    const response = await fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/product/getAllProducts?name=${name}&id=${id}&ean=${ean}&price=${price}`,
+      requestOptionsGET
+    );
+    // Authorization token
+    if (response.status === 401) {
+      window.sessionStorage.removeItem("isLoggedIn");
+      window.sessionStorage.removeItem("role");
+      window.sessionStorage.removeItem("bearerToken");
+      navigate("/");
+    }
     const json = await response.json();
     setProducts(json);
     toast.success("Busqueda exitosa");
@@ -112,101 +159,111 @@ function Products() {
           </div>
         </Link>
         <div className="filter">
-        <table className="filter-table">
-          <tbody>
-            <tr>
-              <td>Identificador:</td>
-              <td>
-                <input className="filter-input" name="Id" onChange={changeId} />
-              </td>
-            </tr>
-            <tr>
-              <td>Precio:</td>
-              <td>
-                <input
-                  className="filter-input"
-                  name="precio"
-                  onChange={changePrice}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>Nombre:</td>
-              <td>
-                <div className="filter-select">
-                  <Select
-                    defaultValue={""}
-                    options={lstNames}
-                    placeholder=""
-                    value={selectedName}
-                    onChange={handleSelectName}
-                    isSearchable={true}
-                    styles={colourStyles}
+          <table className="filter-table">
+            <tbody>
+              <tr>
+                <td>Identificador:</td>
+                <td>
+                  <input
+                    className="filter-input"
+                    name="Id"
+                    onChange={changeId}
                   />
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>EAN:</td>
-              <td>
-                <input
-                  className="filter-input"
-                  name="ean"
-                  onChange={changeEan}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>
-                <button className="filter-button" onClick={GetProducts}>
-                  Buscar
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div className="filter-table-container">
-        <table className="filter-table-2">
-          <tbody>
-            <tr>
-              <th className="filter-titles">Id</th>
-              <th className="filter-titles">Nombre</th>
-              <th className="filter-titles">Ver</th>
-            </tr>
-            <tr>
-              <td>
-                {products.length !== 0 &&
-                  products.map((Products, index) => (
-                    <div className="filter-results">{Products.id_product}</div>
-                  ))}
-              </td>
-              <td>
-                {products.length !== 0 &&
-                  products.map((Products, index) => <div className="filter-results">{Products.name}</div>)}
-                {products.length === 0 && (
-                  <div className="no-stores">No se encontraron productos</div>
-                )}
-              </td>
-              <td>
-                {products.length !== 0 &&
-                  products.map((product, index) => (
-                    <div className="filter-results">
-                      <Link to="/product">
-                        <BiChevronRightSquare
-                          className="filter-show"
-                          key={product.id}
-                          onClick={() => SetProductId(product.id_product)}
-                        />
-                      </Link>
-                    </div>
-                  ))}
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                </td>
+              </tr>
+              <tr>
+                <td>Precio:</td>
+                <td>
+                  <input
+                    className="filter-input"
+                    name="precio"
+                    onChange={changePrice}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>Nombre:</td>
+                <td>
+                  <div className="filter-select">
+                    <Select
+                      defaultValue={""}
+                      options={lstNames}
+                      placeholder=""
+                      value={selectedName}
+                      onChange={handleSelectName}
+                      isSearchable={true}
+                      styles={colourStyles}
+                    />
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>EAN:</td>
+                <td>
+                  <input
+                    className="filter-input"
+                    name="ean"
+                    onChange={changeEan}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>
+                  <button className="filter-button" onClick={GetProducts}>
+                    Buscar
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div className="filter-table-container">
+            <table className="filter-table-2">
+              <tbody>
+                <tr>
+                  <th className="filter-titles">Id</th>
+                  <th className="filter-titles">Nombre</th>
+                  <th className="filter-titles">Ver</th>
+                </tr>
+                <tr>
+                  <td>
+                    {products.length !== 0 &&
+                      products.map((Products, index) => (
+                        <div className="filter-results">
+                          {Products.id_product}
+                        </div>
+                      ))}
+                  </td>
+                  <td>
+                    {products.length !== 0 &&
+                      products.map((Products, index) => (
+                        <div className="filter-results">{Products.name}</div>
+                      ))}
+                    {products.length === 0 && (
+                      <div className="no-stores">
+                        No se encontraron productos
+                      </div>
+                    )}
+                  </td>
+                  <td>
+                    {products.length !== 0 &&
+                      products.map((product, index) => (
+                        <div className="filter-results">
+                          <Link to="/product">
+                            <BiChevronRightSquare
+                              className="filter-show"
+                              key={product.id}
+                              onClick={() => SetProductId(product.id_product)}
+                            />
+                          </Link>
+                        </div>
+                      ))}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
       </div>
       <Toaster />
     </div>

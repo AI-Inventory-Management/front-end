@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../styles/Sidebar.css";
 import { AdminSidebarData, SupervisorSidebarData } from "./SidebarData";
 import logo from "../images/logo/RIICO blanco sin nombre sin fondo.png";
@@ -7,13 +7,14 @@ import femaleImage from "../images/user/mujerEjecutiva.jpg";
 import maleImage from "../images/user/hombreEjecutivo.jpg";
 
 function Sidebar() {
+  const navigate = useNavigate();
   const [isFemale, setIsFemale] = useState(true);
   const firstName = window.sessionStorage.getItem("firstName");
   const lastName = window.sessionStorage.getItem("lastName");
 
   const getNameGender = () => {
     fetch(`https://api.genderize.io/?name=${firstName}`)
-      .then((response) => response.json())
+      .then((response) => {response.json()})
       .then((data) => {
         if (data.gender === "male") {
           setIsFemale(false);
@@ -24,7 +25,7 @@ function Sidebar() {
   useEffect(() => {
     getNameGender();
     console.log("aa");
-  });
+  },);
 
   return (
     <div className="sb-sidebar">

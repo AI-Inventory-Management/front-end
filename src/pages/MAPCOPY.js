@@ -7,7 +7,8 @@ import StoreInfo from "../components/StoreInfo";
 import StoreSales from "../components/StoreSales";
 import SodaInfo from "../components/SodaInfo";
 import Refrigerator from "../components/Refrigerator";
-import { HiOutlineArrowUturnLeft } from "react-icons/hi2";
+import { HiOutlineArrowUturnLeft } from "react-icons/hi2"; 
+
 
 function Map(props) {
   const { id } = useParams();
@@ -59,7 +60,7 @@ function Map(props) {
     setInventory(stock2);
   };
 
-  const fetchStoreInfo =
+  const fetchStoreInfo = useCallback(
     async (idStore) => {
       if (idStore === undefined) return;
 
@@ -70,21 +71,18 @@ function Map(props) {
       try {
         const myHeadersToken = new Headers();
         myHeadersToken.append("Content-Type", "application/json");
-        myHeadersToken.append(
-          "Authorization",
-          `Bearer ${window.sessionStorage.getItem("bearerToken")}`
-        );
-
+        myHeadersToken.append("Authorization", `Bearer ${window.sessionStorage.getItem("bearerToken")}`);
+      
         const requestOptionsGET = {
           method: "GET",
           headers: myHeadersToken,
         };
+
         const response = await fetch(
-          `${process.env.REACT_APP_BACKEND_URL}/store/getStoreData/${idStore}`,
-          requestOptionsGET
+          `${process.env.REACT_APP_BACKEND_URL}/store/getStoreData/${idStore}`, requestOptionsGET
         );
         // Authorization token
-        if (response.status === 401) {
+        if (response.status === 401){
           window.sessionStorage.removeItem("isLoggedIn");
           window.sessionStorage.removeItem("role");
           window.sessionStorage.removeItem("bearerToken");
@@ -95,7 +93,7 @@ function Map(props) {
         }
 
         const data = await response.json();
-        console.log('DATA', data)
+
         setStoreAddress(data.address);
         setStoreSales(data.sales);
         handleInventory(data.stock);
@@ -103,13 +101,13 @@ function Map(props) {
       } catch (error) {
         console.log(error.message);
       }
-    };
+    }, [isShowingInfo]);
 
   useEffect(() => {
     if (props.loggedIn === true) {
       fetchStoreInfo(id);
     }
-  }, [isShowingInfo, id, props.loggedIn]);
+  }, [fetchStoreInfo, id, props.loggedIn]);
 
   return (
     <div className="ma-map">
@@ -133,7 +131,7 @@ function Map(props) {
             onSelectStore={onSelectStoreHandler}
             selectedStore={selectedStoreInfo}
             isShowingInfo={isShowingInfo}
-            loggedIn={props.loggedIn}
+            loggedIn ={props.loggedIn}
           />
           {isShowingFridge && (
             <button

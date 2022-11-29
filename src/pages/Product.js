@@ -5,8 +5,10 @@ import "../styles/Filter.css";
 import Select from "react-select";
 import "../styles/Product.css";
 import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
-function Product() {
+function Product(props) {
+  const navigate = useNavigate();
   const [, , , , productId] = useContext(StoreContext);
   const [ProductData, setProductData] = useState([
     {
@@ -20,12 +22,38 @@ function Product() {
   const [Field, setField] = useState("");
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_BACKEND_URL}/product/getProduct/${productId}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setProductData(data);
-      });
-  }, []);
+    if (props.loggedIn === true){
+      const myHeadersToken = new Headers();
+      myHeadersToken.append("Content-Type", "application/json");
+      myHeadersToken.append("Authorization", `Bearer ${window.sessionStorage.getItem("bearerToken")}`);
+    
+      const requestOptionsGET = {
+        method: "GET",
+        headers: myHeadersToken,
+      };
+  
+      fetch(`${process.env.REACT_APP_BACKEND_URL}/product/getProduct/${productId}`, requestOptionsGET)
+        .then((response) =>{
+          //console.log('RESPONSE', response);
+          // Authorization token
+          if (response.status === 401){
+            window.sessionStorage.removeItem("isLoggedIn");
+            window.sessionStorage.removeItem("role");
+            window.sessionStorage.removeItem("bearerToken");
+            navigate("/");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log('DATA', data);
+          setProductData(data);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+
+    }
+  }, [navigate, productId, props.loggedIn]);
 
   const changefield = (event) => {
     setField(event.target.value);
@@ -33,7 +61,7 @@ function Product() {
 
   const Update = async () => {
     if (Field !== "") {
-      const headers = new Headers({ "Content-Type": "application/json" });
+      const headers = new Headers({ "Content-Type": "application/json", "Authorization": `Bearer ${window.sessionStorage.getItem("bearerToken")}` });
       const response = await fetch(
         `${process.env.REACT_APP_BACKEND_URL}/store/postUpdateProduct`,
         {
@@ -42,6 +70,13 @@ function Product() {
           headers: headers,
         }
       );
+      // Authorization token
+      if (response.status === 401){
+        window.sessionStorage.removeItem("isLoggedIn");
+        window.sessionStorage.removeItem("role");
+        window.sessionStorage.removeItem("bearerToken");
+        navigate("/");
+      }
       const json = await response.json();
       console.log(json)
     }
@@ -52,6 +87,7 @@ function Product() {
 
   return (
     <div className="filter-container">
+      {/* {console.log('PRODUCT DATA', ProductData[0])} */}
       <Navbar title={String(ProductData[0].name)} />
       <table className="product-table">
         <tbody>

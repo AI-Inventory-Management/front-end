@@ -102,6 +102,9 @@ function Login(props) {
       .then(function (userData) {
         if (!userData.errors) {
           console.log("Success:", userData);
+          window.sessionStorage.setItem("bearerToken", userData.AccessToken);
+          window.sessionStorage.setItem("isLoggedIn", true);
+          props.onChangeLogin(true);
           window.sessionStorage.setItem("firstName", userData.first_name);
           window.sessionStorage.setItem("lastName", userData.last_name);
           window.sessionStorage.setItem(
@@ -109,11 +112,8 @@ function Login(props) {
             userData.profile_picture
           );
           window.sessionStorage.setItem("email", email);
-          window.sessionStorage.setItem("isLoggedIn", true);
           window.sessionStorage.setItem("role", userData.role);
-          window.sessionStorage.setItem("bearerToken", userData.AccessToken);
-          // Hide sidebar and redirect
-          props.onChangeLogin(true);
+          // Show sidebar and redirect
           navigate("/");
           return;
         }

@@ -2,7 +2,7 @@ import Navbar from "../components/Navbar";
 import "../styles/Filter.css";
 import { BiChevronRightSquare } from "react-icons/bi";
 import { BiAddToQueue } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { StoreContext } from "../components/StoreProvider";
 import { useContext, useState } from "react";
 import Select from "react-select";
@@ -11,6 +11,7 @@ import mun from "../municipality.json";
 import toast, { Toaster } from "react-hot-toast";
 
 function Filter() {
+  const navigate = useNavigate();
   const [, setStoresId, , setStoreName] = useContext(StoreContext); //Selected store info
   const [stores, setStore] = useState([]); //List of stores after the filters
 
@@ -95,9 +96,25 @@ function Filter() {
 
   //Search button
   const GetStores = async () => {
+    const myHeadersToken = new Headers();
+    myHeadersToken.append("Content-Type", "application/json");
+    myHeadersToken.append("Authorization", `Bearer ${window.sessionStorage.getItem("bearerToken")}`);
+  
+    const requestOptionsGET = {
+      method: "GET",
+      headers: myHeadersToken,
+    };
+
     const response = await fetch(
-      `${process.env.REACT_APP_BACKEND_URL}/store/getAllStores?name=${name}&id=${id}&status=${status}&state=${state}&municipality=${municipality}`
+      `${process.env.REACT_APP_BACKEND_URL}/store/getAllStores?name=${name}&id=${id}&status=${status}&state=${state}&municipality=${municipality}`, requestOptionsGET
     );
+    if (response.status === 401){
+      // Authorization token
+      window.sessionStorage.removeItem("isLoggedIn");
+      window.sessionStorage.removeItem("role");
+      window.sessionStorage.removeItem("bearerToken");
+      navigate("/");
+    }
     const json = await response.json();
     console.log(json);
     setStore(json);

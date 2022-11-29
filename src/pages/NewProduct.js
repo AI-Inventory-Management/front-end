@@ -3,9 +3,11 @@ import Navbar from "../components/Navbar";
 import "../styles/NewProduct.css";
 import "../styles/Filter.css";
 import toast, { Toaster } from 'react-hot-toast';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Newproduct() {
+  const navigate = useNavigate();
+
   const [price, setPrice] = useState();
   const [name, setName] = useState();
   const [description, setDescription] = useState();
@@ -31,12 +33,19 @@ function Newproduct() {
       toast.error('Debes llenar todos los campos')
     }
     else{
-      const headers = new Headers({'Content-Type': 'application/json'})
+      const headers = new Headers({'Content-Type': 'application/json', "Authorization": `Bearer ${window.sessionStorage.getItem("bearerToken")}`})
       console.log(description, name, ean,price)
       const response = await fetch(
         `${process.env.REACT_APP_BACKEND_URL}/product/postNewProduct`,
         {method: 'POST', body: JSON.stringify({'name': name, 'description': description, 'ean': ean, 'price': price}), headers: headers}
       );
+      // Authorization token
+      if (response.status === 401){
+        window.sessionStorage.removeItem("isLoggedIn");
+        window.sessionStorage.removeItem("role");
+        window.sessionStorage.removeItem("bearerToken");
+        navigate("/");
+      }
       const json = await response.json();
       if (json.message === "success"){
         toast.success('Se ha creado un producto nuevo')

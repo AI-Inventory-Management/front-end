@@ -1,6 +1,7 @@
 import { GoogleMap, MarkerF, useJsApiLoader } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { redirect, useNavigate } from "react-router-dom";
 
 const Map = (props) => {
   const navigate = useNavigate();
@@ -39,21 +40,67 @@ const Map = (props) => {
   };
 
   // consultar todos las tiendas del back
-  const getMarkerData = async () => {
-    fetch(
-      `${process.env.REACT_APP_BACKEND_URL}/store/getStoreCoordinates`
-    ).then((response) => {
-      response.json().then((result) => {
-        //console.log(result);
-        setMarkers(result);
-      });
-    });
-  };
+  // const getMarkerData = async () => {
+  //   var myHeadersToken = new Headers();
+  //   myHeadersToken.append("Content-Type", "application/json");
+  //   myHeadersToken.append(
+  //     "Authorization",
+  //     `Bearer ${window.sessionStorage.getItem("bearerToken")}`
+  //   );
 
-  // ejecutar la consulta cuando cargue la página
+  //   const requestOptionsGET = {
+  //     method: "GET",
+  //     headers: myHeadersToken,
+  //   };
+
+  //   fetch(
+  //     `${process.env.REACT_APP_BACKEND_URL}/store/getStoreCoordinates`,
+  //     requestOptionsGET
+  //   ).then(function (response) {
+  //     if (response.status === 401) {
+  //       // Authorization token
+  //       window.sessionStorage.removeItem("isLoggedIn");
+  //       window.sessionStorage.removeItem("role");
+  //       window.sessionStorage.removeItem("bearerToken");
+  //       navigate("/");
+  //     }
+  //     response.json().then((result) => {
+  //       setMarkers(result);
+  //     });
+  //   });
+  //};
+    // ejecutar la consulta cuando cargue la página
   useEffect(() => {
-    getMarkerData();
-  }, []);
+    if (props.loggedIn === true) {
+      // getMarkerData();
+      var myHeadersToken = new Headers();
+      myHeadersToken.append("Content-Type", "application/json");
+      myHeadersToken.append(
+        "Authorization",
+        `Bearer ${window.sessionStorage.getItem("bearerToken")}`
+      );
+  
+      const requestOptionsGET = {
+        method: "GET",
+        headers: myHeadersToken,
+      };
+      fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/store/getStoreCoordinates`,
+        requestOptionsGET
+      ).then(function (response) {
+        if (response.status === 401) {
+          // Authorization token
+          window.sessionStorage.removeItem("isLoggedIn");
+          window.sessionStorage.removeItem("role");
+          window.sessionStorage.removeItem("bearerToken");
+          navigate("/");
+        }
+        response.json().then((result) => {
+          setMarkers(result);
+        });
+      });
+    }
+  }, [navigate, props.loggedIn]);
 
   if (!isLoaded) {
     return <div>Pou</div>;
