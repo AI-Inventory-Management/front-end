@@ -13,6 +13,7 @@ import Products from "./pages/Products";
 import Product from "./pages/Product";
 import Login from "./pages/Login";
 import { useState, useEffect } from "react";
+import Notifications from "./pages/Notifications";
 import NotFound from "./pages/NotFound";
 
 function App() {
@@ -44,9 +45,11 @@ function App() {
             exact={true}
             element={
               isLoggedIn ? (
-                currentRole === "SUPERVISOR" ?
-                <Dashboard/>
-                : (<Map/>)
+                currentRole === "SUPERVISOR" ? (
+                  <Dashboard />
+                ) : (
+                  <Map />
+                )
               ) : (
                 <Login onChangeLogin={loginHandler} />
               )
@@ -57,9 +60,9 @@ function App() {
             exact={true}
             element={<User onChangeLogin={loginHandler} />}
           />
-          <Route path="/mapa" exact={true} element={<Map />}/>
-          <Route path="*" exact={true} element={<NotFound/>}  />
-          
+          <Route path="/mapa" exact={true} element={<Map />} />
+          <Route path="*" exact={true} element={<NotFound />} />
+
           <Route path="/mapa/:id" element={<Map />} />
           {/* <Route path="/mapa/:id/refri" element={<Map />} /> */}
           <Route
@@ -71,7 +74,7 @@ function App() {
               </StoreProvider>
             }
           />
-          
+
           <Route
             path="/filter"
             exact={true}
@@ -100,6 +103,16 @@ function App() {
               </StoreProvider>
             }
           />
+          <Route
+            path="/notifications"
+            exact={true}
+            element={<Notifications />}
+          />
+          {/* <Route
+            path="/login"
+            exact={true}
+            element={<Login onChangeLogin={loginHandler} />}
+          /> */}
         </Routes>
       </div>
     </Router>
