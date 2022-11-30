@@ -27,21 +27,21 @@ function App() {
   };
 
   const fetchNewNotifications = (newest_notification) => {
-    const NOTIFICATIONS_URL = `${process.env.REACT_APP_BACKEND_URL}/notification/getNewNotifications?newest_notification=${newest_notification}`;
+    const NOTIFICATIONS_URL = `${process.env.REACT_APP_BACKEND_URL}/notification/getNewNotificationsCount?newest_notification=${newest_notification}`;
     fetch(NOTIFICATIONS_URL).then((response) => {
       if (response.status !== 200) {
         console.log("Something went wrong");
         return;
       }
       response.json().then((result) => {
-        launchNotificationToast(result.length);
+        launchNotificationToast(result.count);
       })
     })
   }; 
 
-  const launchNotificationToast = (notificationNum) => {
-    toast(`You have ${notificationNum} new notifications.`, {
-      duration: 10000,
+  const launchNotificationToast = (notificationCount) => {
+    toast(`You have ${notificationCount} new notifications.`, {
+      duration: 20000,
       position: 'top-right',
       icon: '🗞️'
     })
