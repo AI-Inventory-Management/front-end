@@ -15,6 +15,7 @@ import Login from "./pages/Login";
 import { useState, useEffect } from "react";
 import Notifications from "./pages/Notifications";
 import NotFound from "./pages/NotFound";
+import toast from "react-hot-toast";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -25,6 +26,29 @@ function App() {
     setIsLoggedIn(loginState);
   };
 
+  const fetchNewNotifications = (newest_notification) => {
+    const NOTIFICATIONS_URL = `${process.env.REACT_APP_BACKEND_URL}/notification/getNewNotifications?newest_notification=${newest_notification}`;
+    fetch(NOTIFICATIONS_URL).then((response) => {
+      if (response.status !== 200) {
+        console.log("Something went wrong");
+        return;
+      }
+      response.json().then((result) => {
+        launchNotificationToast(result.length);
+      })
+    })
+  }; 
+
+  const launchNotificationToast = (notificationNum) => {
+    toast(`You have ${notificationNum} new notifications.`, {
+      duration: 10000,
+      position: 'top-right',
+      icon: '🗞️'
+    })
+  };
+
+  const MINUTE_MS = 60000;
+
   useEffect(() => {
     const isLoggedInStorage = sessionStorage.getItem("isLoggedIn");
 
@@ -33,6 +57,13 @@ function App() {
     } else {
       setIsLoggedIn(false);
     }
+
+    const interval = setInterval(() => {
+      console.log('Logs every minute');
+      fetchNewNotifications(4);
+    }, MINUTE_MS);
+  
+    return () => clearInterval(interval);
   }, [isLoggedIn]);
 
   return (
