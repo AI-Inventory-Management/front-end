@@ -61,7 +61,7 @@ function Map(props) {
   };
 
   const fetchStoreInfo =
-    async (idStore) => {
+    useCallback(async (idStore) => {
       if (idStore === undefined) return;
 
       if (!isShowingInfo) {
@@ -88,6 +88,7 @@ function Map(props) {
         if (response.status === 401) {
           toast.error("Session expired.");
           toast.error("Please sign in again");
+          props.setIsLoggedIn(false);
           window.sessionStorage.removeItem("isLoggedIn");
           window.sessionStorage.removeItem("role");
           window.sessionStorage.removeItem("bearerToken");
@@ -106,13 +107,13 @@ function Map(props) {
       } catch (error) {
         console.log(error.message);
       }
-    };
+    }, [isShowingInfo, navigate, props]);
 
   useEffect(() => {
-    if (props.loggedIn === true) {
+    if (props.isLoggedIn === true && !isShowingInfo) {
       fetchStoreInfo(id);
     }
-  }, [fetchStoreInfo, id, isShowingInfo, props.loggedIn]);
+  }, [fetchStoreInfo, id, isShowingInfo, props]);
 
   return (
     <div className="ma-map">
@@ -136,7 +137,8 @@ function Map(props) {
             onSelectStore={onSelectStoreHandler}
             selectedStore={selectedStoreInfo}
             isShowingInfo={isShowingInfo}
-            loggedIn={props.loggedIn}
+            isLoggedIn={props.isLoggedIn}
+            setIsLoggedIn = {props.setIsLoggedIn}
           />
           {isShowingFridge && (
             <button

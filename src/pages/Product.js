@@ -22,7 +22,7 @@ function Product(props) {
   const [Field, setField] = useState("");
 
   useEffect(() => {
-    if (props.loggedIn === true){
+    if (props.isLoggedIn === true){
       const myHeadersToken = new Headers();
       myHeadersToken.append("Content-Type", "application/json");
       myHeadersToken.append("Authorization", `Bearer ${window.sessionStorage.getItem("bearerToken")}`);
@@ -39,6 +39,7 @@ function Product(props) {
           if (response.status === 401){
             toast.error("Session expired.");
             toast.error("Please sign in again");
+            props.setIsLoggedIn(false);
             window.sessionStorage.removeItem("isLoggedIn");
             window.sessionStorage.removeItem("role");
             window.sessionStorage.removeItem("bearerToken");
@@ -55,7 +56,7 @@ function Product(props) {
         });
 
     }
-  }, [navigate, productId, props.loggedIn]);
+  }, [navigate, productId, props]);
 
   const changefield = (event) => {
     setField(event.target.value);
@@ -76,6 +77,7 @@ function Product(props) {
       if (response.status === 401){
         toast.error("Session expired.");
         toast.error("Please sign in again");
+        props.setIsLoggedIn(false);
         window.sessionStorage.removeItem("isLoggedIn");
         window.sessionStorage.removeItem("role");
         window.sessionStorage.removeItem("bearerToken");

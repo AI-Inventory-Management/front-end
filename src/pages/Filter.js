@@ -10,7 +10,7 @@ import states from "../states.json";
 import mun from "../municipality.json";
 import toast, { Toaster } from "react-hot-toast";
 
-function Filter() {
+function Filter(props) {
   const navigate = useNavigate();
   const [, setStoresId, , setStoreName] = useContext(StoreContext); //Selected store info
   const [stores, setStore] = useState([]); //List of stores after the filters
@@ -110,6 +110,7 @@ function Filter() {
     );
     if (response.status === 401){
       // Authorization token
+      props.setIsLoggedIn(false);
       toast.error("Session expired.");
       toast.error("Please sign in again");
       window.sessionStorage.removeItem("isLoggedIn");

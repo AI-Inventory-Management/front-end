@@ -86,6 +86,7 @@ function Map(props) {
         if (response.status === 401){
           toast.error("Session expired.");
           toast.error("Please sign in again");
+          props.setIsLoggedIn(false);
           window.sessionStorage.removeItem("isLoggedIn");
           window.sessionStorage.removeItem("role");
           window.sessionStorage.removeItem("bearerToken");
@@ -107,7 +108,7 @@ function Map(props) {
     }, [isShowingInfo]);
 
   useEffect(() => {
-    if (props.loggedIn === true) {
+    if (props.isLoggedIn === true) {
       fetchStoreInfo(id);
     }
   }, [fetchStoreInfo, id, props.loggedIn]);
@@ -134,7 +135,7 @@ function Map(props) {
             onSelectStore={onSelectStoreHandler}
             selectedStore={selectedStoreInfo}
             isShowingInfo={isShowingInfo}
-            loggedIn ={props.loggedIn}
+            loggedIn ={props.isLoggedIn}
           />
           {isShowingFridge && (
             <button

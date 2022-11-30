@@ -5,7 +5,7 @@ import "../styles/Filter.css";
 import toast, { Toaster } from 'react-hot-toast';
 import { Link, useNavigate } from "react-router-dom";
 
-function Newproduct() {
+function Newproduct(props) {
   const navigate = useNavigate();
 
   const [price, setPrice] = useState();
@@ -43,6 +43,7 @@ function Newproduct() {
       if (response.status === 401){
         toast.error("Session expired.");
         toast.error("Please sign in again");
+        props.setIsLoggedIn(false);
         window.sessionStorage.removeItem("isLoggedIn");
         window.sessionStorage.removeItem("role");
         window.sessionStorage.removeItem("bearerToken");

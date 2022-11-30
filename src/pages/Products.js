@@ -16,7 +16,7 @@ function Products(props) {
 
   //Get Names
   useEffect(() => {
-    if (props.loggedIn === true){
+    if (props.isLoggedIn === true){
       const myHeadersToken = new Headers();
       myHeadersToken.append("Content-Type", "application/json");
       myHeadersToken.append(
@@ -38,6 +38,7 @@ function Products(props) {
           if (response.status === 401) {
             toast.error("Session expired.");
             toast.error("Please sign in again");
+            props.setIsLoggedIn(false);
             window.sessionStorage.removeItem("isLoggedIn");
             window.sessionStorage.removeItem("role");
             window.sessionStorage.removeItem("bearerToken");
@@ -135,6 +136,7 @@ function Products(props) {
     if (response.status === 401) {
       toast.error("Session expired.");
       toast.error("Please sign in again");
+      props.setIsLoggedIn(false);
       window.sessionStorage.removeItem("isLoggedIn");
       window.sessionStorage.removeItem("role");
       window.sessionStorage.removeItem("bearerToken");

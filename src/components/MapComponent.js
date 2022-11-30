@@ -71,7 +71,7 @@ const Map = (props) => {
   //};
     // ejecutar la consulta cuando cargue la página
   useEffect(() => {
-    if (props.loggedIn === true) {
+    if (props.isLoggedIn === true) {
       // getMarkerData();
       var myHeadersToken = new Headers();
       myHeadersToken.append("Content-Type", "application/json");
@@ -92,6 +92,7 @@ const Map = (props) => {
           // Authorization token
           toast.error("Session expired.");
           toast.error("Please sign in again");
+          props.setIsLoggedIn(false);
           window.sessionStorage.removeItem("isLoggedIn");
           window.sessionStorage.removeItem("role");
           window.sessionStorage.removeItem("bearerToken");
@@ -102,7 +103,7 @@ const Map = (props) => {
         });
       });
     }
-  }, [navigate, props.loggedIn]);
+  }, [navigate, props]);
 
   if (!isLoaded) {
     return <div>Pou</div>;

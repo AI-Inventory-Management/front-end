@@ -40,8 +40,8 @@ function App() {
       setIsLoggedIn(true);
     } else {
       // If isLoggedIn is false, navigate to login.
-      setIsLoggedIn(false);
-      navigate("/");
+      //setIsLoggedIn(false);
+      //navigate("/");
     }
   }, [isLoggedInStorage, navigate]);
 
@@ -57,7 +57,7 @@ function App() {
               currentRole === "SUPERVISOR" ? (
                 <Dashboard />
               ) : (
-                <Map loggedIn={isLoggedIn}/>
+                <Map isLoggedIn={isLoggedIn} setIsLoggedIn = {setIsLoggedIn}/>
               )
             ) : (
               <Login onChangeLogin={loginHandler} />
@@ -67,12 +67,12 @@ function App() {
         <Route
           path="/usuario"
           exact={true}
-          element={<User onChangeLogin={loginHandler} loggedIn={isLoggedIn}/>}
+          element={<User onChangeLogin={loginHandler} isLoggedIn={isLoggedIn} setIsLoggedIn = {setIsLoggedIn}/>}
         />
-        <Route path="/mapa" exact={true} element={<Map loggedIn={isLoggedIn}/>} />
+        <Route path="/mapa" exact={true} element={<Map isLoggedIn={isLoggedIn} setIsLoggedIn = {setIsLoggedIn}/>} />
         <Route path="*" exact={true} element={<NotFound />} />
 
-        <Route path="/mapa/:id" element={<Map loggedIn={isLoggedIn}/>} />
+        <Route path="/mapa/:id" element={<Map isLoggedIn={isLoggedIn} setIsLoggedIn = {setIsLoggedIn}/>} />
         {/* <Route path="/mapa/:id/refri" element={<Map />} /> */}
         <Route
           path="/tiendas"
@@ -89,17 +89,17 @@ function App() {
           exact={true}
           element={
             <StoreProvider>
-              <Filter />
+              <Filter setIsLoggedIn = {setIsLoggedIn} />
             </StoreProvider>
           }
         />
-        <Route path="/NewProduct" exact={true} element={<Newproduct />} />
+        <Route path="/NewProduct" exact={true} element={<Newproduct setIsLoggedIn = {setIsLoggedIn}/>} />
         <Route
           path="/Products"
           exact={true}
           element={
             <StoreProvider>
-              <Products loggedIn={isLoggedIn}/>
+              <Products isLoggedIn={isLoggedIn} setIsLoggedIn = {setIsLoggedIn}/>
             </StoreProvider>
           }
         />
@@ -108,7 +108,7 @@ function App() {
           exact={true}
           element={
             <StoreProvider>
-              <Product loggedIn={isLoggedIn}/>
+              <Product isLoggedIn={isLoggedIn} setIsLoggedIn = {setIsLoggedIn}/>
             </StoreProvider>
           }
         />
