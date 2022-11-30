@@ -36,6 +36,8 @@ function Products(props) {
         .then((response) => {
           // Authorization token
           if (response.status === 401) {
+            toast.error("Session expired.");
+            toast.error("Please sign in again");
             window.sessionStorage.removeItem("isLoggedIn");
             window.sessionStorage.removeItem("role");
             window.sessionStorage.removeItem("bearerToken");
@@ -131,6 +133,8 @@ function Products(props) {
     );
     // Authorization token
     if (response.status === 401) {
+      toast.error("Session expired.");
+      toast.error("Please sign in again");
       window.sessionStorage.removeItem("isLoggedIn");
       window.sessionStorage.removeItem("role");
       window.sessionStorage.removeItem("bearerToken");

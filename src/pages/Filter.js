@@ -110,6 +110,8 @@ function Filter() {
     );
     if (response.status === 401){
       // Authorization token
+      toast.error("Session expired.");
+      toast.error("Please sign in again");
       window.sessionStorage.removeItem("isLoggedIn");
       window.sessionStorage.removeItem("role");
       window.sessionStorage.removeItem("bearerToken");

@@ -8,6 +8,7 @@ import StoreSales from "../components/StoreSales";
 import SodaInfo from "../components/SodaInfo";
 import Refrigerator from "../components/Refrigerator";
 import { HiOutlineArrowUturnLeft } from "react-icons/hi2";
+import toast from "react-hot-toast";
 
 function Map(props) {
   const { id } = useParams();
@@ -85,6 +86,8 @@ function Map(props) {
         );
         // Authorization token
         if (response.status === 401) {
+          toast.error("Session expired.");
+          toast.error("Please sign in again");
           window.sessionStorage.removeItem("isLoggedIn");
           window.sessionStorage.removeItem("role");
           window.sessionStorage.removeItem("bearerToken");
@@ -109,7 +112,7 @@ function Map(props) {
     if (props.loggedIn === true) {
       fetchStoreInfo(id);
     }
-  }, [isShowingInfo, id, props.loggedIn]);
+  }, [isShowingInfo]);
 
   return (
     <div className="ma-map">
