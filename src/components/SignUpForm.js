@@ -6,7 +6,7 @@ export default function SignUpForm(props) {
   return (
     <>
       <div className="signup-input-container">
-        <label className="signup-label">Nombre</label>
+        <label className="signup-label">Nombre(s)</label>
         <input
           required
           onChange={(e) => {
@@ -18,7 +18,7 @@ export default function SignUpForm(props) {
         />
       </div>
       <div className="signup-input-container">
-        <label className="signup-label">Apellido</label>
+        <label className="signup-label">Apellido(s)</label>
         <input
           onChange={(e) => {
             props.states.setLastName(e.target.value);
