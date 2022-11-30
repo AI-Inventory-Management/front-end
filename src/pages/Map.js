@@ -112,7 +112,7 @@ function Map(props) {
     if (props.loggedIn === true) {
       fetchStoreInfo(id);
     }
-  }, [isShowingInfo]);
+  }, [fetchStoreInfo, id, isShowingInfo, props.loggedIn]);
 
   return (
     <div className="ma-map">
