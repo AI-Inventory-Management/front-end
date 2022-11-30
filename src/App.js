@@ -27,6 +27,9 @@ function App() {
   };
 
   const fetchNewNotifications = (newest_notification) => {
+    if (!isLoggedIn) {
+      return;
+    }
     const NOTIFICATIONS_URL = `${process.env.REACT_APP_BACKEND_URL}/notification/getNewNotificationsCount?newest_notification=${newest_notification}`;
     fetch(NOTIFICATIONS_URL).then((response) => {
       if (response.status !== 200) {
@@ -34,7 +37,9 @@ function App() {
         return;
       }
       response.json().then((result) => {
-        launchNotificationToast(result.count);
+        if (result.count > 0) {
+          launchNotificationToast(result.count);
+        }
       })
     })
   }; 
