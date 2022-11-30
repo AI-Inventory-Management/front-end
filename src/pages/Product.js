@@ -2,9 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { StoreContext } from "../components/StoreProvider";
 import "../styles/Filter.css";
-import Select from "react-select";
 import "../styles/Product.css";
-import toast, { Toaster } from "react-hot-toast";
 
 function Product() {
   const [, , , , productId] = useContext(StoreContext);
@@ -17,7 +15,6 @@ function Product() {
       id_product: "No disponible",
     },
   ]);
-  const [Field, setField] = useState("");
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_BACKEND_URL}/product/getProduct/${productId}`)
@@ -26,29 +23,6 @@ function Product() {
         setProductData(data);
       });
   }, []);
-
-  const changefield = (event) => {
-    setField(event.target.value);
-  };
-
-  const Update = async () => {
-    if (Field !== "") {
-      const headers = new Headers({ "Content-Type": "application/json" });
-      const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/store/postUpdateProduct`,
-        {
-          method: "POST",
-          body: JSON.stringify({ data: Field}),
-          headers: headers,
-        }
-      );
-      const json = await response.json();
-      console.log(json)
-    }
-    else{
-        toast.error("El campo está vacío")
-    }
-  };
 
   return (
     <div className="filter-container">
