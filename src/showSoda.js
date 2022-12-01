@@ -35,6 +35,8 @@ export const showSoda = (number) => {
       return PoweradeMoraAzulLata;
     case 11:
       return CocaColaLata;
+    case 12:
+      return OtroProducto;
     default:
       return OtroProducto;
   }

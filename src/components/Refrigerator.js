@@ -6,6 +6,7 @@ function Refrigerator(props) {
     <div className="rf-refrigerator">
       <div key="rf-grid1" className="rf-grid">
         {props.inventory.map((soda) => {
+          if (soda.stock > 0) {
           return (
             <div
               key={soda.id_product}
@@ -15,6 +16,18 @@ function Refrigerator(props) {
               <img className="rf-soda-img" src={showSoda(soda.id_product)} />
             </div>
           );
+        }
+        else {
+          return (
+            <div
+              key={soda.id_product}
+              className="rf-sodaa"
+              style={{ backgroundColor: "#c2c2c2" }}
+            >
+              <img className="rf-soda-img" src={showSoda(999)} style={{opacity: "0"}}/>
+            </div>
+          );
+        }
         })}
       </div>
       <div
