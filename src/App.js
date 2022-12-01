@@ -43,6 +43,25 @@ function App() {
         }
       })
     })
+  };
+
+  const fetchUnreadNotifications = () => {
+    if (!isLoggedIn) {
+      return;
+    }
+    const NOTIFICATIONS_URL = `${process.env.REACT_APP_BACKEND_URL}/notification/getUnreadNotificationsCount`;
+    fetch(NOTIFICATIONS_URL).then((response) => {
+      if (response.status !== 200) {
+        console.log("Something went wrong");
+        return;
+      }
+      response.json().then((result) => {
+        if (result.count > 0) {
+          launchNotificationToast(result.count);
+          fetchTheNewestNotification();
+        }
+      })
+    })
   }; 
 
   const launchNotificationToast = (notificationCount) => {
@@ -88,7 +107,7 @@ function App() {
 
     if (isLoggedInStorage === "true") {
       setIsLoggedIn(true);
-      fetchTheNewestNotification();
+      fetchUnreadNotifications();
     } else {
       setIsLoggedIn(false);
     }
