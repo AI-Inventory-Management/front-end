@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { StoreContext } from "../components/StoreProvider";
 import "../styles/Filter.css";
-import Select from "react-select";
 import "../styles/Product.css";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -19,7 +18,6 @@ function Product(props) {
       id_product: "No disponible",
     },
   ]);
-  const [Field, setField] = useState("");
 
   useEffect(() => {
     if (props.isLoggedIn === true){

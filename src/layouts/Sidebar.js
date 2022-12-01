@@ -13,19 +13,23 @@ function Sidebar() {
   const lastName = window.sessionStorage.getItem("lastName");
 
   const getNameGender = () => {
-    fetch(`https://api.genderize.io/?name=${firstName}`)
-      .then((response) => {response.json()})
+    // Select only one name in case it contains more than one
+    const name = firstName.split(" ");
+    fetch(`https://api.genderize.io/?name=${name[0]}`)
+      .then((response) => response.json())
       .then((data) => {
         if (data.gender === "male") {
           setIsFemale(false);
+          localStorage.setItem("gender", "male");
+        } else {
+          localStorage.setItem("gender", "female");
         }
       });
   };
 
   useEffect(() => {
     getNameGender();
-    console.log("aa");
-  },);
+  });
 
   return (
     <div className="sb-sidebar">
@@ -37,7 +41,6 @@ function Sidebar() {
         </div>
         <Link className="sd-user" to="/usuario">
           <li className="sd-user-li">
-            {/* <div className="sd-user-li-letter">P</div> */}
             <img
               src={isFemale ? femaleImage : maleImage}
               style={{ width: "3em", borderRadius: "50%" }}

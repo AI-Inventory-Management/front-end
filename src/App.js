@@ -17,6 +17,7 @@ import Products from "./pages/Products";
 import Product from "./pages/Product";
 import Login from "./pages/Login";
 import { useState, useEffect } from "react";
+import Notifications from "./pages/Notifications";
 import NotFound from "./pages/NotFound";
 import toast from "react-hot-toast";
 
@@ -112,6 +113,11 @@ function App() {
             </StoreProvider>
           }
         />
+        <Route
+            path="/notifications"
+            exact={true}
+            element={<Notifications />}
+          />
       </Routes>
     </div>
   );
