@@ -88,8 +88,16 @@ function Map() {
     [isShowingInfo]
   );
 
+  const MINUTE_MS = 6000;
+
   useEffect(() => {
     fetchStoreInfo(id);
+    const interval = setInterval(() => {
+      console.log('Logs every minute');
+      fetchStoreInfo(id);
+    }, MINUTE_MS);
+  
+    return () => clearInterval(interval);
   }, [fetchStoreInfo, id, storeId]);
 
   return (
