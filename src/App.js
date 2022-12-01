@@ -39,37 +39,67 @@ function App() {
       response.json().then((result) => {
         if (result.count > 0) {
           launchNotificationToast(result.count);
+          fetchTheNewestNotification();
         }
       })
     })
   }; 
 
   const launchNotificationToast = (notificationCount) => {
-    toast(`You have ${notificationCount} new notifications.`, {
-      duration: 20000,
-      position: 'top-right',
-      icon: '🗞️'
+    if (notificationCount > 1) {
+      toast(`You have ${notificationCount} new notifications.`, {
+        duration: 20000,
+        position: 'top-right',
+        icon: '🗞️'
+      });
+    }
+    else {
+      toast(`You have ${notificationCount} new notification.`, {
+        duration: 20000,
+        position: 'top-right',
+        icon: '🗞️'
+      });  
+    }
+  };
+
+  const fetchTheNewestNotification = () => {
+    const NOTIFICATIONS_URL = `${process.env.REACT_APP_BACKEND_URL}/notification/getTheNewestNotification`;
+    fetch(NOTIFICATIONS_URL).then((response) => {
+      if (response.status !== 200) {
+        console.log("Something went wrong");
+        return;
+      }
+      response.json().then((result) => {
+        const newestId = result.id_notification;
+        if (newestId > newest_notification) {
+          newest_notification = result.id_notification;
+          console.log("Newest notif id", newest_notification);
+        }
+      })
     })
   };
 
-  const MINUTE_MS = 60000;
+  const MINUTE_MS = 6000;
+
+  let newest_notification = 0;
 
   useEffect(() => {
     const isLoggedInStorage = sessionStorage.getItem("isLoggedIn");
 
     if (isLoggedInStorage === "true") {
       setIsLoggedIn(true);
+      fetchTheNewestNotification();
     } else {
       setIsLoggedIn(false);
     }
 
     const interval = setInterval(() => {
       console.log('Logs every minute');
-      fetchNewNotifications(4);
+      fetchNewNotifications(newest_notification);
     }, MINUTE_MS);
   
     return () => clearInterval(interval);
-  }, [isLoggedIn]);
+  }, [isLoggedIn, newest_notification]);
 
   return (
     <Router>
