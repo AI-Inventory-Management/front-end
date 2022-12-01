@@ -15,6 +15,7 @@ import Login from "./pages/Login";
 import { useState, useEffect } from "react";
 import Notifications from "./pages/Notifications";
 import NotFound from "./pages/NotFound";
+import toast from "react-hot-toast";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -25,15 +26,99 @@ function App() {
     setIsLoggedIn(loginState);
   };
 
+  const fetchNewNotifications = (newest_notification) => {
+    if (!isLoggedIn) {
+      return;
+    }
+    const NOTIFICATIONS_URL = `${process.env.REACT_APP_BACKEND_URL}/notification/getNewNotificationsCount?newest_notification=${newest_notification}`;
+    fetch(NOTIFICATIONS_URL).then((response) => {
+      if (response.status !== 200) {
+        console.log("Something went wrong");
+        return;
+      }
+      response.json().then((result) => {
+        if (result.count > 0) {
+          launchNotificationToast(result.count);
+          fetchTheNewestNotification();
+        }
+      })
+    })
+  };
+
+  const fetchUnreadNotifications = () => {
+    if (!isLoggedIn) {
+      return;
+    }
+    const NOTIFICATIONS_URL = `${process.env.REACT_APP_BACKEND_URL}/notification/getUnreadNotificationsCount`;
+    fetch(NOTIFICATIONS_URL).then((response) => {
+      if (response.status !== 200) {
+        console.log("Something went wrong");
+        return;
+      }
+      response.json().then((result) => {
+        if (result.count > 0) {
+          launchNotificationToast(result.count);
+          fetchTheNewestNotification();
+        }
+      })
+    })
+  }; 
+
+  const launchNotificationToast = (notificationCount) => {
+    if (notificationCount > 1) {
+      toast(`You have ${notificationCount} new notifications.`, {
+        duration: 20000,
+        position: 'top-right',
+        icon: '🗞️'
+      });
+    }
+    else {
+      toast(`You have ${notificationCount} new notification.`, {
+        duration: 20000,
+        position: 'top-right',
+        icon: '🗞️'
+      });  
+    }
+  };
+
+  const fetchTheNewestNotification = () => {
+    const NOTIFICATIONS_URL = `${process.env.REACT_APP_BACKEND_URL}/notification/getTheNewestNotification`;
+    fetch(NOTIFICATIONS_URL).then((response) => {
+      if (response.status !== 200) {
+        console.log("Something went wrong");
+        return;
+      }
+      response.json().then((result) => {
+        const newestId = result.id_notification;
+        if (newestId > newest_notification) {
+          newest_notification = result.id_notification;
+          console.log("Newest notif id", newest_notification);
+        }
+      })
+    })
+  };
+
+  const MINUTE_MS = 6000;
+
+  let newest_notification = 0;
+
   useEffect(() => {
     const isLoggedInStorage = sessionStorage.getItem("isLoggedIn");
 
     if (isLoggedInStorage === "true") {
       setIsLoggedIn(true);
+      fetchUnreadNotifications();
     } else {
       setIsLoggedIn(false);
     }
-  }, [isLoggedIn]);
+
+    const interval = setInterval(() => {
+      console.log('Logs every minute');
+      fetchNewNotifications(newest_notification);
+    }, MINUTE_MS);
+  
+    return () => clearInterval(interval);
+  }, [isLoggedIn, newest_notification]);
 
   return (
     <Router>
