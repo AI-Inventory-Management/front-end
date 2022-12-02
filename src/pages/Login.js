@@ -40,6 +40,13 @@ function Login(props) {
     }
     //event.preventDefault();
 
+    const myHeadersToken = new Headers();
+      myHeadersToken.append("Content-Type", "application/json");
+      myHeadersToken.append(
+        "Authorization",
+        `Bearer ${window.sessionStorage.getItem("bearerToken")}`
+      );
+  
     const signUpHeaders = new Headers();
     signUpHeaders.append("Content-Type", "application/json");
 
@@ -55,7 +62,7 @@ function Login(props) {
 
     const requestOptions = {
       method: "POST",
-      headers: signUpHeaders,
+      headers: myHeadersToken,
       body: signUpJSON,
       redirect: "follow",
     };
@@ -82,8 +89,13 @@ function Login(props) {
 
     //event.preventDefault();
 
-    const signInHeaders = new Headers();
-    signInHeaders.append("Content-Type", "application/json");
+    const myHeadersToken = new Headers();
+      myHeadersToken.append("Content-Type", "application/json");
+      myHeadersToken.append(
+        "Authorization",
+        `Bearer ${window.sessionStorage.getItem("bearerToken")}`
+      );
+  
 
     const signInJSON = JSON.stringify({
       email: email,
@@ -92,7 +104,7 @@ function Login(props) {
 
     const requestOptions = {
       method: "POST",
-      headers: signInHeaders,
+      headers: myHeadersToken,
       body: signInJSON,
       redirect: "follow",
     };
@@ -128,8 +140,12 @@ function Login(props) {
   const handleVerifyEmail = (event) => {
     //event.preventDefault();
 
-    const signUpHeaders = new Headers();
-    signUpHeaders.append("Content-Type", "application/json");
+    const myHeadersToken = new Headers();
+      myHeadersToken.append("Content-Type", "application/json");
+      myHeadersToken.append(
+        "Authorization",
+        `Bearer ${window.sessionStorage.getItem("bearerToken")}`
+      );
 
     const signUpJSON = JSON.stringify({
       email: email,
@@ -138,7 +154,7 @@ function Login(props) {
 
     const requestOptions = {
       method: "POST",
-      headers: signUpHeaders,
+      headers: myHeadersToken,
       body: signUpJSON,
       redirect: "follow",
     };

@@ -30,8 +30,19 @@ function App() {
     if (!isLoggedIn) {
       return;
     }
+    const myHeadersToken = new Headers();
+      myHeadersToken.append("Content-Type", "application/json");
+      myHeadersToken.append(
+        "Authorization",
+        `Bearer ${window.sessionStorage.getItem("bearerToken")}`
+      );
+  
+    const requestOptionsGET = {
+      method: "GET",
+      headers: myHeadersToken,
+    };
     const NOTIFICATIONS_URL = `${process.env.REACT_APP_BACKEND_URL}/notification/getNewNotificationsCount?newest_notification=${newest_notification}`;
-    fetch(NOTIFICATIONS_URL).then((response) => {
+    fetch(NOTIFICATIONS_URL, requestOptionsGET).then((response) => {
       if (response.status !== 200) {
         console.log("Something went wrong");
         return;
@@ -49,8 +60,19 @@ function App() {
     if (!isLoggedIn) {
       return;
     }
+    const myHeadersToken = new Headers();
+      myHeadersToken.append("Content-Type", "application/json");
+      myHeadersToken.append(
+        "Authorization",
+        `Bearer ${window.sessionStorage.getItem("bearerToken")}`
+      );
+  
+    const requestOptionsGET = {
+      method: "GET",
+      headers: myHeadersToken,
+    };
     const NOTIFICATIONS_URL = `${process.env.REACT_APP_BACKEND_URL}/notification/getUnreadNotificationsCount`;
-    fetch(NOTIFICATIONS_URL).then((response) => {
+    fetch(NOTIFICATIONS_URL, requestOptionsGET).then((response) => {
       if (response.status !== 200) {
         console.log("Something went wrong");
         return;
@@ -82,8 +104,19 @@ function App() {
   };
 
   const fetchTheNewestNotification = () => {
+    const myHeadersToken = new Headers();
+      myHeadersToken.append("Content-Type", "application/json");
+      myHeadersToken.append(
+        "Authorization",
+        `Bearer ${window.sessionStorage.getItem("bearerToken")}`
+      );
+  
+    const requestOptionsGET = {
+      method: "GET",
+      headers: myHeadersToken,
+    };
     const NOTIFICATIONS_URL = `${process.env.REACT_APP_BACKEND_URL}/notification/getTheNewestNotification`;
-    fetch(NOTIFICATIONS_URL).then((response) => {
+    fetch(NOTIFICATIONS_URL, requestOptionsGET).then((response) => {
       if (response.status !== 200) {
         console.log("Something went wrong");
         return;

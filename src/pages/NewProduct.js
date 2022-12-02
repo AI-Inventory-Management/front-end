@@ -31,11 +31,17 @@ function Newproduct() {
       toast.error('Debes llenar todos los campos')
     }
     else{
-      const headers = new Headers({'Content-Type': 'application/json'})
+      const myHeadersToken = new Headers();
+      myHeadersToken.append("Content-Type", "application/json");
+      myHeadersToken.append(
+        "Authorization",
+        `Bearer ${window.sessionStorage.getItem("bearerToken")}`
+      );
+  
       console.log(description, name, ean,price)
       const response = await fetch(
         `${process.env.REACT_APP_BACKEND_URL}/product/postNewProduct`,
-        {method: 'POST', body: JSON.stringify({'name': name, 'description': description, 'ean': ean, 'price': price}), headers: headers}
+        {method: 'POST', body: JSON.stringify({'name': name, 'description': description, 'ean': ean, 'price': price}), headers: myHeadersToken}
       );
       const json = await response.json();
       if (json.message === "success"){

@@ -95,8 +95,20 @@ function Filter() {
 
   //Search button
   const GetStores = async () => {
+    const myHeadersToken = new Headers();
+      myHeadersToken.append("Content-Type", "application/json");
+      myHeadersToken.append(
+        "Authorization",
+        `Bearer ${window.sessionStorage.getItem("bearerToken")}`
+      );
+  
+    const requestOptionsGET = {
+      method: "GET",
+      headers: myHeadersToken,
+    };
     const response = await fetch(
-      `${process.env.REACT_APP_BACKEND_URL}/store/getAllStores?name=${name}&id=${id}&status=${status}&state=${state}&municipality=${municipality}`
+      `${process.env.REACT_APP_BACKEND_URL}/store/getAllStores?name=${name}&id=${id}&status=${status}&state=${state}&municipality=${municipality}`,
+      requestOptionsGET
     );
     const json = await response.json();
     console.log(json);

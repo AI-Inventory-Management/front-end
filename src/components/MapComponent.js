@@ -40,8 +40,19 @@ const Map = (props) => {
 
   // consultar todos las tiendas del back
   const getMarkerData = async () => {
+    const myHeadersToken = new Headers();
+      myHeadersToken.append("Content-Type", "application/json");
+      myHeadersToken.append(
+        "Authorization",
+        `Bearer ${window.sessionStorage.getItem("bearerToken")}`
+      );
+  
+      const requestOptionsGET = {
+        method: "GET",
+        headers: myHeadersToken,
+      };
     fetch(
-      `${process.env.REACT_APP_BACKEND_URL}/store/getStoreCoordinates`
+      `${process.env.REACT_APP_BACKEND_URL}/store/getStoreCoordinates`, requestOptionsGET
     ).then((response) => {
       response.json().then((result) => {
         //console.log(result);
