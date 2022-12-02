@@ -47,9 +47,6 @@ function Login(props) {
         `Bearer ${window.sessionStorage.getItem("bearerToken")}`
       );
   
-    const signUpHeaders = new Headers();
-    signUpHeaders.append("Content-Type", "application/json");
-
     const signUpJSON = JSON.stringify({
       first_name: name,
       last_name: lastName,
