@@ -4,6 +4,15 @@
   width: 100%;
 }
 
+.ma-loader {
+  border: 50px solid #d9d9d9; /* Light grey */
+  border-top: 20px solid darkred; /* Blue */
+  border-radius: 50%;
+  width: 20rem;
+  height: 20rem;
+  animation: spin 2s linear infinite;
+}
+
 .ma-container {
   width: 100%;
   height: calc(100% - 70px);
@@ -32,11 +41,12 @@
   z-index: 100;
   cursor: pointer;
   transform: translate(40%, 40%);
+  transition: all 0.15s ease-in;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 2px 10px;
 }
 
 .ma-return-button:hover {
-  opacity: 0.8;
+  background-color: #e60000;
 }
 
 .ma-info-button {
@@ -73,11 +83,23 @@
   z-index: 1020;
   height: 700px;
   overflow: scroll;
-  padding: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  border-radius: 13px;
+  border-collapse: separate;
 }
 
 .ma-info-container {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

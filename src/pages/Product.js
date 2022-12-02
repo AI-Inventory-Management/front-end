@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import { StoreContext } from "../components/StoreProvider";
 import "../styles/Filter.css";
 import "../styles/Product.css";
+import { Toaster } from "react-hot-toast";
 
 function Product() {
   const [, , , , productId] = useContext(StoreContext);
@@ -17,7 +18,9 @@ function Product() {
   ]);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_BACKEND_URL}/product/getProduct/${productId}`)
+    fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/product/getProduct/${productId}`
+    )
       .then((response) => response.json())
       .then((data) => {
         setProductData(data);

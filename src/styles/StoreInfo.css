@@ -9,14 +9,15 @@
   padding: 2rem;
   text-align: left;
   color: rgb(40, 40, 40);
-  gap: 2rem;
+  gap: 1rem;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 2px 10px;
 }
 
 .si-info {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  justify-content: center;
+  gap: 1rem;
 }
 
 .si-info-title {
@@ -27,4 +28,5 @@
 .si-info-text {
   font-size: 1.4rem;
   color: #555;
+  font-weight: 500;
 }

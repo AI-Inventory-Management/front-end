@@ -7,14 +7,15 @@ import StoreInfo from "../components/StoreInfo";
 import StoreSales from "../components/StoreSales";
 import SodaInfo from "../components/SodaInfo";
 import Refrigerator from "../components/Refrigerator";
-import { HiOutlineArrowUturnLeft } from "react-icons/hi2"; 
+import { HiOutlineArrowUturnLeft } from "react-icons/hi2";
+import toast from "react-hot-toast";
 
-function Map() {
+function Map(props) {
   const { id } = useParams();
 
   const [isShowingInfo, setIsShowingInfo] = useState(false);
   const [isShowingFridge, setIsShowingFridge] = useState(false);
-  const [selectedStoreInfo, setSelectedStoreInfo] = useState([]);
+  const [storeLocation, setStoreLocation] = useState([]);
   const [markers, setMarkers] = useState([]);
   const [storeId, setStoreId] = useState();
   const [storeName, setStoreName] = useState("");
@@ -59,6 +60,8 @@ function Map() {
     setInventory(stock2);
   };
 
+  const { setIsLoggedIn } = props;
+
   const fetchStoreInfo = useCallback(
     async (idStore) => {
       if (idStore === undefined) return;
@@ -68,15 +71,37 @@ function Map() {
       }
       setStoreId(idStore);
       try {
-        const response = await fetch(
-          `${process.env.REACT_APP_BACKEND_URL}/store/getStoreData/${idStore}`
+        const myHeadersToken = new Headers();
+        myHeadersToken.append("Content-Type", "application/json");
+        myHeadersToken.append(
+          "Authorization",
+          `Bearer ${window.sessionStorage.getItem("bearerToken")}`
         );
+
+        const requestOptionsGET = {
+          method: "GET",
+          headers: myHeadersToken,
+        };
+        const response = await fetch(
+          `${process.env.REACT_APP_BACKEND_URL}/store/getStoreData/${idStore}`,
+          requestOptionsGET
+        );
+        // Authorization token
+        if (response.status === 401) {
+          toast.error("Session expired.");
+          toast.error("Please sign in again");
+          setIsLoggedIn(false);
+          window.sessionStorage.removeItem("isLoggedIn");
+          window.sessionStorage.removeItem("role");
+          window.sessionStorage.removeItem("bearerToken");
+          navigate("/");
+        }
         if (!response.ok) {
           throw new Error("Something went wrong!");
         }
 
         const data = await response.json();
-
+        console.log("DATA", data);
         setStoreAddress(data.address);
         setStoreSales(data.sales);
         handleInventory(data.stock);
@@ -85,20 +110,12 @@ function Map() {
         console.log(error.message);
       }
     },
-    [isShowingInfo]
+    [isShowingInfo, setIsLoggedIn, navigate]
   );
-
-  const MINUTE_MS = 6000;
 
   useEffect(() => {
     fetchStoreInfo(id);
-    const interval = setInterval(() => {
-      console.log('Logs every minute');
-      fetchStoreInfo(id);
-    }, MINUTE_MS);
-  
-    return () => clearInterval(interval);
-  }, [fetchStoreInfo, id, storeId]);
+  }, [fetchStoreInfo, id]);
 
   return (
     <div className="ma-map">
@@ -120,8 +137,11 @@ function Map() {
           <MapComponent
             markers={markers}
             onSelectStore={onSelectStoreHandler}
-            selectedStore={selectedStoreInfo}
+            storeId={storeId}
+            storeLocation={storeLocation}
             isShowingInfo={isShowingInfo}
+            isLoggedIn={props.isLoggedIn}
+            setIsLoggedIn={props.setIsLoggedIn}
           />
           {isShowingFridge && (
             <button
