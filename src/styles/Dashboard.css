@@ -3,3 +3,7 @@
 .ds-container {
   width: 100%;
 }
+
+.ds-dashboard {
+  height: calc(100% - 80px);
+}
