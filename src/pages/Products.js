@@ -15,7 +15,18 @@ function Products() {
 
   //Get Names
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_BACKEND_URL}/product/getAllProductsNames`)
+    const myHeadersToken = new Headers();
+      myHeadersToken.append("Content-Type", "application/json");
+      myHeadersToken.append(
+        "Authorization",
+        `Bearer ${window.sessionStorage.getItem("bearerToken")}`
+      );
+  
+    const requestOptionsGET = {
+      method: "GET",
+      headers: myHeadersToken,
+    };
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/product/getAllProductsNames`, requestOptionsGET)
       .then((response) => response.json())
       .then((data) => {
         setLstNames([{ label: "" }].concat(data));
@@ -86,8 +97,19 @@ function Products() {
 
   //Search button
   const GetProducts = async () => {
+    const myHeadersToken = new Headers();
+      myHeadersToken.append("Content-Type", "application/json");
+      myHeadersToken.append(
+        "Authorization",
+        `Bearer ${window.sessionStorage.getItem("bearerToken")}`
+      );
+  
+    const requestOptionsGET = {
+      method: "GET",
+      headers: myHeadersToken,
+    };
     const response = await fetch(
-      `${process.env.REACT_APP_BACKEND_URL}/product/getAllProducts?name=${name}&id=${id}&ean=${ean}&price=${price}`
+      `${process.env.REACT_APP_BACKEND_URL}/product/getAllProducts?name=${name}&id=${id}&ean=${ean}&price=${price}`, requestOptionsGET
     );
     const json = await response.json();
     setProducts(json);

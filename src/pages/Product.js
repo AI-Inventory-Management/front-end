@@ -3,6 +3,8 @@ import Navbar from "../components/Navbar";
 import { StoreContext } from "../components/StoreProvider";
 import "../styles/Filter.css";
 import "../styles/Product.css";
+import toast, { Toaster } from "react-hot-toast";
+
 
 function Product() {
   const [, , , , productId] = useContext(StoreContext);
@@ -17,7 +19,18 @@ function Product() {
   ]);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_BACKEND_URL}/product/getProduct/${productId}`)
+    const myHeadersToken = new Headers();
+      myHeadersToken.append("Content-Type", "application/json");
+      myHeadersToken.append(
+        "Authorization",
+        `Bearer ${window.sessionStorage.getItem("bearerToken")}`
+      );
+  
+    const requestOptionsGET = {
+      method: "GET",
+      headers: myHeadersToken,
+    };
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/product/getProduct/${productId}`, requestOptionsGET)
       .then((response) => response.json())
       .then((data) => {
         setProductData(data);

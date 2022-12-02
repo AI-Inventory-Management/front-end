@@ -68,8 +68,19 @@ function Map() {
       }
       setStoreId(idStore);
       try {
+        const myHeadersToken = new Headers();
+      myHeadersToken.append("Content-Type", "application/json");
+      myHeadersToken.append(
+        "Authorization",
+        `Bearer ${window.sessionStorage.getItem("bearerToken")}`
+      );
+  
+      const requestOptionsGET = {
+        method: "GET",
+        headers: myHeadersToken,
+      };
         const response = await fetch(
-          `${process.env.REACT_APP_BACKEND_URL}/store/getStoreData/${idStore}`
+          `${process.env.REACT_APP_BACKEND_URL}/store/getStoreData/${idStore}`, requestOptionsGET
         );
         if (!response.ok) {
           throw new Error("Something went wrong!");

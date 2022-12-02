@@ -7,9 +7,20 @@ const NotificationsContainer = () => {
   const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
+    const myHeadersToken = new Headers();
+      myHeadersToken.append("Content-Type", "application/json");
+      myHeadersToken.append(
+        "Authorization",
+        `Bearer ${window.sessionStorage.getItem("bearerToken")}`
+      );
+  
+    const requestOptionsGET = {
+      method: "GET",
+      headers: myHeadersToken,
+    };
     const NOTIFICATIONS_URL = `${process.env.REACT_APP_BACKEND_URL}/notification/getAllNotifications`;
     const READ_NOTIFICATION_URL = `${process.env.REACT_APP_BACKEND_URL}/notification/markAsRead`;
-    fetch(NOTIFICATIONS_URL).then((response) => {
+    fetch(NOTIFICATIONS_URL, requestOptionsGET).then((response) => {
       if (response.status !== 200) {
         console.log("Something went wrong");
         return;
@@ -22,11 +33,10 @@ const NotificationsContainer = () => {
               id_notification: notification.id_notification,
             };
 
-            const headers = new Headers({ "Content-Type": "application/json" });
             const requestOptions = {
               method: "POST",
               body: JSON.stringify(body),
-              headers: headers,
+              headers: myHeadersToken,
             };
 
             fetch(READ_NOTIFICATION_URL, requestOptions).then((response) => {
