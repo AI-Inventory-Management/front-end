@@ -5,19 +5,12 @@ function StoreInfo(props) {
   return (
     <div className="si-container">
       <div className="si-info">
-        <p className="si-info-title">
-          ID{" "}
-          <span className="si-info-text" style={{ marginLeft: "1rem" }}>
+        <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+          <p className="si-info-title">{props.name}</p>
+          <p className="si-info-text" style={{ color: "darkred" }}>
             {props.id}
-          </span>
-        </p>
-      </div>
-      <div className="si-info">
-        <p className="si-info-title">Nombre</p>
-        <p className="si-info-text">{props.name}</p>
-      </div>
-      <div className="si-info">
-        <p className="si-info-title">Dirección</p>
+          </p>
+        </div>
         <p className="si-info-text">{props.address}</p>
       </div>
     </div>

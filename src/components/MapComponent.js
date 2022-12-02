@@ -67,7 +67,23 @@ const Map = (props) => {
   }, []);
 
   if (!isLoaded) {
-    return <div>Pou</div>;
+    return (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100%",
+          gap: "2rem",
+          color: "white",
+          fontSize: "4rem",
+        }}
+      >
+        <h1>Cargando</h1>
+        <div class="ma-loader"></div>
+      </div>
+    );
   }
   return (
     <GoogleMap

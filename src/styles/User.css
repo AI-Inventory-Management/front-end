@@ -5,7 +5,6 @@
 }
 
 .us-info {
-  background-color: rgb(204, 204, 204);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,18 +12,19 @@
 }
 
 .us-info-container {
+  height: 80%;
+  width: 80%;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 5rem;
   border-radius: 13px;
-  background-color: rgb(136, 136, 136);
-  padding: 5rem;
+  background-color: #e9e9e9;
 }
 
 .us-info-img {
-  width: 20rem;
-  height: 20rem;
+  width: 25rem;
+  height: 25rem;
   border-radius: 50%;
   background-color: wheat;
 }
@@ -37,25 +37,26 @@
 }
 
 .us-info-name {
-  font-size: 2rem;
+  font-size: 3rem;
   font-weight: 700;
   margin-top: 1rem;
 }
 
 .us-info-role {
   font-style: italic;
-  font-size: 1.6rem;
+  font-size: 2rem;
 }
 
 .us-info-email {
-  font-size: 1.6rem;
+  font-size: 2rem;
 }
 
 .us-info-button {
+  font-size: 2rem;
   padding: 2rem;
   border-radius: 13px;
   cursor: pointer;
   background-color: darkred;
-  color: #e9e9e9;
+  color: white;
   border: none;
 }
