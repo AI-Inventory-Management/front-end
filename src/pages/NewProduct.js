@@ -1,6 +1,6 @@
 /*
-  Authors: Andrea Vianey Diaz Alvarez
-  Description: Recibe datos para crear un nuevo producto y lo guarda en la base de datos.
+  Autor: Andrea Vianey Diaz Alvarez
+  Descripción: Recibe datos para crear un nuevo producto y lo guarda en la base de datos.
 */
 import { PureComponent, useState } from "react";
 import Navbar from "../components/Navbar";

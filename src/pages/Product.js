@@ -1,6 +1,6 @@
 /*
-  Authors: Andrea Vianey Diaz Alvarez
-  Description: Muestra los detalles del producto seleccionado en el filtro de productos
+  Autor: Andrea Vianey Diaz Alvarez
+  Descripción: Muestra los detalles del producto seleccionado en el filtro de productos
 */
 import { useContext, useEffect, useState } from "react";
 import Navbar from "../components/Navbar";

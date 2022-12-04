@@ -1,6 +1,6 @@
 /*
-  Authors: Andrea Vianey Diaz Alvarez
-  Description: Filtro de productos, recibe uno o más inputs del usuario y regresa los productos que tienen 
+  Autor: Andrea Vianey Diaz Alvarez
+  Descripción: Filtro de productos, recibe uno o más inputs del usuario y regresa los productos que tienen 
   esas características.
 */
 import Navbar from "../components/Navbar";

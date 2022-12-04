@@ -1,6 +1,6 @@
 /*
-  Authors: Andrea Vianey Diaz Alvarez
-  Description: Filtro de tiendas, recibe uno o más inputs del usuario y regresa las tiendas que tienen 
+  Autor: Andrea Vianey Diaz Alvarez
+  Descripción: Filtro de tiendas, recibe uno o más inputs del usuario y regresa las tiendas que tienen 
   esas características.
 */
 
