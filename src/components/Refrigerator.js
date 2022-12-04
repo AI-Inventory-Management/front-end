@@ -6,6 +6,7 @@ function Refrigerator(props) {
     <div className="rf-refrigerator">
       <div key="rf-grid1" className="rf-grid">
         {props.inventory.map((soda) => {
+          //render normal para productos con existencias
           if (soda.stock > 0) {
           return (
             <div
@@ -17,6 +18,7 @@ function Refrigerator(props) {
             </div>
           );
         }
+        //render con opacidad de 0 (espacio vacio) para productos sin existencias
         else {
           return (
             <div

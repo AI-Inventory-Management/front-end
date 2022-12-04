@@ -26,6 +26,7 @@ function App() {
     setIsLoggedIn(loginState);
   };
 
+  // obtiene las notificaciones más nuevas en el servidor
   const fetchNewNotifications = (newest_notification) => {
     if (!isLoggedIn) {
       return;
@@ -56,6 +57,7 @@ function App() {
     })
   };
 
+  //recibe las notificaciones no leídas
   const fetchUnreadNotifications = () => {
     if (!isLoggedIn) {
       return;
@@ -86,6 +88,7 @@ function App() {
     })
   }; 
 
+  //manda un toast para avisar que hay nuevas notificaciones
   const launchNotificationToast = (notificationCount) => {
     if (notificationCount > 1) {
       toast(`You have ${notificationCount} new notifications.`, {
@@ -103,6 +106,7 @@ function App() {
     }
   };
 
+  //Obtiene el ID de la notificación más nueva en la base de datos
   const fetchTheNewestNotification = () => {
     const myHeadersToken = new Headers();
       myHeadersToken.append("Content-Type", "application/json");
@@ -145,6 +149,7 @@ function App() {
       setIsLoggedIn(false);
     }
 
+    //crea un interval para buscar nuevas notificaciones cada cierto periodo de timepo
     const interval = setInterval(() => {
       console.log('Logs every minute');
       fetchNewNotifications(newest_notification);
