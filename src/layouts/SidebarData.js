@@ -4,6 +4,8 @@ import { IoStorefront } from "react-icons/io5";
 import { GiSodaCan } from "react-icons/gi";
 import { BsFillBellFill } from "react-icons/bs";
 
+// Información para el sidebar que depende del tipo de usuario
+
 export const AdminSidebarData = [
   {
     title: "Dashboard",

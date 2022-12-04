@@ -7,7 +7,7 @@ import StoreInfo from "../components/StoreInfo";
 import StoreSales from "../components/StoreSales";
 import SodaInfo from "../components/SodaInfo";
 import Refrigerator from "../components/Refrigerator";
-import { HiOutlineArrowUturnLeft } from "react-icons/hi2"; 
+import { HiOutlineArrowUturnLeft } from "react-icons/hi2";
 
 function Map() {
   const { id } = useParams();
@@ -64,6 +64,7 @@ function Map() {
   };
 
   const fetchStoreInfo = useCallback(
+    // Obtiene la información de la tienda (nombre, ventas, dirección e inventario)
     async (idStore) => {
       if (idStore === undefined) return;
 
@@ -73,18 +74,19 @@ function Map() {
       setStoreId(idStore);
       try {
         const myHeadersToken = new Headers();
-      myHeadersToken.append("Content-Type", "application/json");
-      myHeadersToken.append(
-        "Authorization",
-        `Bearer ${window.sessionStorage.getItem("bearerToken")}`
-      );
-  
-      const requestOptionsGET = {
-        method: "GET",
-        headers: myHeadersToken,
-      };
+        myHeadersToken.append("Content-Type", "application/json");
+        myHeadersToken.append(
+          "Authorization",
+          `Bearer ${window.sessionStorage.getItem("bearerToken")}`
+        );
+
+        const requestOptionsGET = {
+          method: "GET",
+          headers: myHeadersToken,
+        };
         const response = await fetch(
-          `${process.env.REACT_APP_BACKEND_URL}/store/getStoreData/${idStore}`, requestOptionsGET
+          `${process.env.REACT_APP_BACKEND_URL}/store/getStoreData/${idStore}`,
+          requestOptionsGET
         );
         if (!response.ok) {
           throw new Error("Something went wrong!");
@@ -108,10 +110,10 @@ function Map() {
   useEffect(() => {
     fetchStoreInfo(id);
     const interval = setInterval(() => {
-      console.log('Logs every minute');
+      console.log("Logs every minute");
       fetchStoreInfo(id);
     }, MINUTE_MS);
-  
+
     return () => clearInterval(interval);
   }, [fetchStoreInfo, id, storeId]);
 

@@ -12,8 +12,9 @@ function Sidebar() {
   const lastName = window.sessionStorage.getItem("lastName");
 
   const getNameGender = () => {
-    // Select only one name in case it contains more than one
-    const name = firstName.split(" ");
+    // Obtiene el género del nombre del usuario para mostrar
+    // una imagen de una mujer o un hombre
+    const name = firstName.split(" "); // Si tiene más de 1 nombre, obtener el primero
     fetch(`https://api.genderize.io/?name=${name[0]}`)
       .then((response) => response.json())
       .then((data) => {

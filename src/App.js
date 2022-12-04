@@ -22,7 +22,6 @@ function App() {
   const currentRole = window.sessionStorage.getItem("role");
 
   const loginHandler = (loginState) => {
-    // setIsLoginA-ctive(loginState);
     setIsLoggedIn(loginState);
   };
 
@@ -32,12 +31,12 @@ function App() {
       return;
     }
     const myHeadersToken = new Headers();
-      myHeadersToken.append("Content-Type", "application/json");
-      myHeadersToken.append(
-        "Authorization",
-        `Bearer ${window.sessionStorage.getItem("bearerToken")}`
-      );
-  
+    myHeadersToken.append("Content-Type", "application/json");
+    myHeadersToken.append(
+      "Authorization",
+      `Bearer ${window.sessionStorage.getItem("bearerToken")}`
+    );
+
     const requestOptionsGET = {
       method: "GET",
       headers: myHeadersToken,
@@ -53,8 +52,8 @@ function App() {
           launchNotificationToast(result.count);
           fetchTheNewestNotification();
         }
-      })
-    })
+      });
+    });
   };
 
   //recibe las notificaciones no leídas
@@ -63,12 +62,12 @@ function App() {
       return;
     }
     const myHeadersToken = new Headers();
-      myHeadersToken.append("Content-Type", "application/json");
-      myHeadersToken.append(
-        "Authorization",
-        `Bearer ${window.sessionStorage.getItem("bearerToken")}`
-      );
-  
+    myHeadersToken.append("Content-Type", "application/json");
+    myHeadersToken.append(
+      "Authorization",
+      `Bearer ${window.sessionStorage.getItem("bearerToken")}`
+    );
+
     const requestOptionsGET = {
       method: "GET",
       headers: myHeadersToken,
@@ -84,37 +83,36 @@ function App() {
           launchNotificationToast(result.count);
           fetchTheNewestNotification();
         }
-      })
-    })
-  }; 
+      });
+    });
+  };
 
   //manda un toast para avisar que hay nuevas notificaciones
   const launchNotificationToast = (notificationCount) => {
     if (notificationCount > 1) {
       toast(`You have ${notificationCount} new notifications.`, {
         duration: 20000,
-        position: 'top-right',
-        icon: '🗞️'
+        position: "top-right",
+        icon: "🗞️",
       });
-    }
-    else {
+    } else {
       toast(`You have ${notificationCount} new notification.`, {
         duration: 20000,
-        position: 'top-right',
-        icon: '🗞️'
-      });  
+        position: "top-right",
+        icon: "🗞️",
+      });
     }
   };
 
   //Obtiene el ID de la notificación más nueva en la base de datos
   const fetchTheNewestNotification = () => {
     const myHeadersToken = new Headers();
-      myHeadersToken.append("Content-Type", "application/json");
-      myHeadersToken.append(
-        "Authorization",
-        `Bearer ${window.sessionStorage.getItem("bearerToken")}`
-      );
-  
+    myHeadersToken.append("Content-Type", "application/json");
+    myHeadersToken.append(
+      "Authorization",
+      `Bearer ${window.sessionStorage.getItem("bearerToken")}`
+    );
+
     const requestOptionsGET = {
       method: "GET",
       headers: myHeadersToken,
@@ -131,8 +129,8 @@ function App() {
           newest_notification = result.id_notification;
           console.log("Newest notif id", newest_notification);
         }
-      })
-    })
+      });
+    });
   };
 
   const MINUTE_MS = 6000;
@@ -151,10 +149,10 @@ function App() {
 
     //crea un interval para buscar nuevas notificaciones cada cierto periodo de timepo
     const interval = setInterval(() => {
-      console.log('Logs every minute');
+      console.log("Logs every minute");
       fetchNewNotifications(newest_notification);
     }, MINUTE_MS);
-  
+
     return () => clearInterval(interval);
   }, [isLoggedIn, newest_notification]);
 

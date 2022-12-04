@@ -11,6 +11,8 @@ import PoweradeMoraAzulLata from ".//images/products/PoweradeLataFigura.png";
 import CocaColaLata from ".//images/products/CocaColaLataFigura.png";
 import OtroProducto from ".//images/products/OtroProductoFigura.png";
 
+// Función para mostrar el producto dependiendo de su ID
+
 export const showSoda = (number) => {
   switch (number) {
     case 1:
