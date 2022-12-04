@@ -48,6 +48,10 @@ function Map() {
     fetchStoreInfo(id);
   };
 
+  /*
+  calcula si es necesario añadir espacios extra al refrigerador en base al inventario de
+  la tienda
+  */
   const handleInventory = (stock) => {
     let stock2 = stock;
     const remainer = stock2.length % 4;
