@@ -1,3 +1,8 @@
+/*
+  Authors: Andrea Vianey Diaz Alvarez
+  Description: Filtro de productos, recibe uno o más inputs del usuario y regresa los productos que tienen 
+  esas características.
+*/
 import Navbar from "../components/Navbar";
 import "../styles/Filter.css";
 import { BiChevronRightSquare } from "react-icons/bi";
@@ -13,7 +18,7 @@ function Products() {
   const [products, setProducts] = useState([]);
   const [lstNames, setLstNames] = useState([{ label: "" }]);
 
-  //Get Names
+  //Trae el nombre de las tiendas para el select
   useEffect(() => {
     const myHeadersToken = new Headers();
       myHeadersToken.append("Content-Type", "application/json");
@@ -33,16 +38,16 @@ function Products() {
       });
   }, []);
 
-  //Display selects info
+  //Para mostrar los nombres de la tienda en el select
   const [selectedName, setSelectedName] = useState();
 
-  //Filter data recopilation
+  //Recopilación de datos del filtro
   const [ean, setEan] = useState("ean");
   const [name, setName] = useState("name");
   const [id, setId] = useState("id_product");
   const [price, setPrice] = useState("price");
 
-  //Selects Changes
+  //Cambios del select
   function handleSelectName(data) {
     if (data.label === "") {
       setName("name");
@@ -52,7 +57,7 @@ function Products() {
     setSelectedName(data);
   }
 
-  //Inputs Changes
+  //Cambios del input
   const changeEan = (event) => {
     setEan(`'` + event.target.value + `'`);
     if (event.target.value === "") {
@@ -72,7 +77,7 @@ function Products() {
     }
   };
 
-  //Selects style
+  //Estilo del select
   const colourStyles = {
     option: (styles, state) => ({
       ...styles,
@@ -95,7 +100,7 @@ function Products() {
     }),
   };
 
-  //Search button
+  //Botón de búsqueda
   const GetProducts = async () => {
     const myHeadersToken = new Headers();
       myHeadersToken.append("Content-Type", "application/json");
@@ -117,7 +122,7 @@ function Products() {
     console.log(id, name, ean, price);
   };
 
-  //Product button
+  //Botón de productos
   const SetProductId = async (id, name) => {
     setProductId(id);
   };

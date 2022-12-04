@@ -1,3 +1,9 @@
+/*
+  Authors: Andrea Vianey Diaz Alvarez
+  Description: Filtro de tiendas, recibe uno o más inputs del usuario y regresa las tiendas que tienen 
+  esas características.
+*/
+
 import Navbar from "../components/Navbar";
 import "../styles/Filter.css";
 import { BiChevronRightSquare } from "react-icons/bi";
@@ -11,24 +17,24 @@ import mun from "../municipality.json";
 import toast, { Toaster } from "react-hot-toast";
 
 function Filter() {
-  const [, setStoresId, , setStoreName] = useContext(StoreContext); //Selected store info
-  const [stores, setStore] = useState([]); //List of stores after the filters
+  const [, setStoresId, , setStoreName] = useContext(StoreContext); //Información de la tienda seleccionada
+  const [stores, setStore] = useState([]); //Lista de tiendas después de filtrar los resultados
 
   //Display selects info
-  const [selectedState, setSelectedState] = useState(); //Selected state
-  const [selectedMun, setSelectedMun] = useState([{ value: "-", label: "" }]); //Selected Municipality
+  const [selectedState, setSelectedState] = useState(); //Estado seleccionado
+  const [selectedMun, setSelectedMun] = useState([{ value: "-", label: "" }]); //Municipio seleccionado
   const [lstMunicupalities, setLstMunicipalities] = useState([
     { value: "-", label: "" },
-  ]); //List of municipalities depending on the state
+  ]); //Lista de municipios dependiendo del estado seleccionado
 
-  //Filter data recopilation
-  const [status, setStatus] = useState("status"); //Formated status, default "status" to bring all
-  const [name, setName] = useState("name"); //Formated name, default "name" to bring all
-  const [id, setId] = useState("id_store"); //Formated id, default "id_store" to bring all
-  const [state, setState] = useState("state"); //Formated state, default "state" to bring all
-  const [municipality, setMunicipality] = useState("municipality"); //Formated municipality, default "municipality" to bring all
+  //Recopilación de datos del filtro
+  const [status, setStatus] = useState("status"); 
+  const [name, setName] = useState("name"); 
+  const [id, setId] = useState("id_store"); 
+  const [state, setState] = useState("state"); 
+  const [municipality, setMunicipality] = useState("municipality");
 
-  //Selects Changes
+  //Cambios del select
   function handleSelectState(data) {
     if (data.label === "") {
       setState("state");
@@ -50,7 +56,7 @@ function Filter() {
     }
   }
 
-  //Inputs Changes
+  //Cambios de los inputs
   const changeStatus = (event) => {
     setStatus(`'` + event.target.value + `'`);
     if (event.target.value === "") {
@@ -70,7 +76,7 @@ function Filter() {
     }
   };
 
-  //Selects style
+  //Estilo del select
   const colourStyles = {
     option: (styles, state) => ({
       ...styles,
@@ -93,7 +99,7 @@ function Filter() {
     }),
   };
 
-  //Search button
+  //Botón de búsqueda
   const GetStores = async () => {
     const myHeadersToken = new Headers();
       myHeadersToken.append("Content-Type", "application/json");
@@ -117,7 +123,7 @@ function Filter() {
     console.log(id, name, state, status, municipality);
   };
 
-  //Store button
+  //Botón de ver detalles de tienda
   const SetStoreId = async (id, name) => {
     setStoresId(id);
     setStoreName(name);

@@ -1,3 +1,7 @@
+/*
+  Authors: Andrea Vianey Diaz Alvarez
+  Description: Muestra los detalles del producto seleccionado en el filtro de productos
+*/
 import { useContext, useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { StoreContext } from "../components/StoreProvider";
@@ -16,9 +20,10 @@ function Product() {
       price: "No disponible",
       id_product: "No disponible",
     },
-  ]);
+  ]); //Guarda la información del producto
 
   useEffect(() => {
+    //Regresa la información del producto con el id del producto
     const myHeadersToken = new Headers();
       myHeadersToken.append("Content-Type", "application/json");
       myHeadersToken.append(

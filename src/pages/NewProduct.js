@@ -1,3 +1,7 @@
+/*
+  Authors: Andrea Vianey Diaz Alvarez
+  Description: Recibe datos para crear un nuevo producto y lo guarda en la base de datos.
+*/
 import { PureComponent, useState } from "react";
 import Navbar from "../components/Navbar";
 import "../styles/NewProduct.css";
@@ -6,12 +10,13 @@ import toast, { Toaster } from 'react-hot-toast';
 import { Link } from "react-router-dom";
 
 function Newproduct() {
+  //Guardar la información recopilada para el nuevo producto
   const [price, setPrice] = useState();
   const [name, setName] = useState();
   const [description, setDescription] = useState();
   const [ean, setEAN] = useState();
 
-  //Inputs Changes
+  //Cambios de los inputs
   const changePrice = (event) => {
     setPrice(event.target.value)
   };
@@ -25,7 +30,7 @@ function Newproduct() {
     setDescription(event.target.value)
   };
   
-  //Update Database
+  //Actualizar base de datos
   const AddProduct = async () => {
     if (name === "" | description ==="" | price ==="" | ean === ""){
       toast.error('Debes llenar todos los campos')
