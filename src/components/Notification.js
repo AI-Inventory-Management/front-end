@@ -1,3 +1,12 @@
+/*
+Autores:
+- Benjamín Ruiz
+
+Componente que representa una notificación en la página de notificaciones. El color de las
+notificaciones se decide por el estatus de la tienda y la opacidad depende de si la notificación
+ya fue leída.
+*/
+
 import { Fragment } from "react";
 import "../styles/Notifications.css";
 

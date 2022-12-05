@@ -1,3 +1,11 @@
+/*
+Autores:
+- Benjamín Ruiz
+
+Componente que contiene las notificaciones leídas y no leídas. Aquí se realizan las peticiones
+al backend necesarias para la página de notificaciones.
+*/
+
 import Notification from "./Notification";
 import "../styles/Notifications.css";
 import { useEffect } from "react";
@@ -8,18 +16,20 @@ const NotificationsContainer = () => {
 
   useEffect(() => {
     const myHeadersToken = new Headers();
-      myHeadersToken.append("Content-Type", "application/json");
-      myHeadersToken.append(
-        "Authorization",
-        `Bearer ${window.sessionStorage.getItem("bearerToken")}`
-      );
-  
+    myHeadersToken.append("Content-Type", "application/json");
+    myHeadersToken.append(
+      "Authorization",
+      `Bearer ${window.sessionStorage.getItem("bearerToken")}`
+    );
+
     const requestOptionsGET = {
       method: "GET",
       headers: myHeadersToken,
     };
     const NOTIFICATIONS_URL = `${process.env.REACT_APP_BACKEND_URL}/notification/getAllNotifications`;
     const READ_NOTIFICATION_URL = `${process.env.REACT_APP_BACKEND_URL}/notification/markAsRead`;
+
+    // Traer todas las notificaciones del backend
     fetch(NOTIFICATIONS_URL, requestOptionsGET).then((response) => {
       if (response.status !== 200) {
         console.log("Something went wrong");
@@ -39,6 +49,7 @@ const NotificationsContainer = () => {
               headers: myHeadersToken,
             };
 
+            // Marcar las notificaciones no leídas que se muestren en pantalla como leídas
             fetch(READ_NOTIFICATION_URL, requestOptions).then((response) => {
               if (response.status !== 200) {
                 console.log("failed");
@@ -51,6 +62,7 @@ const NotificationsContainer = () => {
     });
   }, []);
 
+  // Mapeo de colores dependiendo del estatus de la tienda
   const colors = {
     1: "green",
     2: "orange",

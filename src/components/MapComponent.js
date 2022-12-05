@@ -1,3 +1,12 @@
+/*
+Autores:
+- Benjamín Ruiz
+- Miguel Ángel Pérez López
+
+Componente que muestra el mapa en pantalla. Utiliza el api de Google Maps para mostrar el mapa
+y los marcadores que representan a las tiendas.
+*/
+
 import { GoogleMap, MarkerF, useJsApiLoader } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -41,18 +50,19 @@ const Map = (props) => {
   // consultar todos las tiendas del back
   const getMarkerData = async () => {
     const myHeadersToken = new Headers();
-      myHeadersToken.append("Content-Type", "application/json");
-      myHeadersToken.append(
-        "Authorization",
-        `Bearer ${window.sessionStorage.getItem("bearerToken")}`
-      );
-  
-      const requestOptionsGET = {
-        method: "GET",
-        headers: myHeadersToken,
-      };
+    myHeadersToken.append("Content-Type", "application/json");
+    myHeadersToken.append(
+      "Authorization",
+      `Bearer ${window.sessionStorage.getItem("bearerToken")}`
+    );
+
+    const requestOptionsGET = {
+      method: "GET",
+      headers: myHeadersToken,
+    };
     fetch(
-      `${process.env.REACT_APP_BACKEND_URL}/store/getStoreCoordinates`, requestOptionsGET
+      `${process.env.REACT_APP_BACKEND_URL}/store/getStoreCoordinates`,
+      requestOptionsGET
     ).then((response) => {
       response.json().then((result) => {
         //console.log(result);
