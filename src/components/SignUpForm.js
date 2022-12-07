@@ -1,3 +1,11 @@
+/*
+SignUpForm.js
+Autores:
+- Edna Jacqueline Zavala Ortega 
+
+Descripción: Componente que conforma el formulario para registrarse.
+*/
+
 import React from "react";
 import { Button } from "react-bootstrap";
 import "../styles/SignUpForm.css"

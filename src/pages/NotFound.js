@@ -1,3 +1,10 @@
+/*
+NotFound.js
+Autores:
+- 
+
+Descripción: Página que se renderea cuando no se encuentra la ruta solicitada en el Router.
+*/
 import React from "react";
 import { Link } from "react-router-dom";
 

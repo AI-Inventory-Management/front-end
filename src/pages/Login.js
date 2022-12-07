@@ -1,3 +1,11 @@
+/*
+Login.js
+Autores:
+- Edna Jacqueline Zavala Ortega 
+
+Descripción: Página que incluye los formularios para iniciar sesión y registrarse.
+*/
+
 import React, { useState } from "react";
 import "../styles/Login.css";
 import image from "../images/RIICO blanco con nombre sin fondo.png";
@@ -9,8 +17,11 @@ import { useNavigate } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 
 function Login(props) {
-  const [isShowingSignin, setIsShowingSignin] = useState(true);
-  const [isRegistering, setIsRegistering] = useState(false);
+
+  const [isShowingSignin, setIsShowingSignin] = useState(true);  // Conocer si el usuario está iniciando sesión
+  const [isRegistering, setIsRegistering] = useState(false);  // Conocer si el usuario se está registrando y mostrar el formulario de verificación
+
+  // Estados para extraer los valores de los campos de texto del formulario
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -19,15 +30,18 @@ function Login(props) {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [verificationCode, setVerificationCode] = useState("");
 
+  // Constante para navegar a otras rutas de la aplicación 
   const navigate = useNavigate();
 
+  // Handler de Sign Up
   const handleSignUp = (event) => {
+    // Se verifica que la confirmación de contraseña del formulario de registro coincida con el otro campo
     if (password !== confirmPassword) {
       toast.error("Passwords must match.");
-      //event.preventDefault();
       return;
     }
 
+    // Verificar que el formulario no se encuentre vacío e impedir su envío vacío
     if (
       email === "" ||
       password === "" ||
@@ -38,15 +52,16 @@ function Login(props) {
     ) {
       return;
     }
-    //event.preventDefault();
 
+    // Crear los headers para enviar la información y el token de sesión
     const myHeadersToken = new Headers();
       myHeadersToken.append("Content-Type", "application/json");
       myHeadersToken.append(
         "Authorization",
         `Bearer ${window.sessionStorage.getItem("bearerToken")}`
       );
-  
+
+    // Construir el JSON  
     const signUpJSON = JSON.stringify({
       first_name: name,
       last_name: lastName,
@@ -57,6 +72,7 @@ function Login(props) {
       profile_picture: "",
     });
 
+    // Definir las opciones de la petición
     const requestOptions = {
       method: "POST",
       headers: myHeadersToken,
@@ -67,7 +83,6 @@ function Login(props) {
     fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/signup`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        //console.log("Success:", result);
         if (result.errors) {
           result.errors.map((error) => toast.error(error.msg));
           return;
@@ -79,12 +94,12 @@ function Login(props) {
       });
   };
 
+  // Iniciar sesión
   const handleSignIn = (event) => {
     if (email === "" || password === "") {
       return;
     }
 
-    //event.preventDefault();
 
     const myHeadersToken = new Headers();
       myHeadersToken.append("Content-Type", "application/json");
@@ -93,12 +108,13 @@ function Login(props) {
         `Bearer ${window.sessionStorage.getItem("bearerToken")}`
       );
   
-
+    // Construir el JSON  
     const signInJSON = JSON.stringify({
       email: email,
       password: password,
     });
 
+    // Definir las opciones de la petición
     const requestOptions = {
       method: "POST",
       headers: myHeadersToken,
@@ -134,9 +150,8 @@ function Login(props) {
       });
   };
 
+  // Verificación
   const handleVerifyEmail = (event) => {
-    //event.preventDefault();
-
     const myHeadersToken = new Headers();
       myHeadersToken.append("Content-Type", "application/json");
       myHeadersToken.append(
@@ -144,11 +159,13 @@ function Login(props) {
         `Bearer ${window.sessionStorage.getItem("bearerToken")}`
       );
 
+    // Construir el JSON  
     const signUpJSON = JSON.stringify({
       email: email,
       code: verificationCode,
     });
 
+    // Definir las opciones de la petición
     const requestOptions = {
       method: "POST",
       headers: myHeadersToken,
@@ -168,6 +185,7 @@ function Login(props) {
       });
   };
 
+  // Variable que permite reemplazar el contenido de acuerdo al estado isShowingSignIn
   let content = (
     <>
       <SignInForm
@@ -182,6 +200,7 @@ function Login(props) {
     </>
   );
 
+  // Si no se muestra sign in debe mostrarse sign up
   if (!isShowingSignin) {
     content = (
       <>
@@ -206,6 +225,7 @@ function Login(props) {
     );
   }
 
+  // Formulario de verificación
   if (isRegistering) {
     content = (
       <>

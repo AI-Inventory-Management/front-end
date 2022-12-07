@@ -1,3 +1,11 @@
+/*
+SignInForm.js
+Autores:
+- Edna Jacqueline Zavala Ortega 
+
+Descripción: Componente que conforma el formulario para iniciar sesión.
+*/
+
 import React from "react";
 import { Button } from "react-bootstrap";
 import "../styles/SignInForm.css";

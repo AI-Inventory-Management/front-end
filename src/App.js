@@ -18,7 +18,8 @@ import NotFound from "./pages/NotFound";
 import toast from "react-hot-toast";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Se 
   const currentRole = window.sessionStorage.getItem("role");
 
   const loginHandler = (loginState) => {
